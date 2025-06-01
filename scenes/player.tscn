@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://3xx6dc27qdqf"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_b8584"]
+[ext_resource type="Texture2D" uid="uid://ct3oq7eyjhl55" path="res://assets/sprites/PLAYER.png" id="1_i2vxn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
+size = Vector2(12, 16)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_b8584")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i2vxn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_itjk0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 9)
+zoom = Vector2(7, 7)
+
+[node name="climb_time" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]
