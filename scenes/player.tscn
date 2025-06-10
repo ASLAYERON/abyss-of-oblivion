@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://3xx6dc27qdqf"]
+[gd_scene load_steps=28 format=3 uid="uid://3xx6dc27qdqf"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_b8584"]
+[ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
 [ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="3_pt35c"]
 [ext_resource type="Texture2D" uid="uid://dmdng4ybdkkw0" path="res://assets/sprites/PLAYER_SPRITESHEET.png" id="3_rdoyk"]
 [ext_resource type="Texture2D" uid="uid://b5aj4a1yf2xyh" path="res://assets/sprites/get_up.png" id="4_sghx2"]
+[ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="5_80j5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
 size = Vector2(12, 16)
@@ -216,5 +217,44 @@ frame_progress = 0.224856
 [node name="get_up timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="rest menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 82.5
+offset_top = -10.5
+offset_right = 82.5
+offset_bottom = 10.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="rest menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -35
+
+[node name="save_button" type="Button" parent="rest menu/HBoxContainer"]
+z_index = 5
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("5_80j5d")
+theme_override_font_sizes/font_size = 16
+text = "SAVE"
+
+[node name="load_button" type="Button" parent="rest menu/HBoxContainer"]
+z_index = 3
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("5_80j5d")
+theme_override_font_sizes/font_size = 16
+text = "LOAD"
+
 [connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]
 [connection signal="timeout" from="get_up timer" to="." method="_on_get_up_timer_timeout"]
+[connection signal="pressed" from="rest menu/HBoxContainer/save_button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="rest menu/HBoxContainer/load_button" to="." method="_on_load_button_pressed"]

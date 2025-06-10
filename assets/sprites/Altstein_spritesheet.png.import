@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwqxt0xnohffi"
-path="res://.godot/imported/works (1).png-e3d356ec6506e9209ca25dfb490f76d2.ctex"
+path="res://.godot/imported/Altstein_spritesheet.png-920e60a447fa8166d63350fb23ff0bb8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Abyss of oblivion assets workshop/works (1).png"
-dest_files=["res://.godot/imported/works (1).png-e3d356ec6506e9209ca25dfb490f76d2.ctex"]
+source_file="res://assets/sprites/Altstein_spritesheet.png"
+dest_files=["res://.godot/imported/Altstein_spritesheet.png-920e60a447fa8166d63350fb23ff0bb8.ctex"]
 
 [params]
 

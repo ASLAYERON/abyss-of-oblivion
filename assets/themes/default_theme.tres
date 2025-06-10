@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ch0wiuwjsmdy0"]
+
+[ext_resource type="Texture2D" uid="uid://cpc52v7c0jy0r" path="res://assets/sprites/DIALOGUE_BG.png" id="1_mlkpy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_het5a"]
+texture = ExtResource("1_mlkpy")
+texture_margin_left = 23.1434
+texture_margin_top = 22.0145
+texture_margin_right = 18.0632
+texture_margin_bottom = 19.7566
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxTexture_het5a")
