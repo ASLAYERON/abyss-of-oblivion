@@ -1,12 +1,11 @@
 extends Node2D
-@onready var instruction: Label = $instruction
 @onready var altstein_animation: AnimatedSprite2D = $"Altstein animation"
 const ALTSTEIN_1 = preload("res://dialogues/ALTSTEIN1.dialogue")
 
+var progression=0
+var dialogues=["start","already_meet"]
 var is_a_player_here=false
-
-func _ready():
-	instruction.visible=false
+var player=null
 	
 func _process(delta: float) -> void:
 	altstein_animation.play("IDLE")
@@ -14,17 +13,19 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			Global.state="talking"
 			is_a_player_here=false
-			instruction.visible=false
-			DialogueManager.show_dialogue_balloon(ALTSTEIN_1,"start")
+			player.show_text("KILL")
+			DialogueManager.show_dialogue_balloon(ALTSTEIN_1,dialogues[progression])
 			
 
 func _on_dialoguearea_body_entered(body: Node2D) -> void:
 	if body.name=="player":
 		is_a_player_here=true
-		instruction.visible=true
+		player=body
+		player.show_text("E POUR PARLER")
 
 func _on_dialoguearea_body_exited(body: Node2D) -> void:
 	if body.name=="player":
 		is_a_player_here=false
-		instruction.visible=false
+		player=body
+		player.show_text("KILL")
 		

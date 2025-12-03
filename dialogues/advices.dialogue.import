@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://coojeb3jmbiq6"
+path="res://.godot/imported/advices.dialogue-cca4e7450adfea54cdf44e724a29afcb.tres"
+
+[deps]
+
+source_file="res://dialogues/advices.dialogue"
+dest_files=["res://.godot/imported/advices.dialogue-cca4e7450adfea54cdf44e724a29afcb.tres"]
+
+[params]
+
+defaults=true

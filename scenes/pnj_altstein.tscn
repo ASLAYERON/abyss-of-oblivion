@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbl82lt4ad64p"]
+[gd_scene load_steps=10 format=3 uid="uid://dbl82lt4ad64p"]
 
 [ext_resource type="Script" uid="uid://nq4y0t08wwre" path="res://scripts/pnj_altstein.gd" id="1_oaf5n"]
 [ext_resource type="Texture2D" uid="uid://dwqxt0xnohffi" path="res://assets/sprites/Altstein_spritesheet.png" id="2_37s48"]
-[ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="3_5mgyq"]
 [ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="4_37s48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ltwvs"]
@@ -51,15 +50,6 @@ script = ExtResource("1_oaf5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogue-area"]
 shape = SubResource("CircleShape2D_ltwvs")
-
-[node name="instruction" type="Label" parent="."]
-offset_left = -57.0
-offset_top = 28.0
-offset_right = 57.0
-offset_bottom = 51.0
-theme_override_fonts/font = ExtResource("3_5mgyq")
-theme_override_font_sizes/font_size = 16
-text = "press \"E\" to talk"
 
 [node name="Altstein animation" type="AnimatedSprite2D" parent="."]
 z_index = -1

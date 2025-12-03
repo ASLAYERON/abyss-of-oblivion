@@ -1,0 +1,8 @@
+~ advice1
+Conseil: Bouger de droite a gauche avec les croix directionnelles
+set Global.state = "playing"
+=> END
+~ advice2
+Conseil: Une telle chute pourrait etre dangeureuse
+set Global.state = "playing"
+=> END

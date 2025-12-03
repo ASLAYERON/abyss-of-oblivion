@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr3sbl8fn8k2y"]
+[gd_scene load_steps=3 format=3 uid="uid://cr3sbl8fn8k2y"]
 
 [ext_resource type="Script" uid="uid://dr1rp20d056j6" path="res://scripts/checkpoint.gd" id="1_xq3fg"]
-[ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_cwyya"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndkd2"]
 radius = 25.02
@@ -11,15 +10,6 @@ script = ExtResource("1_xq3fg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ndkd2")
-
-[node name="instruction" type="Label" parent="."]
-offset_left = -57.0
-offset_top = 28.0
-offset_right = 57.0
-offset_bottom = 51.0
-theme_override_fonts/font = ExtResource("2_cwyya")
-theme_override_font_sizes/font_size = 16
-text = "press \"E\" to rest"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

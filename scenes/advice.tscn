@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpu1cnisseox6"]
+
+[ext_resource type="Script" uid="uid://bd7g15vc2pxw7" path="res://scripts/advice.gd" id="1_cvkm5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfvpr"]
+radius = 29.1204
+
+[node name="advice" type="Node2D"]
+script = ExtResource("1_cvkm5")
+
+[node name="dialogue_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dialogue_area"]
+shape = SubResource("CircleShape2D_lfvpr")
+
+[connection signal="body_entered" from="dialogue_area" to="." method="_on_dialogue_area_body_entered"]
+[connection signal="body_exited" from="dialogue_area" to="." method="_on_dialogue_area_body_exited"]

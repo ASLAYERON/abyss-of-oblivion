@@ -4,3 +4,11 @@ extends Node2D
 func _ready() -> void:
 	player.visible=true
 	bg.visible=true
+	player.noise_sensor=false
+	player.progress_bar.visible=false
+	player.position=Global.tp_offset
+
+func _on_portal_to_caves_body_entered(body: Node2D) -> void:
+	if body.name=="player":
+		Global.tp_offset=Vector2(851,136)
+		get_tree().change_scene_to_file("res://scenes/caves.tscn")

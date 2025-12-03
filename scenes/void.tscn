@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbu7748am6cbk"]
+
+[ext_resource type="Script" uid="uid://gvy6tkgvgj0t" path="res://scripts/void.gd" id="1_igxq6"]
+[ext_resource type="Texture2D" uid="uid://dau4a0yyakypf" path="res://Abyss of oblivion assets workshop/void.png" id="2_v44uo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u872"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(0, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh6n6"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(85, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptdr5"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(170, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4n53e"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(255, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu86o"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(340, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctvuc"]
+atlas = ExtResource("2_v44uo")
+region = Rect2(425, 0, 85, 85)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2e24"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u872")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh6n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptdr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4n53e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu86o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctvuc")
+}],
+"loop": true,
+"name": &"void",
+"speed": 7.0
+}]
+
+[node name="void" type="Node2D"]
+script = ExtResource("1_igxq6")
+
+[node name="void_sprite" type="AnimatedSprite2D" parent="."]
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_e2e24")
+animation = &"void"
+frame_progress = 0.0767981

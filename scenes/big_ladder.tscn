@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bjrgiwvo8mv8u" path="res://assets/sprites/ladder.png" id="2_2s264"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_027jo"]
-size = Vector2(16, 128)
+size = Vector2(8, 128)
 
 [node name="Ladder" type="Area2D"]
 script = ExtResource("1_h0m6u")
