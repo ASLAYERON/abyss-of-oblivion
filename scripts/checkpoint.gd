@@ -7,6 +7,7 @@ func _process(delta: float) -> void:
 	if is_a_player_here:
 		if Input.is_action_just_pressed("interact"):
 			Global.state="rest"
+			player.refill_life_points()
 			Global.reset_enemies()
 			is_a_player_here=false
 			player.show_text("KILL")

@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbhr1psi0hd28"]
+
+[ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
+[ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
+[ext_resource type="Texture2D" uid="uid://bdndcbgc3aqnd" path="res://assets/sprites/noise-bar.png" id="3_3wlde"]
+[ext_resource type="Texture2D" uid="uid://d3hyu1cxfget7" path="res://Abyss of oblivion assets workshop/pixil-frame 6777.png" id="4_xpksx"]
+[ext_resource type="Texture2D" uid="uid://b622qughmm5ig" path="res://Abyss of oblivion assets workshop/KOIN.png" id="5_75u2n"]
+
+[node name="UI" type="Control"]
+z_index = 4
+layout_mode = 3
+anchor_left = -0.07
+anchor_top = -0.057
+anchor_right = 0.072
+anchor_bottom = 0.084
+offset_left = 80.64
+offset_top = 36.936
+offset_right = -82.944
+offset_bottom = -54.432
+mouse_filter = 2
+script = ExtResource("1_ua6yw")
+
+[node name="rest menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 82.5
+offset_top = -10.5
+offset_right = 82.5
+offset_bottom = 10.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="rest menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -35
+
+[node name="save_button" type="Button" parent="rest menu/HBoxContainer"]
+z_index = 5
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_75u2n")
+theme_override_font_sizes/font_size = 16
+text = "SAVE"
+flat = true
+
+[node name="load_button" type="Button" parent="rest menu/HBoxContainer"]
+z_index = 3
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_75u2n")
+theme_override_font_sizes/font_size = 16
+text = "LOAD"
+flat = true
+
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+z_index = 3
+layout_mode = 0
+offset_left = -55.0
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 47.0
+value = 50.0
+texture_under = ExtResource("3_3wlde")
+texture_progress = ExtResource("4_xpksx")
+
+[node name="instruction" type="Label" parent="."]
+visible = false
+z_index = 3
+layout_mode = 0
+offset_left = -82.0
+offset_top = 28.0
+offset_right = 82.0
+offset_bottom = 51.0
+theme_override_fonts/font = ExtResource("2_75u2n")
+theme_override_font_sizes/font_size = 16
+text = "ERROR"
+horizontal_alignment = 1
+
+[node name="upper_bar" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -82.0
+offset_top = -37.0
+offset_right = 84.0
+offset_bottom = -20.0
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="upper_bar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_75u2n")
+stretch_mode = 2
+
+[node name="coin_counter" type="Label" parent="upper_bar"]
+z_index = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_75u2n")
+theme_override_font_sizes/font_size = 16
+text = "ERROR"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="rest menu/HBoxContainer/save_button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="rest menu/HBoxContainer/load_button" to="." method="_on_load_button_pressed"]

@@ -2,7 +2,6 @@ extends Node2D
 @onready var altstein_animation: AnimatedSprite2D = $"Altstein animation"
 const ALTSTEIN_1 = preload("res://dialogues/ALTSTEIN1.dialogue")
 
-var progression=0
 var dialogues=["start","already_meet"]
 var is_a_player_here=false
 var player=null
@@ -14,7 +13,8 @@ func _process(delta: float) -> void:
 			Global.state="talking"
 			is_a_player_here=false
 			player.show_text("KILL")
-			DialogueManager.show_dialogue_balloon(ALTSTEIN_1,dialogues[progression])
+			player.old_direction=0
+			DialogueManager.show_dialogue_balloon(ALTSTEIN_1,dialogues[Global.Altstein_progression])
 			
 
 func _on_dialoguearea_body_entered(body: Node2D) -> void:

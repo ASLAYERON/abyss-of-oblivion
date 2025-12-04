@@ -4,11 +4,15 @@ const save_location = "user://SaveFile.json"
 var contents_to_save : Dictionary = {
 	"player_position":Vector2.ZERO,
 	"scene_file_path":"",
+	"Altstein_progression":0,
+	"coins":0,
 }
 
-func _save(player_position,scene_file_path):
+func _save(player_position,scene_file_path,Altstein_progression,coins):
 	contents_to_save.scene_file_path=scene_file_path
 	contents_to_save.player_position=player_position
+	contents_to_save.Altstein_progression=Altstein_progression
+	contents_to_save.coins=coins
 	var file = FileAccess.open(save_location,FileAccess.WRITE)
 	file.store_var(contents_to_save.duplicate())
 	file.close()

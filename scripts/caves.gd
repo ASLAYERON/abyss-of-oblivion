@@ -7,12 +7,11 @@ func _ready() -> void:
 	player.visible=true
 	bg.visible=true
 	player.noise_sensor=true
-	player.progress_bar.visible=true
+	player.UI.progress_bar.visible=true
 	player.position=Global.tp_offset
 	
 	
 	for enemy in Global.enemies["caves"]:
-		print(enemy)
 		if Global.enemies["caves"][enemy][0]=="rat" :
 			new_enemy = rat.instantiate()
 		new_enemy.path_scene="caves"

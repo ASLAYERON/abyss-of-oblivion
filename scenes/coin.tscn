@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://cie4lf45bd7mb"]
+
+[ext_resource type="Script" uid="uid://15s48p6606tv" path="res://scripts/coin.gd" id="1_i64fm"]
+[ext_resource type="Texture2D" uid="uid://cp8mjd12brlfg" path="res://Abyss of oblivion assets workshop/pixilart-sprite(5).png" id="2_11l1o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i64fm"]
+friction = 2.0
+rough = true
+bounce = 0.7
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d14el"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ikuy"]
+atlas = ExtResource("2_11l1o")
+region = Rect2(0, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnlwo"]
+atlas = ExtResource("2_11l1o")
+region = Rect2(10, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jig8b"]
+atlas = ExtResource("2_11l1o")
+region = Rect2(5, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmuha"]
+atlas = ExtResource("2_11l1o")
+region = Rect2(15, 0, 5, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfxoj"]
+animations = [{
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_1ikuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnlwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jig8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmuha")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i64fm"]
+radius = 7.0
+
+[node name="coin" type="Node2D"]
+z_index = -1
+script = ExtResource("1_i64fm")
+
+[node name="coin_body" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_i64fm")
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="coin_body"]
+shape = SubResource("CircleShape2D_d14el")
+
+[node name="coin_sprite" type="AnimatedSprite2D" parent="coin_body"]
+sprite_frames = SubResource("SpriteFrames_kfxoj")
+frame_progress = 0.652671
+
+[node name="add_coin_area" type="Area2D" parent="coin_body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="coin_body/add_coin_area"]
+shape = SubResource("CircleShape2D_i64fm")
+
+[node name="Timer" type="Timer" parent="coin_body"]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="body_entered" from="coin_body/add_coin_area" to="." method="_on_add_coin_area_body_entered"]
+[connection signal="timeout" from="coin_body/Timer" to="." method="_on_timer_timeout"]

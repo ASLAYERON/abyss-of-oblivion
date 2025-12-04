@@ -4,9 +4,7 @@ extends CharacterBody2D
 @onready var climb_time: Timer = $climb_time
 @onready var player: AnimatedSprite2D = $PLAYER
 @onready var get_up_timer: Timer = $"get_up timer"
-@onready var rest_menu: Control = $"rest menu"
-@onready var progress_bar: TextureProgressBar = $ProgressBar
-@onready var instruction: Label = $instruction
+@onready var UI: Control = $UI
 # #############################################
 
 	#init des var
@@ -20,8 +18,9 @@ var noise: float = 0
 #int
 var previous_velocity_y: int = 0
 var life_points: int = 3
+var max_health: int = 3
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
-var transition_direction=0
+var coins = 0
 #booleen
 var noise_sensor: bool = true
 var is_making_noise: bool = false
@@ -51,13 +50,13 @@ func damage(hp,direction):
 func show_text(text):
 	if text=="KILL":
 		if noise_sensor:
-			progress_bar.visible=true
-		instruction.visible=false
+			UI.progress_bar.visible=true
+		UI.instruction.visible=false
 	else:
 		if noise_sensor:
-			progress_bar.visible=false
-		instruction.text=text
-		instruction.visible=true
+			UI.progress_bar.visible=false
+		UI.instruction.text=text
+		UI.instruction.visible=true
 	
 #passe en debug mode (god mode)	
 func debugMode():
@@ -77,7 +76,7 @@ func handle_noise():
 		if !is_making_noise:
 			if noise >1: noise+=-0.5
 			else: noise =0
-		progress_bar.value=noise
+		UI.progress_bar.value=noise
 		is_making_noise= false
 
 #permet au joueur de grimper sur les echelles
@@ -98,6 +97,9 @@ func check_if_is_dead():
 			life_points=3
 		else:
 			get_tree().change_scene_to_file("res://scenes/start.tscn")
+
+func refill_life_points():
+	life_points=max_health
 
 #gere la gravitée et les chutes
 func handle_gravity(delta):
@@ -130,7 +132,7 @@ func animate_player(direction):
 	elif is_getting_up:
 		actual_action="GET_UP"
 	elif direction:
-		if old_direction==0 or old_direction==direction*-1:
+		if old_direction==-direction:
 			is_transitioning=true
 		if direction>0:
 			if is_transitioning:
@@ -148,21 +150,16 @@ func animate_player(direction):
 					actual_action="climbLEFT"
 				else:
 					actual_action="LEFT"
+		old_direction=direction
 	else: #tu ne fait rien
 		if !is_getting_up && !debug_mode:
-			if old_direction or is_transitioning:
-				is_transitioning=true
-				if old_direction:
-					transition_direction=old_direction
-				if transition_direction>0:
-					actual_action="transitionRIGHT"
+			if old_direction:
+				if old_direction>0:
+					actual_action="IDLE_RIGHT"
 				else:
-					actual_action="transitionLEFT"
+					actual_action="IDLE_LEFT"
 			else:
 				actual_action="IDLE"
-
-	old_direction=direction
-
 func walk_and_wall_climb(direction):
 			# marcher/grimper aux murs droite/gauche
 		if direction && !is_getting_up:
@@ -179,6 +176,27 @@ func walk_and_wall_climb(direction):
 		else: #tu ne fait rien
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		previous_velocity_y=velocity.y
+
+func add_coin(coin_value):
+	coins+=coin_value
+	UI.change_coin_value(coins)		
+
+# save
+func save_game() -> void:
+	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,coins)
+	UI.rest_menu.visible=false
+	Global.state="playing"
+
+# load
+func load_game() -> void:
+	var save_data=saveSystem._load()
+	get_tree().change_scene_to_file(save_data.scene_file_path)
+	Global.tp_offset=save_data.player_position
+	Global.Altstein_progression=save_data.Altstein_progression
+	coins=save_data.coins
+	UI.rest_menu.visible=false
+	Global.state="playing"
+
 # ####### FONCTIONS EVENT
 
 #timer du grimpage aux murs
@@ -190,20 +208,6 @@ func _on_get_up_timer_timeout() -> void:
 	is_getting_up=false
 	actual_action="IDLE"
 
-#bouton save
-func _on_save_button_pressed() -> void:
-	saveSystem._save(position,player.get_tree().current_scene.scene_file_path)
-	rest_menu.visible=false
-	Global.state="playing"
-
-#bouton load
-func _on_load_button_pressed() -> void:
-	var save_data=saveSystem._load()
-	get_tree().change_scene_to_file(save_data.scene_file_path)
-	Global.tp_offset=save_data.player_position
-	rest_menu.visible=false
-	Global.state="playing"
-	
 # ###################################
 	#init du player
 
@@ -217,7 +221,8 @@ func _on_player_animation_finished() -> void:
 
 #INITIALISATION
 func _ready():
-	rest_menu.visible = false
+	UI.change_coin_value(coins)
+	UI.rest_menu.visible = false
 # ##################################
 
 func _physics_process(delta: float) -> void:
@@ -245,7 +250,7 @@ func _physics_process(delta: float) -> void:
 
 	#etat de repos	
 	elif Global.state=="rest":
-		rest_menu.visible=true
+		UI.rest_menu.visible=true
 		actual_action="REST"
 	animate_player(direction)	
 	animation(actual_action)

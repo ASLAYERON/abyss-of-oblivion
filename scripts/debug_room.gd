@@ -1,11 +1,11 @@
 extends Node2D
-@onready var player: CharacterBody2D = $player
+#@onready var player: CharacterBody2D = $player
 const rat = preload("res://scenes/rat.tscn")
 var new_enemy=null
 func _ready() -> void:
-	player.visible=true
-	player.noise_sensor=true
-	player.progress_bar.visible=true
+#	player.visible=true
+#	player.noise_sensor=true
+#	player.progress_bar.visible=true
 	for enemy in Global.enemies["debug_room"]:
 		print(enemy)
 		if Global.enemies["debug_room"][enemy][0]=="rat" :
