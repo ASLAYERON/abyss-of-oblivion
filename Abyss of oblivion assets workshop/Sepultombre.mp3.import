@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dethutaiqhoon"
+path="res://.godot/imported/Sepultombre.mp3-d652b2cded48efca867e5d6a94b1380e.mp3str"
+
+[deps]
+
+source_file="res://Abyss of oblivion assets workshop/Sepultombre.mp3"
+dest_files=["res://.godot/imported/Sepultombre.mp3-d652b2cded48efca867e5d6a94b1380e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

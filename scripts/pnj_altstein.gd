@@ -13,7 +13,6 @@ func _process(delta: float) -> void:
 			Global.state="talking"
 			is_a_player_here=false
 			player.show_text("KILL")
-			player.old_direction=0
 			DialogueManager.show_dialogue_balloon(ALTSTEIN_1,dialogues[Global.Altstein_progression])
 			
 

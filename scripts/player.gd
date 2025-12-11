@@ -13,7 +13,7 @@ extends CharacterBody2D
 var actual_action: String = "IDLE"
 #float
 var SPEED: float = 60.0
-var CLIMB_VELOCITY: float = -80.0
+var CLIMB_VELOCITY: float = -60.0
 var noise: float = 0
 #int
 var previous_velocity_y: int = 0
@@ -92,7 +92,7 @@ func climb_straight():
 
 #regarde si le player est mort
 func check_if_is_dead():
-	if life_points<1 :
+	if life_points<1 and !is_hit:
 		if debug_mode:
 			life_points=3
 		else:
@@ -125,57 +125,68 @@ func handle_gravity(delta):
 
 #anime le joueur
 func animate_player(direction):
-	if debug_mode:
-		actual_action="DEBUG"
-	elif is_hit:
-		actual_action="HIT"
-	elif is_getting_up:
-		actual_action="GET_UP"
-	elif direction:
-		if old_direction==-direction:
-			is_transitioning=true
-		if direction>0:
-			if is_transitioning:
-				actual_action="transitionRIGHT"
-			else:
-				if is_climbing:
-					actual_action="climbRIGHT"	
+	if Global.state == "playing":
+		if debug_mode:
+			actual_action="DEBUG"
+		elif is_hit:
+			actual_action="HIT"
+		elif is_getting_up:
+			actual_action="GET_UP"
+		elif direction:
+			if old_direction==-direction:
+				is_transitioning=true
+			if direction>0:
+				if is_transitioning:
+					actual_action="transitionRIGHT"
 				else:
-					actual_action="RIGHT"
-		else:
-			if is_transitioning:
-				actual_action="transitionLEFT"
+					if is_climbing:
+						actual_action="climbRIGHT"	
+					else:
+						actual_action="RIGHT"
 			else:
-				if is_climbing:
-					actual_action="climbLEFT"
+				if is_transitioning:
+					actual_action="transitionLEFT"
 				else:
-					actual_action="LEFT"
-		old_direction=direction
-	else: #tu ne fait rien
-		if !is_getting_up && !debug_mode:
-			if old_direction:
-				if old_direction>0:
-					actual_action="IDLE_RIGHT"
-				else:
-					actual_action="IDLE_LEFT"
-			else:
-				actual_action="IDLE"
-func walk_and_wall_climb(direction):
-			# marcher/grimper aux murs droite/gauche
-		if direction && !is_getting_up:
-			velocity.x = direction * SPEED
-			if noise_sensor : #fait du bruit si tu marche
-				noise+=0.1
-				is_making_noise= true
-			if is_on_floor() && is_on_wall() && !is_climbing:	
-				climb_time.start()
-				is_climbing=true
-				velocity.y = CLIMB_VELOCITY
-			elif is_climbing:
-				velocity.y = CLIMB_VELOCITY
+					if is_climbing:
+						actual_action="climbLEFT"
+					else:
+						actual_action="LEFT"
+			old_direction=direction
 		else: #tu ne fait rien
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-		previous_velocity_y=velocity.y
+			if !is_getting_up && !debug_mode:
+				if old_direction:
+					if old_direction>0:
+						actual_action="IDLE_RIGHT"
+					else:
+						actual_action="IDLE_LEFT"
+				else:
+					actual_action="IDLE"
+	elif Global.state == "rest":
+		actual_action = "REST"
+	elif Global.state == "talking":
+		actual_action = "IDLE"
+		
+		
+func walk_and_wall_climb(direction,delta):
+			# marcher/grimper aux murs droite/gauche
+	if direction && !is_getting_up:
+		if abs(velocity.x) > SPEED:
+			velocity.x = direction * SPEED  * (delta*62.5)
+		else:
+			velocity.x += direction * SPEED * (delta*10)
+		if noise_sensor : #fait du bruit si tu marche
+			noise+=0.1
+			is_making_noise= true
+		if is_on_floor() && is_on_wall() && !is_climbing:	
+			climb_time.start()
+			is_climbing=true
+			velocity.y = CLIMB_VELOCITY * (delta*62.5)
+		elif is_climbing:
+			velocity.y = CLIMB_VELOCITY * (delta*62.5)
+	else: #tu ne fait rien
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+	previous_velocity_y=velocity.y
+	
 
 func add_coin(coin_value):
 	coins+=coin_value
@@ -231,7 +242,6 @@ func _physics_process(delta: float) -> void:
 	#mode playing (le perso bouge)	
 	if Global.state=="playing":
 		check_if_is_dead()
-		
 		#declenche mode debug
 		if Input.is_action_just_pressed("debug"):
 			debugMode()
@@ -239,7 +249,7 @@ func _physics_process(delta: float) -> void:
 		handle_gravity(delta)
 		climb_straight()	
 		
-		walk_and_wall_climb(direction)
+		walk_and_wall_climb(direction,delta)
 			
 		#upd du bruit
 		handle_noise()
@@ -251,6 +261,5 @@ func _physics_process(delta: float) -> void:
 	#etat de repos	
 	elif Global.state=="rest":
 		UI.rest_menu.visible=true
-		actual_action="REST"
 	animate_player(direction)	
 	animation(actual_action)
