@@ -1,19 +1,20 @@
 extends Node2D
-@onready var altstein_animation: AnimatedSprite2D = $"Altstein animation"
-const ALTSTEIN = preload("res://dialogues/ALTSTEIN.dialogue")
+@onready var vespillo_animation: AnimatedSprite2D = $"Vespillo animation"
+
+const VESPILLO = preload("res://dialogues/VESPILLO.dialogue")
 
 var dialogues=["start","already_met"]
 var is_a_player_here=false
 var player=null
 	
 func _process(delta: float) -> void:
-	altstein_animation.play("IDLE")
+	vespillo_animation.play("IDLE")
 	if is_a_player_here:
 		if Input.is_action_just_pressed("interact"):
 			Global.state="talking"
 			is_a_player_here=false
 			player.show_text("KILL")
-			DialogueManager.show_dialogue_balloon(ALTSTEIN,dialogues[Global.Altstein_progression])
+			DialogueManager.show_dialogue_balloon(VESPILLO,dialogues[Global.Vespillo_progression])
 			
 
 func _on_dialoguearea_body_entered(body: Node2D) -> void:

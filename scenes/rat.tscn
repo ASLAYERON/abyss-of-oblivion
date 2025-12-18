@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cp5syrb2ckqss"]
+[gd_scene load_steps=26 format=3 uid="uid://cp5syrb2ckqss"]
 
 [ext_resource type="Texture2D" uid="uid://dvw0iq8m8qslq" path="res://assets/sprites/RAT_SPRITESHEET.png" id="1_1l88y"]
 [ext_resource type="Script" uid="uid://bspv3injpg76k" path="res://scripts/rat.gd" id="1_77a1s"]
@@ -172,7 +172,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u8fq5"]
-radius = 67.0168
+radius = 40.0031
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_acf8p"]
+radius = 75.0017
 
 [node name="RAT" type="CharacterBody2D"]
 collision_layer = 2
@@ -192,21 +195,22 @@ frame_progress = 0.306516
 offset = Vector2(7, -10)
 
 [node name="hear_zone" type="Area2D" parent="."]
-visible = false
+z_index = -1
 position = Vector2(0, 2.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hear_zone"]
 shape = SubResource("CircleShape2D_u8fq5")
+debug_color = Color(0, 0.63, 0.4095, 0.603922)
 
 [node name="forget_zone" type="Area2D" parent="."]
-visible = false
+z_index = -2
 position = Vector2(0, 2.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="forget_zone"]
-shape = SubResource("CircleShape2D_u8fq5")
+shape = SubResource("CircleShape2D_acf8p")
+debug_color = Color(0.955551, 0.212465, 5.77569e-07, 0.42)
 
 [node name="attack_timer" type="Timer" parent="."]
-wait_time = 0.7
 
 [node name="climb_time" type="Timer" parent="."]
 wait_time = 0.5

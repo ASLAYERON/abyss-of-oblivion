@@ -1,0 +1,57 @@
+~ start
+Altstein : La, au cœur des montagnes blouges, sous la roche et le poids du temps
+Altstein : Mort, vide,terre de roche, rien ne bouge [wait=0.5] Au fond de l'abysse, lentement...
+Altstein : J'essaye de les revoir, j'essaye...
+Altstein : Hanté par le doute, par l'oubli.
+Altstein : Blessé des regrets que je paye [wait=0.5,speed=0.2]A moitié mort, j'oublie ma vie...[wait=0.5]
+- ...
+	Altstein : Oh ! Je ne t avais pas vu ! Tu es nouveau ? Je crois ne t'avoir jamais vu dans l'abysse !
+- Celui qui tombe ici bas...
+	L'inconnu : Celui qui tombe ici bas...
+	L'inconnu : Pays ou s'étendent les ombres, son visage s'efface, s'effaca, ne comptant plus les heures sombres 
+	Altstein : Des paroles sages, tu connais l'abysse. Mais je crois ne t'avoir [speed=0.1]jamais vu...
+Altstein : Mais! tu a les jambes cassées ! Dans cet etat la, il va t'etre compliqué de sauter...
+L'inconnu: ...
+Altstein : J'espère que ta route ne sera pas funeste, ou du moins, le  moins possible...
+Altstein : A la prochaine fois, toi, l'inconnu. J'espere que nos routes se croiserons a nouveau,
+Altstein : Que la grandeur de Gilgavaldr mène tes pas !
+L'inconnu: ...
+set Global.Altstein_progression = 1
+set Global.state = "playing"
+=> END
+~ already_met
+Altstein : Tu semble perdu ici, l'inconnu... Peut etre puis-je t'aider ?
+- Ce lieu...
+	Altstein: Oui, cet endroit est etrange, l'Inconnu. Nous sommes a Sepultombre, terre verdie des hauteurs de l'abysse.
+	L'inconnu: Je ne me rappelle pas avoir deja entendu ce nom.
+	Altstein: Nous sommes sous terres mais ici, la vegetation semble s'être acclimatée, quelque chose dans le sol reussit a la nourrir malgré tout...
+	L'inconnu: ...
+- Ces tombes...
+	Altstein: Sepultombre est un endroit calme, mais c'est aussi un cimetière.
+	L'inconnu: Un cimetière ?
+	Altstein: Pour ceux qui ont tout perdu, bien plus que la vie, mais Vespillo t'en parleras mieux que moi.
+	- Merci beaucoup
+		Altstein: Oh mais merci a toi, l'inconnu, cela faisait longtemps que je n'avais pas raconté ces choses ci a qui que ce soit.
+	- Vespillo ?
+		Altstein: C'est un croque-mort qui vit plus loin. Il n'a jamais vecu qu'avec les morts, il les connait mieux que les vivants.
+- Le poeme
+	L'inconnu: Le poème que tu chantait tout a l'heure, je crois que je l'avais deja entendu.
+	Altstein: C'est un air connu je crois, ou qu'il l'a été... Certaines parties du texte me paraissent authentiques, mais...
+	Altstein: Je crois que j'en ait réecrit certaines... Je ne sais plus, l'inconnu.
+	L'inconnu: ...
+	Altstein: Mais, si cela t'interresse, je crois qu'il y a longtemps, a une periode ou je parcourais l'abysse plus loin encore,
+	Altstein: J'ai laissé par inadvertence un tome de poèmes et de chansons... Un bout de ma memoire
+	- Merci beaucoup
+		Altstein: Oh mais merci a toi, l'inconnu, cela faisait longtemps que je n'avais pas raconté ces choses ci a qui que ce soit.
+	- Un tome ?
+		Altstein: En effet, un manuscrit de mes pensées, j'y ait laissé sans doute une part de moi, que j'ai depuis longtemps oublié
+		- Merci beaucoup
+			Altstein: Oh mais merci a toi, l'inconnu, cela faisait longtemps que je n'avais pas raconté ces choses ci a qui que ce soit.
+		- Oublié ?
+			Altstein: Oui, l'inconnu, il faut s'oublier dans l'abysse, oublier son vrai nom, oublier son visage, 
+			Altstein: La creature se nourrit de nous, elle se nourrit de qui nous sommes	  
+- Le vent
+- Aurevoir
+	Altstein: Aurevoir, l'inconnu...
+set Global.state = "playing"
+=> END

@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var player: AnimatedSprite2D = $PLAYER
 @onready var get_up_timer: Timer = $"get_up timer"
 @onready var UI: Control = $UI
+@onready var iframe_timer: Timer = $iframe_timer
+@onready var freeze_timer: Timer = $freeze_timer
 # #############################################
 
 	#init des var
@@ -16,10 +18,11 @@ var SPEED: float = 60.0
 var CLIMB_VELOCITY: float = -60.0
 var noise: float = 0
 #int
-var previous_velocity_y: int = 0
+var previous_velocity_y: float = 0.0
 var life_points: int = 3
 var max_health: int = 3
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
+var hit_direction=0 #permet de savoir dans quel sens faire l'animation de hit
 var coins = 0
 #booleen
 var noise_sensor: bool = true
@@ -29,7 +32,7 @@ var is_getting_up: bool = false
 var is_climbing: bool = false
 var was_on_floor: bool = false
 var is_transitioning: bool = false
-var is_hit: bool = false
+var is_iframes: bool = false
 # ##################################
 
 #func animation
@@ -38,13 +41,14 @@ func animation(actual_action):
 
 #damage
 func damage(hp,direction):
-	if !is_hit:
-		is_hit=true
-		life_points-=hp
-		if direction:
-			velocity.x+=30
-		else:
-			velocity.x-=30
+	if !is_iframes:
+		hit_direction=direction
+		if !debug_mode :
+			life_points-=hp
+		Global.state="freeze"
+		is_iframes=true
+		iframe_timer.start()
+		freeze_timer.start()
 
 #montre un texte (instructions)
 func show_text(text):
@@ -85,18 +89,21 @@ func climb_straight():
 		if (Global.can_go_up || debug_mode):
 			if Input.is_action_pressed("up"):
 				velocity.y= CLIMB_VELOCITY	
+				if noise_sensor : #fait du bruit si tu marche
+					noise+=0.05
+					is_making_noise=true
 			elif Input.is_action_pressed("down"):
 				velocity.y= -CLIMB_VELOCITY
+				if noise_sensor : #fait du bruit si tu marche
+					noise+=0.05
+					is_making_noise=true
 			else:
 				velocity.y=0
 
 #regarde si le player est mort
 func check_if_is_dead():
-	if life_points<1 and !is_hit:
-		if debug_mode:
-			life_points=3
-		else:
-			get_tree().change_scene_to_file("res://scenes/start.tscn")
+	if life_points<1 and !is_iframes:
+		get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 func refill_life_points():
 	life_points=max_health
@@ -108,14 +115,14 @@ func handle_gravity(delta):
 			#anim et gros bruit si grosse chutte
 			if previous_velocity_y>200:
 				if noise_sensor:
-					noise+=30
+					noise += 10 + previous_velocity_y/7
 					is_making_noise= true
 				is_getting_up=true
 				#la grosse chute a un cooldown
 				get_up_timer.start()
 			else: #petit bruit si petite chute
 				if noise_sensor:
-					noise+=10
+					noise += 10
 					is_making_noise= true	
 		was_on_floor=true
 	else: #fait tomber le joueur
@@ -126,45 +133,41 @@ func handle_gravity(delta):
 #anime le joueur
 func animate_player(direction):
 	if Global.state == "playing":
-		if debug_mode:
-			actual_action="DEBUG"
-		elif is_hit:
-			actual_action="HIT"
-		elif is_getting_up:
-			actual_action="GET_UP"
+		## DEBUG
+		if debug_mode: actual_action="DEBUG"
+		## HIT
+		elif Global.state == "freeze":
+			if hit_direction: actual_action = "HIT_LEFT"
+			else : actual_action = "HIT_RIGHT"
+		## GETTING UP	
+		elif is_getting_up: actual_action = "GET_UP"
+		## WALK CLIMB TRANSITION
 		elif direction:
-			if old_direction==-direction:
-				is_transitioning=true
+			if old_direction == -direction: is_transitioning = true
 			if direction>0:
-				if is_transitioning:
-					actual_action="transitionRIGHT"
+				if is_transitioning: actual_action = "transitionRIGHT"
 				else:
-					if is_climbing:
-						actual_action="climbRIGHT"	
-					else:
-						actual_action="RIGHT"
+					if is_climbing: actual_action = "climbRIGHT"	
+					else: actual_action = "RIGHT"
 			else:
-				if is_transitioning:
-					actual_action="transitionLEFT"
+				if is_transitioning: actual_action = "transitionLEFT"
 				else:
-					if is_climbing:
-						actual_action="climbLEFT"
-					else:
-						actual_action="LEFT"
+					if is_climbing: actual_action = "climbLEFT"
+					else: actual_action = "LEFT"
 			old_direction=direction
 		else: #tu ne fait rien
 			if !is_getting_up && !debug_mode:
 				if old_direction:
-					if old_direction>0:
-						actual_action="IDLE_RIGHT"
-					else:
-						actual_action="IDLE_LEFT"
-				else:
-					actual_action="IDLE"
+					if old_direction > 0: actual_action = "IDLE_RIGHT"
+					else: actual_action = "IDLE_LEFT"
+				else: actual_action = "IDLE"
 	elif Global.state == "rest":
 		actual_action = "REST"
 	elif Global.state == "talking":
 		actual_action = "IDLE"
+	elif Global.state == "freeze":
+		if hit_direction: actual_action = "HIT_LEFT"
+		else : actual_action = "HIT_RIGHT"
 		
 		
 func walk_and_wall_climb(direction,delta):
@@ -208,7 +211,7 @@ func load_game() -> void:
 	UI.rest_menu.visible=false
 	Global.state="playing"
 
-# ####### FONCTIONS EVENT
+## #######  FONCTIONS EVENT
 
 #timer du grimpage aux murs
 func _on_climb_time_timeout() -> void:
@@ -225,8 +228,13 @@ func _on_get_up_timer_timeout() -> void:
 func _on_player_animation_finished() -> void:
 	if is_transitioning:
 		is_transitioning=false
-	if is_hit:
-		is_hit=false
+
+
+func _on_iframe_timer_timeout() -> void:
+	is_iframes = false
+
+func _on_freeze_timer_timeout() -> void:
+	Global.state="playing"
 
 # ##################################
 
@@ -247,8 +255,8 @@ func _physics_process(delta: float) -> void:
 			debugMode()
 
 		handle_gravity(delta)
-		climb_straight()	
 		
+		climb_straight()	
 		walk_and_wall_climb(direction,delta)
 			
 		#upd du bruit
@@ -256,10 +264,13 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide()
 		global_position=round(global_position)
-# #################################REST
 
 	#etat de repos	
 	elif Global.state=="rest":
 		UI.rest_menu.visible=true
+		
+	#est hit
+	elif Global.state=="freeze":
+		pass
 	animate_player(direction)	
 	animation(actual_action)

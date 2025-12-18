@@ -1,8 +1,12 @@
 ~ advice1
-Conseil: Bouger de droite a gauche avec les croix directionnelles
+Conseil: Bouger de droite a gauche avec les croix directionnelles\n espace pour quitter.
 set Global.state = "playing"
 => END
 ~ advice2
 Conseil: Une telle chute pourrait etre dangeureuse
+set Global.state = "playing"
+=> END
+~ advice3
+Directions:         Vous quittez Sepultombre \n                                    vers Muridantrel
 set Global.state = "playing"
 => END

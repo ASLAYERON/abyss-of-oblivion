@@ -18,6 +18,7 @@ func _ready() -> void:
 		new_enemy.path_name=enemy
 		new_enemy.start_position=Global.enemies["caves"][enemy][1]
 		add_child(new_enemy)
+		print(new_enemy)
 
 func _on_portal_to_arrival_body_entered(body: Node2D) -> void:
 	if body.name=="player":

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ct03k8ebbf2jo"
+path="res://.godot/imported/ALTSTEIN.dialogue-78a28bca9999b76048303ad6c96a5503.tres"
+
+[deps]
+
+source_file="res://dialogues/ALTSTEIN.dialogue"
+dest_files=["res://.godot/imported/ALTSTEIN.dialogue-78a28bca9999b76048303ad6c96a5503.tres"]
+
+[params]
+
+defaults=true

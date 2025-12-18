@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbhr1psi0hd28"]
+[gd_scene load_steps=8 format=3 uid="uid://cbhr1psi0hd28"]
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
 [ext_resource type="Texture2D" uid="uid://bdndcbgc3aqnd" path="res://assets/sprites/noise-bar.png" id="3_3wlde"]
 [ext_resource type="Texture2D" uid="uid://d3hyu1cxfget7" path="res://Abyss of oblivion assets workshop/pixil-frame 6777.png" id="4_xpksx"]
 [ext_resource type="Texture2D" uid="uid://b622qughmm5ig" path="res://Abyss of oblivion assets workshop/KOIN.png" id="5_75u2n"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
+noise_type = 0
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3wlde"]
+width = 1152
+height = 628
+noise = SubResource("FastNoiseLite_75u2n")
 
 [node name="UI" type="Control"]
 z_index = 4
@@ -107,6 +116,18 @@ theme_override_fonts/font = ExtResource("2_75u2n")
 theme_override_font_sizes/font_size = 16
 text = "ERROR"
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.5, 0.5, 0.5, 1)
+self_modulate = Color(1, 1, 1, 0.0705882)
+z_index = 10
+layout_mode = 0
+offset_left = -83.0
+offset_top = -37.0
+offset_right = 82.0
+offset_bottom = 55.0
+texture = SubResource("NoiseTexture2D_3wlde")
+expand_mode = 1
 
 [connection signal="pressed" from="rest menu/HBoxContainer/save_button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="rest menu/HBoxContainer/load_button" to="." method="_on_load_button_pressed"]

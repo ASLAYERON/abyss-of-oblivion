@@ -1,7 +1,6 @@
 [gd_scene load_steps=62 format=3 uid="uid://3xx6dc27qdqf"]
 
 [ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
-[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="3_pt35c"]
 [ext_resource type="Texture2D" uid="uid://dmdng4ybdkkw0" path="res://assets/sprites/PLAYER_SPRITESHEET.png" id="3_rdoyk"]
 [ext_resource type="PackedScene" uid="uid://cbhr1psi0hd28" path="res://scenes/UI.tscn" id="5_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://dgld5x57itrfh" path="res://assets/songs/crooking.mp3" id="9_ur7pv"]
@@ -57,21 +56,21 @@ region = Rect2(128, 80, 16, 16)
 atlas = ExtResource("3_rdoyk")
 region = Rect2(144, 80, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("3_rdoyk")
-region = Rect2(128, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
 atlas = ExtResource("3_rdoyk")
 region = Rect2(144, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(96, 0, 16, 16)
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("3_rdoyk")
 region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
 atlas = ExtResource("3_rdoyk")
@@ -275,37 +274,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qfm1y")
-}, {
-"duration": 0.5,
 "texture": SubResource("AtlasTexture_fulsm")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qfm1y")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_fulsm")
 }],
-"loop": false,
+"loop": true,
 "name": &"HIT_LEFT",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4r5pv")
-}, {
-"duration": 0.5,
 "texture": SubResource("AtlasTexture_60mlk")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4r5pv")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_60mlk")
 }],
-"loop": false,
+"loop": true,
 "name": &"HIT_RIGHT",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 5.0,
@@ -472,7 +459,12 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(14, 1)
+
 [node name="Node2D" type="CharacterBody2D"]
+motion_mode = 1
+safe_margin = 0.1
 script = ExtResource("1_b8584")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -482,37 +474,9 @@ shape = SubResource("RectangleShape2D_itjk0")
 position = Vector2(0, 9)
 zoom = Vector2(7, 7)
 
-[node name="climb_time" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
-
-[node name="bigLight" type="PointLight2D" parent="."]
-color = Color(1, 0.951068, 0.860357, 1)
-energy = 1.5
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 1)
-shadow_filter = 1
-shadow_filter_smooth = 3.0
-texture = ExtResource("3_pt35c")
-texture_scale = 1.5
-
-[node name="smallLight" type="PointLight2D" parent="."]
-scale = Vector2(0.3, 0.3)
-color = Color(0.91, 1, 0.9175, 1)
-energy = 2.0
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 1)
-shadow_filter = 1
-shadow_filter_smooth = 3.0
-texture = ExtResource("3_pt35c")
-texture_scale = 1.5
-
 [node name="PLAYER" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_w8vpm")
-animation = &"IDLE"
-
-[node name="get_up timer" type="Timer" parent="."]
-one_shot = true
+animation = &"HIT_RIGHT"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 visible = false
@@ -524,6 +488,35 @@ offset_top = -1.064
 offset_right = 1.64
 offset_bottom = -1.064
 
-[connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]
+[node name="Avoid_Rat_hug" type="StaticBody2D" parent="."]
+position = Vector2(0, -14)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Avoid_Rat_hug"]
+z_index = -3
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_dqkch")
+one_way_collision_margin = 0.0
+debug_color = Color(0.817675, 0.405147, 0, 0.42)
+
+[node name="iframe_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="freeze_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="get_up timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="climb_time" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="animation_finished" from="PLAYER" to="." method="_on_player_animation_finished"]
+[connection signal="timeout" from="iframe_timer" to="." method="_on_iframe_timer_timeout"]
+[connection signal="timeout" from="freeze_timer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="get_up timer" to="." method="_on_get_up_timer_timeout"]
+[connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]

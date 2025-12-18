@@ -5,6 +5,7 @@ var tp_offset = Vector2(-752,-476)#spawn au tt debut du jeu,
 							   #apres pour tp le player devant le bon portail a l'entree d'une zone
 var is_loading = false
 var Altstein_progression = 0
+var Vespillo_progression = 0
 
 var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict.
 	"caves":{

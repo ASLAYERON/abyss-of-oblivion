@@ -1,0 +1,37 @@
+~ start
+Vespillo: Tu es nouveau ici, l'inconnu. C'est Altstein qui t'envoie ?
+- Oui
+	Vespillo: Interessant..
+- Non
+	Vespillo: Ah, tu n'as donc pas encore fait sa connaissance...
+Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et de veiller a ce qu'il le restent.
+- Le restent ?
+	Vespillo: Ceux que l'on enterre ici ne sont pas morts, enfin, pas tout a fait. Ceux que l'on inhume subissent un sort bien pire que cela.
+	L'inconnu: De quoi parlez vous ?
+	Vespillo: Ils ont été pris par la bête, on leur a volé leur visage. Ceux la ne sont plus rien, ils sont des carcasses.
+	L'inconnu: ...
+	- Aurevoir
+		L'inconnu: Aurevoir
+		Vespillo: Aurevoir.
+		set Global.state = "playing"
+		=> END
+	- Que deviennent-t-il ?
+		Vespillo: Dans les premiers temps, il errent, comme de grands bléssés ayant echappé par accident a la mort.
+		L'inconnu: Et ensuite...
+		Vespillo: Il deviennent comme des animaux, comme s'il cherchaient a retrouver ce qu'il ont perdus a jamais.
+		L'inconnu: ...
+		Vespillo: Je ne sais pas si le pire est pour eux, ou pour nous qui les voyons disparaitre. Mais bon, je m'y suis fait, c'est mon travail, rien d'anomal, apres tout.
+		- Merci
+			Vespillo: Tu n'as a me remercier de rien. J'ai decide de faire cela, quelqu'un devait bien le faire...
+		- Aurevoir
+			L'inconnu: Aurevoir, l'inconnu.
+			Vespillo: Aurevoir.
+			set Global.state = "playing"
+- Pourquoi ici ?
+- Aurevoir
+	L'inconnu: Aurevoir
+	Vespillo: Aurevoir.
+	set Global.state = "playing"
+	=> END
+set Global.state = "playing"
+=> END

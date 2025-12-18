@@ -54,6 +54,8 @@ animations = [{
 }]
 
 [node name="void" type="Node2D"]
+modulate = Color(0, 0, 0, 1)
+light_mask = 0
 script = ExtResource("1_igxq6")
 
 [node name="void_sprite" type="AnimatedSprite2D" parent="."]

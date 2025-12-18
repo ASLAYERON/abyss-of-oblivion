@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://ficgjxxyfr60"]
+
+[ext_resource type="Texture2D" uid="uid://duoqkmkp6qi6o" path="res://Abyss of oblivion assets workshop/pixilart-sprite(9).png" id="1_fapde"]
+[ext_resource type="Script" uid="uid://6dx88yt4boo" path="res://scripts/pnj_vespillo.gd" id="1_xlitp"]
+[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="2_xlitp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_387ut"]
+radius = 24.0208
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvq1w"]
+atlas = ExtResource("1_fapde")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njcin"]
+atlas = ExtResource("1_fapde")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5sp4"]
+atlas = ExtResource("1_fapde")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvpc0"]
+atlas = ExtResource("1_fapde")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i5lsh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvq1w")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_njcin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5sp4")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_tvpc0")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 2.0
+}]
+
+[node name="PNJ-vespillo" type="Node2D"]
+script = ExtResource("1_xlitp")
+
+[node name="Dialogue-area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogue-area"]
+visible = false
+shape = SubResource("CircleShape2D_387ut")
+
+[node name="Vespillo animation" type="AnimatedSprite2D" parent="."]
+z_index = -2
+sprite_frames = SubResource("SpriteFrames_i5lsh")
+animation = &"IDLE"
+frame_progress = 0.431718
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 2
+color = Color(0.310722, 0.999999, 0.553766, 1)
+energy = 0.8
+shadow_enabled = true
+texture = ExtResource("2_xlitp")
+texture_scale = 1.5
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+light_mask = 2
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("2_xlitp")
+texture_scale = 0.5
+
+[connection signal="body_entered" from="Dialogue-area" to="." method="_on_dialoguearea_body_entered"]
+[connection signal="body_exited" from="Dialogue-area" to="." method="_on_dialoguearea_body_exited"]

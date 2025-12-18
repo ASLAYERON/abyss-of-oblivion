@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://da6jph7y4l05w"
+path="res://.godot/imported/VESPILLO.dialogue-d5bc6053e723e7bca35583e323605a96.tres"
+
+[deps]
+
+source_file="res://dialogues/VESPILLO.dialogue"
+dest_files=["res://.godot/imported/VESPILLO.dialogue-d5bc6053e723e7bca35583e323605a96.tres"]
+
+[params]
+
+defaults=true
