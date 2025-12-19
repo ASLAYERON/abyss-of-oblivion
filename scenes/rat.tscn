@@ -190,8 +190,6 @@ shape = SubResource("RectangleShape2D_77a1s")
 position = Vector2(-7, 10)
 sprite_frames = SubResource("SpriteFrames_myae6")
 animation = &"SLEEP"
-frame = 2
-frame_progress = 0.306516
 offset = Vector2(7, -10)
 
 [node name="hear_zone" type="Area2D" parent="."]
@@ -211,6 +209,7 @@ shape = SubResource("CircleShape2D_acf8p")
 debug_color = Color(0.955551, 0.212465, 5.77569e-07, 0.42)
 
 [node name="attack_timer" type="Timer" parent="."]
+wait_time = 1.1
 
 [node name="climb_time" type="Timer" parent="."]
 wait_time = 0.5

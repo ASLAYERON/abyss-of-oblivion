@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbhr1psi0hd28"]
+[gd_scene load_steps=9 format=3 uid="uid://cbhr1psi0hd28"]
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
 [ext_resource type="Texture2D" uid="uid://bdndcbgc3aqnd" path="res://assets/sprites/noise-bar.png" id="3_3wlde"]
 [ext_resource type="Texture2D" uid="uid://d3hyu1cxfget7" path="res://Abyss of oblivion assets workshop/pixil-frame 6777.png" id="4_xpksx"]
 [ext_resource type="Texture2D" uid="uid://b622qughmm5ig" path="res://Abyss of oblivion assets workshop/KOIN.png" id="5_75u2n"]
+[ext_resource type="Texture2D" uid="uid://brbrw8em6536q" path="res://Abyss of oblivion assets workshop/2025_12_18_0q9_Kleki.png" id="6_3wlde"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
 noise_type = 0
@@ -51,7 +52,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = -35
 
 [node name="save_button" type="Button" parent="rest menu/HBoxContainer"]
-z_index = 5
+z_index = 3
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/outline_size = 12
@@ -119,15 +120,29 @@ horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.5, 0.5, 0.5, 1)
-self_modulate = Color(1, 1, 1, 0.0705882)
+self_modulate = Color(1, 1, 1, 0.0823529)
 z_index = 10
 layout_mode = 0
 offset_left = -83.0
 offset_top = -37.0
 offset_right = 82.0
 offset_bottom = 55.0
+mouse_filter = 2
 texture = SubResource("NoiseTexture2D_3wlde")
 expand_mode = 1
+
+[node name="freeze_vignette" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 9.5)
+scale = Vector2(0.145833, 0.146605)
+texture = ExtResource("6_3wlde")
+
+[node name="iframes_vignette" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.78, 0.5148, 0.5148, 0.482353)
+position = Vector2(1.90735e-06, 9.5)
+scale = Vector2(0.145833, 0.146605)
+texture = ExtResource("6_3wlde")
 
 [connection signal="pressed" from="rest menu/HBoxContainer/save_button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="rest menu/HBoxContainer/load_button" to="." method="_on_load_button_pressed"]

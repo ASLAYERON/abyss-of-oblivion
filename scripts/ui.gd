@@ -3,6 +3,9 @@ extends Control
 @onready var instruction: Label = $instruction
 @onready var progress_bar: TextureProgressBar = $ProgressBar
 @onready var coin_counter: Label = $upper_bar/coin_counter
+@onready var freeze_vignette: Sprite2D = $freeze_vignette
+@onready var iframes_vignette: Sprite2D = $iframes_vignette
+
 
 #updt piece
 func change_coin_value(coin_value):
@@ -14,3 +17,9 @@ func _on_save_button_pressed() -> void:
 #bouton load
 func _on_load_button_pressed() -> void:
 	get_parent().load_game()
+	
+func show_freeze_vignette(Bool):
+	freeze_vignette.visible = Bool
+	
+func show_iframes_vignette(Bool):
+	iframes_vignette.visible = Bool

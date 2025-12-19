@@ -23,7 +23,7 @@ var life_points: int = 3
 var max_health: int = 3
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
 var hit_direction=0 #permet de savoir dans quel sens faire l'animation de hit
-var coins = 0
+var knockback = 400
 #booleen
 var noise_sensor: bool = true
 var is_making_noise: bool = false
@@ -42,13 +42,14 @@ func animation(actual_action):
 #damage
 func damage(hp,direction):
 	if !is_iframes:
-		hit_direction=direction
-		if !debug_mode :
-			life_points-=hp
+		hit_direction=int(direction)
 		Global.state="freeze"
 		is_iframes=true
 		iframe_timer.start()
 		freeze_timer.start()
+		UI.show_freeze_vignette(true)
+		if !debug_mode :
+			life_points-=hp
 
 #montre un texte (instructions)
 func show_text(text):
@@ -102,7 +103,7 @@ func climb_straight():
 
 #regarde si le player est mort
 func check_if_is_dead():
-	if life_points<1 and !is_iframes:
+	if life_points<1 and Global.state != "freeze":
 		get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 func refill_life_points():
@@ -135,10 +136,6 @@ func animate_player(direction):
 	if Global.state == "playing":
 		## DEBUG
 		if debug_mode: actual_action="DEBUG"
-		## HIT
-		elif Global.state == "freeze":
-			if hit_direction: actual_action = "HIT_LEFT"
-			else : actual_action = "HIT_RIGHT"
 		## GETTING UP	
 		elif is_getting_up: actual_action = "GET_UP"
 		## WALK CLIMB TRANSITION
@@ -192,12 +189,12 @@ func walk_and_wall_climb(direction,delta):
 	
 
 func add_coin(coin_value):
-	coins+=coin_value
-	UI.change_coin_value(coins)		
+	Global.coins+=coin_value
+	UI.change_coin_value(Global.coins)		
 
 # save
 func save_game() -> void:
-	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,coins)
+	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,Global.coins)
 	UI.rest_menu.visible=false
 	Global.state="playing"
 
@@ -207,7 +204,7 @@ func load_game() -> void:
 	get_tree().change_scene_to_file(save_data.scene_file_path)
 	Global.tp_offset=save_data.player_position
 	Global.Altstein_progression=save_data.Altstein_progression
-	coins=save_data.coins
+	Global.coins=save_data.Global.coins
 	UI.rest_menu.visible=false
 	Global.state="playing"
 
@@ -232,15 +229,20 @@ func _on_player_animation_finished() -> void:
 
 func _on_iframe_timer_timeout() -> void:
 	is_iframes = false
-
+	UI.show_iframes_vignette(false)
+	
 func _on_freeze_timer_timeout() -> void:
 	Global.state="playing"
+	UI.show_freeze_vignette(false)
+	UI.show_iframes_vignette(true)
+	if hit_direction : velocity.x+= knockback
+	else : velocity.x -= knockback
 
 # ##################################
 
 #INITIALISATION
 func _ready():
-	UI.change_coin_value(coins)
+	UI.change_coin_value(Global.coins)
 	UI.rest_menu.visible = false
 # ##################################
 
@@ -251,14 +253,13 @@ func _physics_process(delta: float) -> void:
 	if Global.state=="playing":
 		check_if_is_dead()
 		#declenche mode debug
-		if Input.is_action_just_pressed("debug"):
-			debugMode()
+		#if Input.is_action_just_pressed("debug"):
+		#	debugMode()
 
 		handle_gravity(delta)
 		
 		climb_straight()	
 		walk_and_wall_climb(direction,delta)
-			
 		#upd du bruit
 		handle_noise()
 		
