@@ -1,17 +1,34 @@
-[gd_scene load_steps=11 format=4 uid="uid://b0lu43adf30jx"]
+[gd_scene load_steps=20 format=4 uid="uid://b0lu43adf30jx"]
 
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="1_8wu76"]
 [ext_resource type="Script" uid="uid://bebeg758smdx8" path="res://scripts/caves.gd" id="1_84vsv"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="2_xeq0e"]
 [ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="3_gnnrs"]
 [ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="5_yxq5w"]
+[ext_resource type="PackedScene" uid="uid://d0lqjoujef6t1" path="res://scenes/fire_fx.tscn" id="6_84vsv"]
 [ext_resource type="PackedScene" uid="uid://cr3sbl8fn8k2y" path="res://scenes/checkpoint.tscn" id="7_ua4bd"]
 [ext_resource type="PackedScene" uid="uid://dkbqyjm83ehip" path="res://scenes/ladder.tscn" id="9_kh044"]
+[ext_resource type="PackedScene" uid="uid://dbl82lt4ad64p" path="res://scenes/pnj_geld_kampfer.tscn" id="11_5yvvu"]
 [ext_resource type="PackedScene" uid="uid://c3cvy8rmtnk0s" path="res://scenes/big_ladder.tscn" id="11_umkwn"]
 [ext_resource type="PackedScene" uid="uid://bbu7748am6cbk" path="res://scenes/void.tscn" id="12_5yvvu"]
+[ext_resource type="AudioStream" uid="uid://dat38gva3jf8" path="res://assets/sounds/muridantrel/muridantrel_ambiance (1).mp3" id="12_cbv8m"]
+[ext_resource type="AudioStream" uid="uid://x053odb1wcuq" path="res://assets/sounds/muridantrel/muridantrel_ambiance (2).mp3" id="13_uuf7v"]
+[ext_resource type="AudioStream" uid="uid://kb3smdkhjso" path="res://assets/sounds/muridantrel/muridantrel_ambiance (3).mp3" id="14_isjqa"]
+[ext_resource type="AudioStream" uid="uid://kd88o16rf1fg" path="res://assets/sounds/muridantrel/muridantrel_ambiance (4).mp3" id="15_hmdi3"]
+[ext_resource type="AudioStream" uid="uid://7sgydrdkwyte" path="res://assets/sounds/muridantrel/muridantrel_ambiance (5).mp3" id="16_a8ndq"]
+[ext_resource type="AudioStream" uid="uid://chs0n3s8yrx2i" path="res://assets/sounds/muridantrel/muridantrel_ambiance (6).mp3" id="17_i4j8u"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_84vsv"]
 a = Vector2(0, -28)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g6733"]
+streams_count = 6
+stream_0/stream = ExtResource("12_cbv8m")
+stream_1/stream = ExtResource("13_uuf7v")
+stream_2/stream = ExtResource("14_isjqa")
+stream_3/stream = ExtResource("15_hmdi3")
+stream_4/stream = ExtResource("16_a8ndq")
+stream_5/stream = ExtResource("17_i4j8u")
 
 [node name="caves" type="Node2D"]
 modulate = Color(0.56, 0.651, 0.7, 1)
@@ -50,245 +67,84 @@ texture = ExtResource("1_8wu76")
 
 [node name="lights" type="Node" parent="."]
 
-[node name="fire6" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1143, 188)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire12" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1212, 329)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire13" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(933, 469)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire14" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(744, 557)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire15" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(887, 682)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire16" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1066, 778)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire17" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1272, 824)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire18" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(760, 953)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire19" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(665, 825)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire20" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(503, 730)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire21" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(585, 601)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire22" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(488, 522)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire30" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1272, 1198)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire24" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(169, 487)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire25" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(121, 619)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire26" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(103, 699)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire27" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(186, 794)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire28" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(312, 969)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire29" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(152, 1016)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire31" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(105, 1177)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire32" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(341, 1179)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire33" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(600, 1098)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire34" type="PointLight2D" parent="lights"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(952, 972)
-color = Color(0.999999, 0.803319, 0.406486, 1)
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("5_yxq5w")
-texture_scale = 1.5
-
-[node name="fire36" type="PointLight2D" parent="lights"]
+[node name="light" type="PointLight2D" parent="lights"]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(1576, 1148)
-color = Color(0.999999, 0.803319, 0.406486, 1)
+color = Color(0.5472, 0.96, 0.91184, 1)
 energy = 3.0
 shadow_enabled = true
 texture = ExtResource("5_yxq5w")
 texture_scale = 1.5
+
+[node name="FireFx" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(1143, 187)
+
+[node name="FireFx2" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(1207, 329)
+
+[node name="FireFx3" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(935, 473)
+
+[node name="FireFx4" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(744, 554)
+
+[node name="FireFx5" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(888, 682)
+
+[node name="FireFx6" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(1064, 778)
+
+[node name="FireFx7" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(1272, 826)
+
+[node name="FireFx8" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(761, 953)
+
+[node name="FireFx9" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(680, 825)
+
+[node name="FireFx10" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(503, 729)
+
+[node name="FireFx11" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(584, 601)
+
+[node name="FireFx12" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(488, 522)
+
+[node name="FireFx13" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(1272, 1196)
+
+[node name="FireFx14" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(167, 490)
+
+[node name="FireFx15" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(120, 617)
+
+[node name="FireFx16" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(103, 697)
+
+[node name="FireFx17" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(184, 794)
+
+[node name="FireFx18" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(312, 970)
+
+[node name="FireFx19" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(151, 1017)
+
+[node name="FireFx20" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(103, 1177)
+
+[node name="FireFx21" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(344, 1178)
+
+[node name="FireFx22" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(600, 1095)
+
+[node name="FireFx23" parent="lights" instance=ExtResource("6_84vsv")]
+position = Vector2(952, 970)
 
 [node name="checkpoints" type="Node" parent="."]
 
@@ -421,4 +277,14 @@ shape = SubResource("SegmentShape2D_84vsv")
 [node name="void" parent="." instance=ExtResource("12_5yvvu")]
 position = Vector2(815, 130)
 
+[node name="PNJ-Geld_Kampfer" parent="." instance=ExtResource("11_5yvvu")]
+position = Vector2(1589, 1160)
+
+[node name="Ambiance" type="Node" parent="."]
+
+[node name="Ambiance" type="AudioStreamPlayer" parent="Ambiance"]
+stream = SubResource("AudioStreamRandomizer_g6733")
+autoplay = true
+
 [connection signal="body_entered" from="PortalToArrival" to="." method="_on_portal_to_arrival_body_entered"]
+[connection signal="finished" from="Ambiance/Ambiance" to="." method="_on_ambiance_finished"]

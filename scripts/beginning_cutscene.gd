@@ -88,4 +88,4 @@ func _process(delta: float) -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	Global.tp_offset=Vector2(-752,-476)
-	get_tree().change_scene_to_file("res://scenes/arrival.tscn")
+	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")

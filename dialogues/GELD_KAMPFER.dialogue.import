@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://co52w5tpah01p"
+path="res://.godot/imported/GELD_KAMPFER.dialogue-4492b0be085362bb9e36575bc745dea6.tres"
+
+[deps]
+
+source_file="res://dialogues/GELD_KAMPFER.dialogue"
+dest_files=["res://.godot/imported/GELD_KAMPFER.dialogue-4492b0be085362bb9e36575bc745dea6.tres"]
+
+[params]
+
+defaults=true

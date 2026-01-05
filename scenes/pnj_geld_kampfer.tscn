@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbl82lt4ad64p"]
+
+[ext_resource type="Script" uid="uid://c1yt5ajj5e67o" path="res://scripts/pnj_geld_kampfer.gd" id="1_oaf5n"]
+[ext_resource type="Texture2D" uid="uid://b7ip7m6dbfgwk" path="res://assets/sprites/Geld_Kampfer_spritesheet.png" id="2_37s48"]
+[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="4_37s48"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ltwvs"]
+radius = 24.0208
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mgyq"]
+atlas = ExtResource("2_37s48")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nathp"]
+atlas = ExtResource("2_37s48")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip43o"]
+atlas = ExtResource("2_37s48")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foefo"]
+atlas = ExtResource("2_37s48")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dubyr"]
+atlas = ExtResource("2_37s48")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtqlp"]
+atlas = ExtResource("2_37s48")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wtqlp"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5mgyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nathp")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_ip43o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foefo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dubyr")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_wtqlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dubyr")
+}],
+"loop": true,
+"name": &"TALKING",
+"speed": 3.0
+}]
+
+[node name="PNJ-Geld_Kampfer" type="Node2D"]
+script = ExtResource("1_oaf5n")
+
+[node name="Dialogue-area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogue-area"]
+z_index = -1
+shape = SubResource("CircleShape2D_ltwvs")
+
+[node name="Geld Kampfer animation" type="AnimatedSprite2D" parent="."]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_wtqlp")
+animation = &"TALKING"
+frame_progress = 0.181086
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 2
+color = Color(1, 0.951068, 0.860357, 1)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("4_37s48")
+texture_scale = 1.5
+
+[connection signal="body_entered" from="Dialogue-area" to="." method="_on_dialoguearea_body_entered"]
+[connection signal="body_exited" from="Dialogue-area" to="." method="_on_dialoguearea_body_exited"]

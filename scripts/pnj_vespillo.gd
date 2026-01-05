@@ -3,7 +3,7 @@ extends Node2D
 
 const VESPILLO = preload("res://dialogues/VESPILLO.dialogue")
 
-var dialogues=["start","already_met"]
+var dialogues=["start","start"]
 var is_a_player_here=false
 var player=null
 	

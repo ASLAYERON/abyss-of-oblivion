@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bdpd8gt0jredx"
+path="res://.godot/imported/sepultombre-ambiance (5).mp3-3335411de72a763be638b2fe8651efbd.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sepultombre/sepultombre-ambiance (5).mp3"
+dest_files=["res://.godot/imported/sepultombre-ambiance (5).mp3-3335411de72a763be638b2fe8651efbd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

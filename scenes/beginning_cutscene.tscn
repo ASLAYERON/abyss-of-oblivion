@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b50gwwi6xtee1" path="res://scripts/beginning_cutscene.gd" id="1_1d842"]
 [ext_resource type="Texture2D" uid="uid://vgnxs0poomk1" path="res://assets/sprites/Beginning_cutscene.png" id="4_1uaq5"]
-[ext_resource type="AudioStream" uid="uid://dhqy5sycgo2ha" path="res://Abyss of oblivion assets workshop/dungeonSynth1.mp3" id="4_gs5sn"]
+[ext_resource type="AudioStream" uid="uid://nh3adsm5cqhy" path="res://assets/music/The_beginning.mp3" id="4_gs5sn"]
 [ext_resource type="Texture2D" uid="uid://bi5y7rtdm2d7x" path="res://assets/sprites/TITLE_SPRITESHEET1.png" id="5_gs5sn"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="10_wfyyr"]
 
@@ -324,6 +324,7 @@ theme_override_fonts/font = ExtResource("10_wfyyr")
 theme_override_font_sizes/font_size = 16
 text = "Maintenant, il ne reste que des ruines des etages superieurs
 Et pour les profondeurs, nul ne sait ce qui en advient..."
+horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0

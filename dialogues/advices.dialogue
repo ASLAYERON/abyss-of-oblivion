@@ -1,12 +1,44 @@
+## tuto
 ~ advice1
-Conseil: Bouger de droite a gauche avec les croix directionnelles\n espace pour quitter.
+Conseil: Bougez de droite a gauche avec les croix directionnelles gauche et droite\n espace pour quitter.
 set Global.state = "playing"
 => END
 ~ advice2
-Conseil: Une telle chute pourrait etre dangeureuse
+Conseil: Vous pouvez grimper sur de petites hauteurs en avancant vers elles.
 set Global.state = "playing"
 => END
 ~ advice3
+Conseil: Sur l'echelle, utiliser les croix directionelles haut et bas pour monter/descendre
+set Global.state = "playing"
+=> END
+~ advice4
+Conseil: Sauter d'un telle hauteur pourrait etre dangereux
+set Global.state = "playing"
+=> END
+~ advice5
+Conseil: Qui sait ce qui pourrait se passer si vous sautez ?
+set Global.state = "playing"
+=> END
+~ advice6
+Conseil: Etes vous sur ?
+set Global.state = "playing"
+=> END
+## direction
+~ direction1
 Directions:         Vous quittez Sepultombre \n                                    vers Muridantrel
+set Global.state = "playing"
+=> END
+## Tombes
+~ ogulkan
+Tombe: Ici repose Ogulkan, puisse sa tristesse l'avoir abandonné maintenant qu'il est partit.
+set Global.state = "playing"
+=> END
+~ Vespa
+Tombe: Ici repose Vepa La Guepe, reine de beautée et reine de coeur, que l'Absolu la guide loin des ténèbres de ces terres.
+set Global.Vespillo_progression = 1
+set Global.state = "playing"
+=> END
+~ Orligrotek
+Tombe: Ici repose Orligrotek, père aimant, a tout jamais aimé par sa femme Liagrotek et son fils Marigrotek.
 set Global.state = "playing"
 => END

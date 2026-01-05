@@ -21,12 +21,22 @@ Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et d
 		Vespillo: Il deviennent comme des animaux, comme s'il cherchaient a retrouver ce qu'il ont perdus a jamais.
 		L'inconnu: ...
 		Vespillo: Je ne sais pas si le pire est pour eux, ou pour nous qui les voyons disparaitre. Mais bon, je m'y suis fait, c'est mon travail, rien d'anomal, apres tout.
-		- Merci
-			Vespillo: Tu n'as a me remercier de rien. J'ai decide de faire cela, quelqu'un devait bien le faire...
-		- Aurevoir
-			L'inconnu: Aurevoir, l'inconnu.
-			Vespillo: Aurevoir.
-			set Global.state = "playing"
+		if Global.Vespillo_progression == 1:
+			- Vespa
+				Vespillo: Test
+			- Merci
+				Vespillo: Tu n'as a me remercier de rien. J'ai decide de faire cela, quelqu'un devait bien le faire...
+			- Aurevoir
+				L'inconnu: Aurevoir, l'inconnu.
+				Vespillo: Aurevoir.
+				set Global.state = "playing"
+		else:
+			- Merci
+				Vespillo: Tu n'as a me remercier de rien. J'ai decide de faire cela, quelqu'un devait bien le faire...
+			- Aurevoir
+				L'inconnu: Aurevoir, l'inconnu.
+				Vespillo: Aurevoir.
+				set Global.state = "playing"
 - Pourquoi ici ?
 - Aurevoir
 	L'inconnu: Aurevoir

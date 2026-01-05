@@ -1,6 +1,8 @@
 extends Node2D
 @onready var player: CharacterBody2D = $player
 @onready var bg: Sprite2D = $Background/Bg
+@onready var ambiance: AudioStreamPlayer = $Ambiance/Ambiance
+
 const rat = preload("res://scenes/rat.tscn")
 var new_enemy=null
 func _ready() -> void:
@@ -24,3 +26,7 @@ func _on_portal_to_arrival_body_entered(body: Node2D) -> void:
 	if body.name=="player":
 		Global.tp_offset=Vector2(1240,245)
 		get_tree().change_scene_to_file("res://scenes/arrival.tscn")
+
+
+func _on_ambiance_finished() -> void:
+	ambiance.play()

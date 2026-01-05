@@ -1,12 +1,16 @@
 extends CharacterBody2D
 # #############################################
+
 	#import des noeuds
-@onready var climb_time: Timer = $climb_time
+@onready var climb_time: Timer = $timers/climb_time
 @onready var player: AnimatedSprite2D = $PLAYER
-@onready var get_up_timer: Timer = $"get_up timer"
+@onready var get_up_timer: Timer = $"timers/get_up timer"
 @onready var UI: Control = $UI
-@onready var iframe_timer: Timer = $iframe_timer
-@onready var freeze_timer: Timer = $freeze_timer
+@onready var iframe_timer: Timer = $timers/iframe_timer
+@onready var freeze_timer: Timer = $timers/freeze_timer
+@onready var camera: Camera2D = $Camera
+@onready var footstep: AudioStreamPlayer = $sounds/footstep
+@onready var hit_hurt: AudioStreamPlayer = $sounds/hitHurt
 # #############################################
 
 	#init des var
@@ -42,6 +46,8 @@ func animation(actual_action):
 #damage
 func damage(hp,direction):
 	if !is_iframes:
+		camera.camera_shake()
+		hit_hurt.play()
 		hit_direction=int(direction)
 		Global.state="freeze"
 		is_iframes=true
@@ -172,6 +178,7 @@ func walk_and_wall_climb(direction,delta):
 	if direction && !is_getting_up:
 		if abs(velocity.x) > SPEED:
 			velocity.x = direction * SPEED  * (delta*62.5)
+			#footstep.play()
 		else:
 			velocity.x += direction * SPEED * (delta*10)
 		if noise_sensor : #fait du bruit si tu marche
@@ -253,8 +260,8 @@ func _physics_process(delta: float) -> void:
 	if Global.state=="playing":
 		check_if_is_dead()
 		#declenche mode debug
-		#if Input.is_action_just_pressed("debug"):
-		#	debugMode()
+		if Input.is_action_just_pressed("debug"):
+			debugMode()
 
 		handle_gravity(delta)
 		

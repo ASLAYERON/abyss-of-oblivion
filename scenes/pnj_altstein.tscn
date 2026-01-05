@@ -1,26 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://dbl82lt4ad64p"]
+[gd_scene load_steps=10 format=3 uid="uid://c5iel0lj1xhcl"]
 
-[ext_resource type="Script" uid="uid://nq4y0t08wwre" path="res://scripts/pnj_altstein.gd" id="1_oaf5n"]
-[ext_resource type="Texture2D" uid="uid://dwqxt0xnohffi" path="res://assets/sprites/Altstein_spritesheet.png" id="2_37s48"]
-[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="4_37s48"]
+[ext_resource type="Script" uid="uid://nq4y0t08wwre" path="res://scripts/pnj_altstein.gd" id="1_bvpwt"]
+[ext_resource type="Texture2D" uid="uid://dwqxt0xnohffi" path="res://assets/sprites/Altstein_spritesheet.png" id="2_5tugu"]
+[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="3_ogid4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ltwvs"]
 radius = 24.0208
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nathp"]
-atlas = ExtResource("2_37s48")
+atlas = ExtResource("2_5tugu")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ip43o"]
-atlas = ExtResource("2_37s48")
+atlas = ExtResource("2_5tugu")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_foefo"]
-atlas = ExtResource("2_37s48")
+atlas = ExtResource("2_5tugu")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dubyr"]
-atlas = ExtResource("2_37s48")
+atlas = ExtResource("2_5tugu")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wtqlp"]
@@ -44,7 +44,7 @@ animations = [{
 }]
 
 [node name="PNJ-Altstein" type="Node2D"]
-script = ExtResource("1_oaf5n")
+script = ExtResource("1_bvpwt")
 
 [node name="Dialogue-area" type="Area2D" parent="."]
 
@@ -62,7 +62,7 @@ light_mask = 2
 color = Color(1, 0.951068, 0.860357, 1)
 energy = 0.2
 shadow_enabled = true
-texture = ExtResource("4_37s48")
+texture = ExtResource("3_ogid4")
 texture_scale = 1.5
 
 [connection signal="body_entered" from="Dialogue-area" to="." method="_on_dialoguearea_body_entered"]
