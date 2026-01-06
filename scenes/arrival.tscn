@@ -106,7 +106,7 @@ position = Vector2(-706, 117)
 texture = ExtResource("6_cunyt")
 
 [node name="player" parent="." instance=ExtResource("3_gnnrs")]
-position = Vector2(-752, -476)
+position = Vector2(-837, -476)
 
 [node name="lights" type="Node" parent="."]
 

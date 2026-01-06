@@ -18,7 +18,7 @@ func _ready() -> void:
 func _on_attack_body_entered(body: Node2D) -> void:
 	if body.name=="player":
 		#on doit rajouter le rat attaquant pour que le parry remonte
-		body.damage(1,direction)
+		body.damage(10,direction)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()

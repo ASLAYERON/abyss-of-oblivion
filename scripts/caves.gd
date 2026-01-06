@@ -5,11 +5,12 @@ extends Node2D
 
 const rat = preload("res://scenes/rat.tscn")
 var new_enemy=null
+
 func _ready() -> void:
 	player.visible=true
 	bg.visible=true
 	player.noise_sensor=true
-	player.UI.progress_bar.visible=true
+	player.UI.noise_bar.visible=true
 	player.position=Global.tp_offset
 	
 	

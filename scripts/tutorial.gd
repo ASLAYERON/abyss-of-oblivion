@@ -6,7 +6,7 @@ func _ready() -> void:
 	player.visible=true
 	bg.visible=true
 	player.noise_sensor=false
-	player.UI.progress_bar.visible=false
+	player.UI.noise_bar.visible=false
 
 func _on_portal_to_arrival_body_entered(body: Node2D) -> void:
 	if body.name=="player":

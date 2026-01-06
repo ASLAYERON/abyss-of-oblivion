@@ -18,25 +18,31 @@ extends CharacterBody2D
 #string
 var actual_action: String = "IDLE"
 #float
-var SPEED: float = 60.0
+var SPEED: float = 30.0
 var CLIMB_VELOCITY: float = -60.0
-var noise: float = 0
-#int
+var noise: float = 0.0
 var previous_velocity_y: float = 0.0
-var life_points: int = 3
-var max_health: int = 3
+#int
+var max_stamina: int = 100
+var stamina: int = max_stamina
+var max_health: int = 30
+var health_points: int = max_health
+var run_factor: int = 1
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
 var hit_direction=0 #permet de savoir dans quel sens faire l'animation de hit
 var knockback = 400
 #booleen
+var is_running: bool = false
 var noise_sensor: bool = true
 var is_making_noise: bool = false
 var debug_mode: bool = false
 var is_getting_up: bool = false
-var is_climbing: bool = false
+var is_wall_climbing: bool = false
+var is_straight_climbing: bool = false
 var was_on_floor: bool = false
 var is_transitioning: bool = false
 var is_iframes: bool = false
+var using_stamina: bool = false
 # ##################################
 
 #func animation
@@ -55,17 +61,17 @@ func damage(hp,direction):
 		freeze_timer.start()
 		UI.show_freeze_vignette(true)
 		if !debug_mode :
-			life_points-=hp
+			health_points-=hp
 
 #montre un texte (instructions)
 func show_text(text):
 	if text=="KILL":
 		if noise_sensor:
-			UI.progress_bar.visible=true
+			UI.noise_bar.visible=true
 		UI.instruction.visible=false
 	else:
 		if noise_sensor:
-			UI.progress_bar.visible=false
+			UI.noise_bar.visible=false
 		UI.instruction.text=text
 		UI.instruction.visible=true
 	
@@ -73,7 +79,7 @@ func show_text(text):
 func debugMode():
 	if debug_mode:
 		debug_mode=false
-		SPEED = 60.0
+		SPEED = 30.0
 		CLIMB_VELOCITY = -80.0
 	else:
 		debug_mode=true
@@ -87,33 +93,42 @@ func handle_noise():
 		if !is_making_noise:
 			if noise >1: noise+=-0.5
 			else: noise =0
-		UI.progress_bar.value=noise
+		UI.noise_bar.value=noise
 		is_making_noise= false
 
 #permet au joueur de grimper sur les echelles
 func climb_straight():
 			#grimpette
+		is_straight_climbing = false
 		if (Global.can_go_up || debug_mode):
 			if Input.is_action_pressed("up"):
+				is_straight_climbing = true
 				velocity.y= CLIMB_VELOCITY	
 				if noise_sensor : #fait du bruit si tu marche
-					noise+=0.05
 					is_making_noise=true
 			elif Input.is_action_pressed("down"):
+				is_straight_climbing = true
 				velocity.y= -CLIMB_VELOCITY
 				if noise_sensor : #fait du bruit si tu marche
-					noise+=0.05
 					is_making_noise=true
 			else:
 				velocity.y=0
 
 #regarde si le player est mort
-func check_if_is_dead():
-	if life_points<1 and Global.state != "freeze":
+func check_life():
+	if health_points<1 and Global.state != "freeze":
 		get_tree().change_scene_to_file("res://scenes/start.tscn")
+	UI.upd_health(health_points,max_health)
 
-func refill_life_points():
-	life_points=max_health
+func refill_health_points():
+	health_points=max_health
+	
+func handle_stamina():
+	if stamina <= 0:
+		stamina = 0
+	if stamina < max_stamina && !using_stamina:
+		stamina +=1
+	UI.upd_stamina(stamina,max_stamina)
 
 #gere la gravitée et les chutes
 func handle_gravity(delta):
@@ -135,7 +150,7 @@ func handle_gravity(delta):
 	else: #fait tomber le joueur
 		was_on_floor=false
 		# Add the gravity.
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * 1/run_factor
 
 #anime le joueur
 func animate_player(direction):
@@ -143,6 +158,9 @@ func animate_player(direction):
 		## DEBUG
 		if debug_mode: actual_action="DEBUG"
 		## GETTING UP	
+		elif Global.can_go_up:
+			if is_straight_climbing: actual_action = "STRAIGHT_CLIMB"
+			else: actual_action = "CLIMB_STATIC"
 		elif is_getting_up: actual_action = "GET_UP"
 		## WALK CLIMB TRANSITION
 		elif direction:
@@ -150,12 +168,12 @@ func animate_player(direction):
 			if direction>0:
 				if is_transitioning: actual_action = "transitionRIGHT"
 				else:
-					if is_climbing: actual_action = "climbRIGHT"	
+					if is_wall_climbing: actual_action = "climbRIGHT"	
 					else: actual_action = "RIGHT"
 			else:
 				if is_transitioning: actual_action = "transitionLEFT"
 				else:
-					if is_climbing: actual_action = "climbLEFT"
+					if is_wall_climbing: actual_action = "climbLEFT"
 					else: actual_action = "LEFT"
 			old_direction=direction
 		else: #tu ne fait rien
@@ -176,24 +194,35 @@ func animate_player(direction):
 func walk_and_wall_climb(direction,delta):
 			# marcher/grimper aux murs droite/gauche
 	if direction && !is_getting_up:
-		if abs(velocity.x) > SPEED:
-			velocity.x = direction * SPEED  * (delta*62.5)
+		if abs(velocity.x) >= SPEED:
+			velocity.x = direction * SPEED  * (delta*62.5) * run_factor
 			#footstep.play()
 		else:
-			velocity.x += direction * SPEED * (delta*10)
+			velocity.x += direction * SPEED * (delta*10) * run_factor
 		if noise_sensor : #fait du bruit si tu marche
 			noise+=0.1
 			is_making_noise= true
-		if is_on_floor() && is_on_wall() && !is_climbing:	
+		if is_on_floor() && is_on_wall() && !is_wall_climbing:	
 			climb_time.start()
-			is_climbing=true
-			velocity.y = CLIMB_VELOCITY * (delta*62.5)
-		elif is_climbing:
+			is_wall_climbing=true
+			velocity.y = CLIMB_VELOCITY * (delta*62.5)  * run_factor
+		elif is_wall_climbing:
 			velocity.y = CLIMB_VELOCITY * (delta*62.5)
 	else: #tu ne fait rien
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	previous_velocity_y=velocity.y
-	
+
+func run():
+	if Input.is_action_pressed("run"):
+		if stamina > 0:
+			run_factor = 3	
+			stamina -= 2
+			using_stamina = true
+		else:
+			run_factor = 1
+			using_stamina = true
+	else:
+		run_factor = 1
 
 func add_coin(coin_value):
 	Global.coins+=coin_value
@@ -219,7 +248,7 @@ func load_game() -> void:
 
 #timer du grimpage aux murs
 func _on_climb_time_timeout() -> void:
-	is_climbing=false
+	is_wall_climbing=false
 
 #timer grosse chute
 func _on_get_up_timer_timeout() -> void:
@@ -258,14 +287,19 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	#mode playing (le perso bouge)	
 	if Global.state=="playing":
-		check_if_is_dead()
+		check_life()
 		#declenche mode debug
 		if Input.is_action_just_pressed("debug"):
 			debugMode()
 
 		handle_gravity(delta)
 		
-		climb_straight()	
+		climb_straight()
+		
+		using_stamina = false
+		run()
+		handle_stamina()
+		
 		walk_and_wall_climb(direction,delta)
 		#upd du bruit
 		handle_noise()

@@ -7,7 +7,7 @@ func _ready() -> void:
 	player.visible=true
 	bg.visible=true
 	player.noise_sensor=false
-	player.UI.progress_bar.visible=false
+	player.UI.noise_bar.visible=false
 	player.position=Global.tp_offset
 
 func _on_portal_to_caves_body_entered(body: Node2D) -> void:

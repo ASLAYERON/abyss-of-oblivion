@@ -3,13 +3,13 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $sprite
 @onready var attack_timer: Timer = $attack_timer
 @onready var climb_time: Timer = $climb_time
-
+@onready var warning: AnimatedSprite2D = $warning
 ## OBJECT
 var player = null
 const rat_attack = preload("res://scenes/rat_attack.tscn")
 
 ## INT
-var SPEED = 1.4
+var SPEED = 1.1
 var direction = 0
 
 ## BOOL
@@ -54,8 +54,12 @@ func _physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta
 	if !is_awake:
+		if warning.visible:
+			warning.play("awakening")
 		set_collision_layer_value(1,false)
 		if player_is_here:
+			if player.noise > 20:
+				warning.visible = true
 			if player.noise > 30:
 				is_awake = true
 				set_collision_layer_value(1,true)
@@ -96,3 +100,6 @@ func _physics_process(delta: float) -> void:
 						position.x -= SPEED
 					sprite.play("ATTACK")
 	move_and_slide()
+	
+func _on_warning_animation_finished() -> void:
+	warning.visible = false

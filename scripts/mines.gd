@@ -5,5 +5,5 @@ func _ready() -> void:
 	player.visible=true
 	bg.visible=true
 	player.noise_sensor=false
-	player.progress_bar.visible=false
+	player.noise_bar.visible=false
 	player.position=Global.tp_offset

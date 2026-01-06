@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://cp5syrb2ckqss"]
+[gd_scene load_steps=32 format=3 uid="uid://cp5syrb2ckqss"]
 
 [ext_resource type="Texture2D" uid="uid://dvw0iq8m8qslq" path="res://assets/sprites/RAT_SPRITESHEET.png" id="1_1l88y"]
 [ext_resource type="Script" uid="uid://bspv3injpg76k" path="res://scripts/rat.gd" id="1_77a1s"]
 [ext_resource type="Texture2D" uid="uid://bamvwa0btjhnn" path="res://Abyss of oblivion assets workshop/pixilart-sprite.png" id="3_acf8p"]
+[ext_resource type="Texture2D" uid="uid://yw8g42uwsun" path="res://assets/sprites/signals.png" id="4_3csnj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77a1s"]
 size = Vector2(16, 7)
@@ -177,6 +178,51 @@ radius = 40.0031
 [sub_resource type="CircleShape2D" id="CircleShape2D_acf8p"]
 radius = 75.0017
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyerr"]
+atlas = ExtResource("4_3csnj")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnun8"]
+atlas = ExtResource("4_3csnj")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb30i"]
+atlas = ExtResource("4_3csnj")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc6ob"]
+atlas = ExtResource("4_3csnj")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_acf8p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyerr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnun8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb30i")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_vc6ob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb30i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnun8")
+}, {
+"duration": 3.0,
+"texture": null
+}],
+"loop": false,
+"name": &"awakening",
+"speed": 10.0
+}]
+
 [node name="RAT" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
@@ -215,7 +261,15 @@ wait_time = 1.1
 wait_time = 0.5
 one_shot = true
 
+[node name="warning" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_acf8p")
+animation = &"awakening"
+frame = 6
+frame_progress = 1.0
+
 [connection signal="body_entered" from="hear_zone" to="." method="_on_hear_zone_body_entered"]
 [connection signal="body_exited" from="forget_zone" to="." method="_on_forget_zone_body_exited"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]
+[connection signal="animation_finished" from="warning" to="." method="_on_warning_animation_finished"]

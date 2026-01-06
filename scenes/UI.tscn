@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbhr1psi0hd28"]
+[gd_scene load_steps=13 format=3 uid="uid://cbhr1psi0hd28"]
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
-[ext_resource type="Texture2D" uid="uid://bdndcbgc3aqnd" path="res://assets/sprites/noise-bar.png" id="3_3wlde"]
-[ext_resource type="Texture2D" uid="uid://d3hyu1cxfget7" path="res://Abyss of oblivion assets workshop/pixil-frame 6777.png" id="4_xpksx"]
 [ext_resource type="Texture2D" uid="uid://b622qughmm5ig" path="res://Abyss of oblivion assets workshop/KOIN.png" id="5_75u2n"]
+[ext_resource type="Texture2D" uid="uid://dbh0qs4bec40n" path="res://Abyss of oblivion assets workshop/yooooololo (2).png" id="5_xpksx"]
 [ext_resource type="Texture2D" uid="uid://brbrw8em6536q" path="res://Abyss of oblivion assets workshop/2025_12_18_0q9_Kleki.png" id="6_3wlde"]
+[ext_resource type="Texture2D" uid="uid://b4ut21vxahj3" path="res://Abyss of oblivion assets workshop/yooooololo (1).png" id="6_ukj8e"]
+[ext_resource type="Texture2D" uid="uid://nvo5h5vbl1vk" path="res://Abyss of oblivion assets workshop/noise (1).png" id="7_ukj8e"]
+[ext_resource type="Texture2D" uid="uid://bphnymsn1quf1" path="res://Abyss of oblivion assets workshop/yooooololo (3).png" id="7_w7enk"]
+[ext_resource type="Texture2D" uid="uid://cuvfye6r6y0o3" path="res://Abyss of oblivion assets workshop/noise (2).png" id="8_w7enk"]
+[ext_resource type="Script" uid="uid://bltur0sv6syda" path="res://scripts/camera_2d.gd" id="10_w7enk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
 noise_type = 0
@@ -21,11 +25,11 @@ z_index = 4
 layout_mode = 3
 anchor_left = -0.07
 anchor_top = -0.057
-anchor_right = 0.072
+anchor_right = 0.07
 anchor_bottom = 0.084
 offset_left = 80.64
 offset_top = 36.936
-offset_right = -82.944
+offset_right = -80.64
 offset_bottom = -54.432
 mouse_filter = 2
 script = ExtResource("1_ua6yw")
@@ -71,17 +75,6 @@ theme_override_font_sizes/font_size = 16
 text = "LOAD"
 flat = true
 
-[node name="ProgressBar" type="TextureProgressBar" parent="."]
-z_index = 3
-layout_mode = 0
-offset_left = -55.0
-offset_top = 23.0
-offset_right = 57.0
-offset_bottom = 47.0
-value = 50.0
-texture_under = ExtResource("3_3wlde")
-texture_progress = ExtResource("4_xpksx")
-
 [node name="instruction" type="Label" parent="."]
 visible = false
 z_index = 3
@@ -98,26 +91,51 @@ horizontal_alignment = 1
 [node name="upper_bar" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = -82.0
-offset_top = -37.0
-offset_right = 84.0
-offset_bottom = -20.0
+offset_top = -35.0
+offset_right = 77.0
+offset_bottom = -15.0
 theme_override_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="upper_bar"]
+layout_mode = 2
+
+[node name="health_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
+layout_mode = 2
+value = 50.0
+texture_under = ExtResource("5_xpksx")
+texture_progress = ExtResource("6_ukj8e")
+
+[node name="stamina_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+texture_under = ExtResource("5_xpksx")
+texture_progress = ExtResource("7_w7enk")
 
 [node name="TextureRect" type="TextureRect" parent="upper_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 texture = ExtResource("5_75u2n")
 stretch_mode = 2
 
 [node name="coin_counter" type="Label" parent="upper_bar"]
 z_index = 3
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_75u2n")
 theme_override_font_sizes/font_size = 16
-text = "ERROR"
+text = "ERR"
 horizontal_alignment = 1
+
+[node name="noise_bar" type="TextureProgressBar" parent="upper_bar"]
+z_index = 3
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+value = 50.0
+texture_under = ExtResource("7_ukj8e")
+texture_progress = ExtResource("8_w7enk")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.5, 0.5, 0.5, 1)
@@ -144,6 +162,13 @@ modulate = Color(0.78, 0.5148, 0.5148, 0.482353)
 position = Vector2(1.90735e-06, 9.5)
 scale = Vector2(0.145833, 0.146605)
 texture = ExtResource("6_3wlde")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, 9)
+zoom = Vector2(7, 7)
+script = ExtResource("10_w7enk")
+randomStrength = 1.5
+shakeFade = 6.0
 
 [connection signal="pressed" from="rest menu/HBoxContainer/save_button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="rest menu/HBoxContainer/load_button" to="." method="_on_load_button_pressed"]
