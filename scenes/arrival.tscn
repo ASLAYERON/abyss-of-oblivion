@@ -162,7 +162,7 @@ advice_dialogue = "Vespa"
 
 [node name="advice3" parent="Can_Interact" instance=ExtResource("11_umkwn")]
 position = Vector2(984, 252)
-advice_dialogue = "ogulkan"
+advice_dialogue = "ogulcan"
 
 [node name="advice4" parent="Can_Interact" instance=ExtResource("11_umkwn")]
 position = Vector2(584, 220)

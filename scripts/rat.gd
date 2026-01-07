@@ -58,9 +58,9 @@ func _physics_process(delta: float) -> void:
 			warning.play("awakening")
 		set_collision_layer_value(1,false)
 		if player_is_here:
-			if player.noise > 20:
-				warning.visible = true
 			if player.noise > 30:
+				warning.visible = true
+			if player.noise > 50:
 				is_awake = true
 				set_collision_layer_value(1,true)
 

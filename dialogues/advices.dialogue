@@ -29,8 +29,8 @@ Directions:         Vous quittez Sepultombre \n                                 
 set Global.state = "playing"
 => END
 ## Tombes
-~ ogulkan
-Tombe: Ici repose Ogulkan, puisse sa tristesse l'avoir abandonné maintenant qu'il est partit.
+~ ogulcan
+Tombe: Ici repose Ogulcan, puisse sa tristesse l'avoir abandonné maintenant qu'il est partit.
 set Global.state = "playing"
 => END
 ~ Vespa
@@ -40,5 +40,10 @@ set Global.state = "playing"
 => END
 ~ Orligrotek
 Tombe: Ici repose Orligrotek, père aimant, a tout jamais aimé par sa femme Liagrotek et son fils Marigrotek.
+set Global.state = "playing"
+=> END
+
+~ not_develloped
+Dev: Desolé, arriver j'usqu'ici ne sert a rien pour l'instant, venz plus tard !
 set Global.state = "playing"
 => END

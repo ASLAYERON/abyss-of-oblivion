@@ -45,11 +45,7 @@ var is_iframes: bool = false
 var using_stamina: bool = false
 # ##################################
 
-#func animation
-func animation(actual_action):
-	player.play(actual_action)
-
-#damage
+## GESTION DE LA VIE
 func damage(hp,direction):
 	if !is_iframes:
 		camera.camera_shake()
@@ -62,82 +58,27 @@ func damage(hp,direction):
 		UI.show_freeze_vignette(true)
 		if !debug_mode :
 			health_points-=hp
-
-#montre un texte (instructions)
-func show_text(text):
-	if text=="KILL":
-		if noise_sensor:
-			UI.noise_bar.visible=true
-		UI.instruction.visible=false
-	else:
-		if noise_sensor:
-			UI.noise_bar.visible=false
-		UI.instruction.text=text
-		UI.instruction.visible=true
-	
-#passe en debug mode (god mode)	
-func debugMode():
-	if debug_mode:
-		debug_mode=false
-		SPEED = 30.0
-		CLIMB_VELOCITY = -80.0
-	else:
-		debug_mode=true
-		SPEED = 200.0
-		CLIMB_VELOCITY = -120.0
-
-func handle_noise():
-	if noise_sensor:
-		#borne du bruit et desincrementation si silencieux
-		if noise>100: noise=100
-		if !is_making_noise:
-			if noise >1: noise+=-0.5
-			else: noise =0
-		UI.noise_bar.value=noise
-		is_making_noise= false
-
-#permet au joueur de grimper sur les echelles
-func climb_straight():
-			#grimpette
-		is_straight_climbing = false
-		if (Global.can_go_up || debug_mode):
-			if Input.is_action_pressed("up"):
-				is_straight_climbing = true
-				velocity.y= CLIMB_VELOCITY	
-				if noise_sensor : #fait du bruit si tu marche
-					is_making_noise=true
-			elif Input.is_action_pressed("down"):
-				is_straight_climbing = true
-				velocity.y= -CLIMB_VELOCITY
-				if noise_sensor : #fait du bruit si tu marche
-					is_making_noise=true
-			else:
-				velocity.y=0
-
-#regarde si le player est mort
 func check_life():
 	if health_points<1 and Global.state != "freeze":
 		get_tree().change_scene_to_file("res://scenes/start.tscn")
 	UI.upd_health(health_points,max_health)
-
 func refill_health_points():
 	health_points=max_health
-	
+
+## HANDLINGS
 func handle_stamina():
 	if stamina <= 0:
 		stamina = 0
 	if stamina < max_stamina && !using_stamina:
 		stamina +=1
 	UI.upd_stamina(stamina,max_stamina)
-
-#gere la gravitée et les chutes
 func handle_gravity(delta):
 	if is_on_floor():
 		if !was_on_floor:
 			#anim et gros bruit si grosse chutte
 			if previous_velocity_y>200:
 				if noise_sensor:
-					noise += 10 + previous_velocity_y/7
+					noise += 5 + previous_velocity_y/7
 					is_making_noise= true
 				is_getting_up=true
 				#la grosse chute a un cooldown
@@ -151,8 +92,23 @@ func handle_gravity(delta):
 		was_on_floor=false
 		# Add the gravity.
 		velocity += get_gravity() * delta * 1/run_factor
+func handle_noise():
+	if noise_sensor:
+		#borne du bruit et desincrementation si silencieux
+		if noise>100: noise=100
+		if is_making_noise:
+			noise = 20 + abs(velocity.x)/3 + abs(velocity.y)/8
+		else:
+			if noise >1: noise+=-0.5
+			else: noise =0
+		if noise>50:
+			print("DANGER")
+		else:
+			print(" ")
+		UI.noise_bar.value=noise
+		is_making_noise= false
 
-#anime le joueur
+## ANIMATION
 func animate_player(direction):
 	if Global.state == "playing":
 		## DEBUG
@@ -189,8 +145,10 @@ func animate_player(direction):
 	elif Global.state == "freeze":
 		if hit_direction: actual_action = "HIT_LEFT"
 		else : actual_action = "HIT_RIGHT"
-		
-		
+func animation(actual_action):
+	player.play(actual_action)		
+
+## MOUVEMENT
 func walk_and_wall_climb(direction,delta):
 			# marcher/grimper aux murs droite/gauche
 	if direction && !is_getting_up:
@@ -200,7 +158,6 @@ func walk_and_wall_climb(direction,delta):
 		else:
 			velocity.x += direction * SPEED * (delta*10) * run_factor
 		if noise_sensor : #fait du bruit si tu marche
-			noise+=0.1
 			is_making_noise= true
 		if is_on_floor() && is_on_wall() && !is_wall_climbing:	
 			climb_time.start()
@@ -211,7 +168,6 @@ func walk_and_wall_climb(direction,delta):
 	else: #tu ne fait rien
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	previous_velocity_y=velocity.y
-
 func run():
 	if Input.is_action_pressed("run"):
 		if stamina > 0:
@@ -223,18 +179,58 @@ func run():
 			using_stamina = true
 	else:
 		run_factor = 1
+func climb_straight():    #permet au joueur de grimper sur les echelles
 
+	
+			#grimpette
+		is_straight_climbing = false
+		if (Global.can_go_up || debug_mode):
+			if Input.is_action_pressed("up"):
+				is_straight_climbing = true
+				velocity.y= CLIMB_VELOCITY	
+				if noise_sensor : #fait du bruit si tu marche
+					is_making_noise=true
+			elif Input.is_action_pressed("down"):
+				is_straight_climbing = true
+				velocity.y= -CLIMB_VELOCITY
+				if noise_sensor : #fait du bruit si tu marche
+					is_making_noise=true
+			else:
+				velocity.y=0
+
+## MISC
 func add_coin(coin_value):
 	Global.coins+=coin_value
 	UI.change_coin_value(Global.coins)		
+func show_text(text):     #montre un texte (instructions)
+	if text=="KILL":
+		if noise_sensor:
+			UI.noise_bar.visible=true
+		UI.instruction.visible=false
+	else:
+		if noise_sensor:
+			UI.noise_bar.visible=false
+		UI.instruction.text=text
+		UI.instruction.visible=true	
+func debugMode():         #passe en debug mode (god mode)	
+	if debug_mode:
+		set_collision_layer_value(1,true)
+		set_collision_mask_value(1,true)
+		debug_mode=false
+		SPEED = 30.0
+		CLIMB_VELOCITY = -80.0
+	else:
+		set_collision_layer_value(1,false)
+		set_collision_mask_value(1,false)
+		debug_mode=true
+		SPEED = 200.0
+		CLIMB_VELOCITY = -120.0
 
-# save
+## SAVE & LOAD
 func save_game() -> void:
 	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,Global.coins)
 	UI.rest_menu.visible=false
 	Global.state="playing"
-
-# load
 func load_game() -> void:
 	var save_data=saveSystem._load()
 	get_tree().change_scene_to_file(save_data.scene_file_path)
@@ -245,23 +241,16 @@ func load_game() -> void:
 	Global.state="playing"
 
 ## #######  FONCTIONS EVENT
-
-#timer du grimpage aux murs
-func _on_climb_time_timeout() -> void:
+func _on_climb_time_timeout() -> void: #timer du grimpage aux murs
 	is_wall_climbing=false
 
-#timer grosse chute
-func _on_get_up_timer_timeout() -> void:
+func _on_get_up_timer_timeout() -> void: #timer grosse chute
 	is_getting_up=false
 	actual_action="IDLE"
-
-# ###################################
-	#init du player
 
 func _on_player_animation_finished() -> void:
 	if is_transitioning:
 		is_transitioning=false
-
 
 func _on_iframe_timer_timeout() -> void:
 	is_iframes = false
@@ -275,11 +264,11 @@ func _on_freeze_timer_timeout() -> void:
 	else : velocity.x -= knockback
 
 # ##################################
-
-#INITIALISATION
+## INITIALISATION
 func _ready():
 	UI.change_coin_value(Global.coins)
 	UI.rest_menu.visible = false
+
 # ##################################
 
 func _physics_process(delta: float) -> void:
@@ -301,6 +290,7 @@ func _physics_process(delta: float) -> void:
 		handle_stamina()
 		
 		walk_and_wall_climb(direction,delta)
+		
 		#upd du bruit
 		handle_noise()
 		
