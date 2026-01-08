@@ -505,6 +505,8 @@ stream_1/stream = ExtResource("6_smehm")
 stream_2/stream = ExtResource("7_ur7pv")
 
 [node name="Node2D" type="CharacterBody2D"]
+light_mask = 2
+visibility_layer = 2
 safe_margin = 0.1
 script = ExtResource("1_b8584")
 

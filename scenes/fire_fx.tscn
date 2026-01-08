@@ -6,11 +6,13 @@
 [node name="FireFx" type="Node2D"]
 
 [node name="fire" type="PointLight2D" parent="."]
-light_mask = 2
 visibility_layer = 2
 color = Color(0.999999, 0.803319, 0.406486, 1)
 energy = 3.0
 shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.698039)
+shadow_filter = 1
+shadow_filter_smooth = 8.0
 texture = ExtResource("1_lwrtn")
 texture_scale = 1.5
 

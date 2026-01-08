@@ -21,9 +21,10 @@ var actual_action: String = "IDLE"
 var SPEED: float = 30.0
 var CLIMB_VELOCITY: float = -60.0
 var noise: float = 0.0
+var noise_goal: float = 0.0
 var previous_velocity_y: float = 0.0
 #int
-var max_stamina: int = 100
+var max_stamina: int = 500
 var stamina: int = max_stamina
 var max_health: int = 30
 var health_points: int = max_health
@@ -97,14 +98,14 @@ func handle_noise():
 		#borne du bruit et desincrementation si silencieux
 		if noise>100: noise=100
 		if is_making_noise:
-			noise = 20 + abs(velocity.x)/3 + abs(velocity.y)/8
+			noise_goal = 30 + abs(velocity.x)/3 + abs(velocity.y)/8
+			if noise < noise_goal:
+				noise += 1
+			else:
+				noise = noise_goal
 		else:
 			if noise >1: noise+=-0.5
 			else: noise =0
-		if noise>50:
-			print("DANGER")
-		else:
-			print(" ")
 		UI.noise_bar.value=noise
 		is_making_noise= false
 
