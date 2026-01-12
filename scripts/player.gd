@@ -24,7 +24,7 @@ var noise: float = 0.0
 var noise_goal: float = 0.0
 var previous_velocity_y: float = 0.0
 #int
-var max_stamina: int = 500
+var max_stamina: int = 100
 var stamina: int = max_stamina
 var max_health: int = 30
 var health_points: int = max_health
@@ -146,6 +146,8 @@ func animate_player(direction):
 	elif Global.state == "freeze":
 		if hit_direction: actual_action = "HIT_LEFT"
 		else : actual_action = "HIT_RIGHT"
+	elif Global.state == "cutscene":
+		actual_action = "UPGRADE"
 func animation(actual_action):
 	player.play(actual_action)		
 
@@ -229,17 +231,14 @@ func debugMode():         #passe en debug mode (god mode)
 
 ## SAVE & LOAD
 func save_game() -> void:
-	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,Global.coins)
-	UI.rest_menu.visible=false
-	Global.state="playing"
+	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,Global.Vespillo_progression,Global.Geld_Kampfer_progression,Global.have_shield,Global.coins)
+	UI.rest_menu.visible = false
+	Global.state = "playing"
 func load_game() -> void:
 	var save_data=saveSystem._load()
 	get_tree().change_scene_to_file(save_data.scene_file_path)
-	Global.tp_offset=save_data.player_position
-	Global.Altstein_progression=save_data.Altstein_progression
-	Global.coins=save_data.Global.coins
-	UI.rest_menu.visible=false
-	Global.state="playing"
+	UI.rest_menu.visible = false
+	Global.state = "playing"
 
 ## #######  FONCTIONS EVENT
 func _on_climb_time_timeout() -> void: #timer du grimpage aux murs
@@ -299,11 +298,13 @@ func _physics_process(delta: float) -> void:
 		global_position=round(global_position)
 
 	#etat de repos	
-	elif Global.state=="rest":
+	elif Global.state == "rest":
 		UI.rest_menu.visible=true
 		
 	#est hit
-	elif Global.state=="freeze":
+	elif Global.state == "freeze":
+		pass
+	elif Global.state == "cutscene":
 		pass
 	animate_player(direction)	
 	animation(actual_action)

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cugiquxhcf6vu"]
+
+[ext_resource type="Texture2D" uid="uid://cgwq5fo751bjh" path="res://assets/sprites/SHIELD.png" id="1_3eue3"]
+[ext_resource type="Script" uid="uid://doqdskhk8vvvx" path="res://scripts/shield_update.gd" id="1_dcu3o"]
+[ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="3_ln07d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dcu3o"]
+radius = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2vhr"]
+bg_color = Color(0, 0, 0, 0.447059)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8i0xi"]
+font = ExtResource("3_ln07d")
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="shield_update" type="Area2D"]
+script = ExtResource("1_dcu3o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_dcu3o")
+
+[node name="Shield" type="Sprite2D" parent="."]
+texture = ExtResource("1_3eue3")
+
+[node name="POP-UP" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 5
+offset_left = -165.0
+offset_top = 18.0
+offset_right = 165.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_b2vhr")
+text = "AMELIORATION"
+label_settings = SubResource("LabelSettings_8i0xi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

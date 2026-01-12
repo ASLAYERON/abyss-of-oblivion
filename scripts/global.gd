@@ -8,6 +8,7 @@ var Altstein_progression = 0
 var Vespillo_progression = 0
 var Geld_Kampfer_progression = 0
 var coins = 0
+var have_shield = false
 
 var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict.
 	"caves":{

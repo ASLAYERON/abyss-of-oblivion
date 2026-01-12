@@ -2,6 +2,7 @@ extends Node2D
 @onready var player: CharacterBody2D = $player
 @onready var bg: Sprite2D = $Background/Bg
 @onready var ambiance: AudioStreamPlayer = $Ambiance/Ambiance
+@onready var shield_update: Area2D = $shield_update
 
 const rat = preload("res://scenes/rat.tscn")
 var new_enemy=null
