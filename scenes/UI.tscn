@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
+[ext_resource type="Texture2D" uid="uid://cuay1uort4ae4" path="res://assets/sprites/health_stamina_bar.png" id="3_w7enk"]
+[ext_resource type="Texture2D" uid="uid://curncghbuethc" path="res://assets/sprites/health_bar.png" id="4_aputy"]
+[ext_resource type="Texture2D" uid="uid://civbi2vjcu38n" path="res://assets/sprites/stamina_bar.png" id="5_7paak"]
 [ext_resource type="Texture2D" uid="uid://b622qughmm5ig" path="res://Abyss of oblivion assets workshop/KOIN.png" id="5_75u2n"]
-[ext_resource type="Texture2D" uid="uid://dbh0qs4bec40n" path="res://Abyss of oblivion assets workshop/yooooololo (2).png" id="5_xpksx"]
 [ext_resource type="Texture2D" uid="uid://brbrw8em6536q" path="res://Abyss of oblivion assets workshop/2025_12_18_0q9_Kleki.png" id="6_3wlde"]
-[ext_resource type="Texture2D" uid="uid://b4ut21vxahj3" path="res://Abyss of oblivion assets workshop/yooooololo (1).png" id="6_ukj8e"]
 [ext_resource type="Texture2D" uid="uid://nvo5h5vbl1vk" path="res://Abyss of oblivion assets workshop/noise (1).png" id="7_ukj8e"]
-[ext_resource type="Texture2D" uid="uid://bphnymsn1quf1" path="res://Abyss of oblivion assets workshop/yooooololo (3).png" id="7_w7enk"]
 [ext_resource type="Texture2D" uid="uid://cuvfye6r6y0o3" path="res://Abyss of oblivion assets workshop/noise (2).png" id="8_w7enk"]
 [ext_resource type="Script" uid="uid://bltur0sv6syda" path="res://scripts/camera_2d.gd" id="10_w7enk"]
 
@@ -102,14 +102,14 @@ layout_mode = 2
 [node name="health_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
 layout_mode = 2
 value = 50.0
-texture_under = ExtResource("5_xpksx")
-texture_progress = ExtResource("6_ukj8e")
+texture_under = ExtResource("3_w7enk")
+texture_progress = ExtResource("4_aputy")
 
 [node name="stamina_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
 layout_mode = 2
 value = 100.0
-texture_under = ExtResource("5_xpksx")
-texture_progress = ExtResource("7_w7enk")
+texture_under = ExtResource("3_w7enk")
+texture_progress = ExtResource("5_7paak")
 
 [node name="TextureRect" type="TextureRect" parent="upper_bar"]
 layout_mode = 2

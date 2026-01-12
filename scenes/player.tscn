@@ -587,6 +587,10 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
+[node name="parry_timer" type="Timer" parent="timers"]
+wait_time = 0.1
+one_shot = true
+
 [node name="sounds" type="Node" parent="."]
 
 [node name="footstep" type="AudioStreamPlayer" parent="sounds"]
@@ -600,3 +604,4 @@ stream = SubResource("AudioStreamRandomizer_y4r1p")
 [connection signal="timeout" from="timers/freeze_timer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="timers/get_up timer" to="." method="_on_get_up_timer_timeout"]
 [connection signal="timeout" from="timers/climb_time" to="." method="_on_climb_time_timeout"]
+[connection signal="timeout" from="timers/parry_timer" to="." method="_on_parry_timer_timeout"]

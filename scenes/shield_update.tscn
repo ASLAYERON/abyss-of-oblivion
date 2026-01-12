@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cugiquxhcf6vu"]
+[gd_scene load_steps=8 format=3 uid="uid://cugiquxhcf6vu"]
 
 [ext_resource type="Texture2D" uid="uid://cgwq5fo751bjh" path="res://assets/sprites/SHIELD.png" id="1_3eue3"]
 [ext_resource type="Script" uid="uid://doqdskhk8vvvx" path="res://scripts/shield_update.gd" id="1_dcu3o"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="3_ln07d"]
+[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="4_b2vhr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dcu3o"]
 radius = 1.0
@@ -37,5 +38,16 @@ text = "AMELIORATION"
 label_settings = SubResource("LabelSettings_8i0xi")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="red_light" type="PointLight2D" parent="."]
+visibility_layer = 2
+color = Color(0.648869, 0.0766132, 0.0923069, 1)
+energy = 3.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.698039)
+shadow_filter = 1
+shadow_filter_smooth = 8.0
+texture = ExtResource("4_b2vhr")
+texture_scale = 1.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
