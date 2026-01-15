@@ -5,8 +5,12 @@ extends CharacterBody2D
 @onready var player: AnimatedSprite2D = $PLAYER
 @onready var UI: Control = $UI
 @onready var camera: Camera2D = $Camera
+## SOUNDS
 @onready var footstep: AudioStreamPlayer = $sounds/footstep
 @onready var hit_hurt: AudioStreamPlayer = $sounds/hitHurt
+@onready var parry: AudioStreamPlayer = $sounds/parry
+@onready var running: AudioStreamPlayer = $sounds/running
+@onready var ladder_climb: AudioStreamPlayer = $sounds/ladder_climb
 ## TIMERS
 @onready var parry_timer: Timer = $timers/parry_timer
 @onready var climb_time: Timer = $timers/climb_time
@@ -28,7 +32,7 @@ var previous_velocity_y: float = 0.0
 #int
 var max_stamina: int = 100
 var stamina: int = max_stamina
-var max_health: int = 30
+var max_health: int = 300  
 var health_points: int = max_health
 var run_factor: int = 1
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
@@ -51,17 +55,26 @@ var is_parrying: bool = false
 # ##################################
 
 ## GESTION DE LA VIE
-func damage(hp,direction):
+func damage(hp,direction,caster):
 	if is_iframes or debug_mode:
 		pass
 	elif is_blocking:
 		if is_parrying:
-			pass
+			parry.play()
+			caster.stun()
 		elif stamina > hp:
 			stamina -= hp
 		else:
 			stamina = 0
 			health_points -= hp - stamina
+			camera.camera_shake()
+			hit_hurt.play()
+			hit_direction=int(direction)
+			Global.state="freeze"
+			is_iframes=true
+			iframe_timer.start()
+			freeze_timer.start()
+			UI.show_freeze_vignette(true)
 	else:
 		health_points -= hp
 		camera.camera_shake()
@@ -174,9 +187,14 @@ func animation(actual_action):
 func walk_and_wall_climb(direction,delta):
 			# marcher/grimper aux murs droite/gauche
 	if direction && !is_getting_up && !is_blocking:
+		if run_factor == 1:
+			if !footstep.playing:
+				footstep.play()
+		else:
+			if !running.playing:
+				running.play()
 		if abs(velocity.x) >= SPEED:
 			velocity.x = direction * SPEED  * (delta*62.5) * run_factor
-			#footstep.play()
 		else:
 			velocity.x += direction * SPEED * (delta*10) * run_factor
 		if noise_sensor : #fait du bruit si tu marche
@@ -205,11 +223,15 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 		is_straight_climbing = false
 		if (Global.can_go_up || debug_mode) && !is_blocking:
 			if Input.is_action_pressed("up"):
+				if !ladder_climb.playing:
+					ladder_climb.play()
 				is_straight_climbing = true
 				velocity.y= CLIMB_VELOCITY	
 				if noise_sensor : #fait du bruit si tu marche
 					is_making_noise=true
 			elif Input.is_action_pressed("down"):
+				if !ladder_climb.playing:
+					ladder_climb.play()
 				is_straight_climbing = true
 				velocity.y= -CLIMB_VELOCITY
 				if noise_sensor : #fait du bruit si tu marche
@@ -221,11 +243,13 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 func block():
 	if Global.have_shield && !is_iframes:
 		if Input.is_action_just_pressed("block"):
+			using_stamina = true
 			is_blocking = true
 			if !is_parrying:
 				parry_timer.start()
 				is_parrying = true
 		elif Input.is_action_pressed("block"):
+			using_stamina = true
 			is_blocking = true
 		else:
 			is_blocking = false
@@ -310,17 +334,17 @@ func _physics_process(delta: float) -> void:
 		#declenche mode debug
 		if Input.is_action_just_pressed("debug"):
 			debugMode()
-		
 		handle_gravity(delta)
 		
-		block()
 		## Move and sound
 		using_stamina = false
 		run()
 		walk_and_wall_climb(direction,delta)
 		climb_straight()
-		handle_stamina()
 		
+		block()
+		
+		handle_stamina()
 		#upd du bruit
 		handle_noise()
 		check_life()

@@ -1,5 +1,4 @@
 extends Area2D
-@onready var texture_rect: TextureRect = $TextureRect
 @onready var shield: Sprite2D = $Shield
 @onready var pop_up: Label = $"POP-UP"
 

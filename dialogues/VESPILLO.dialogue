@@ -23,9 +23,16 @@ Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et d
 		Vespillo: Je ne sais pas si le pire est pour eux, ou pour nous qui les voyons disparaitre. Mais bon, je m'y suis fait, c'est mon travail, rien d'anomal, apres tout.
 		if Global.Vespillo_progression == 1:
 			- Vespa
-				Vespillo: Test
-			- Merci
-				Vespillo: Tu n'as a me remercier de rien. J'ai decide de faire cela, quelqu'un devait bien le faire...
+				Vespillo: ...
+				Vespillo: Tu as vu la tombe. C'est moi qui l'ai enterré, comme tout les autres; mais Vespa, ca n'a jamais été comme avec tout les autres.
+				L'inconnu: ...
+				Vespillo: Je l'aimais l'inconnu, je l'aimait plus que je ne me suis jamais aimé. Elle etait tout pour moi, et maintenant plus rien n'avais de sens...
+				Vespillo: ... [speed=0.1] C'est la bête qui l'a pris. Elle n'était plus elle même, elle allait nous faire du mal!
+				Vespillo: J'ai fait ce que j'avais a faire. Quand j'ai descendu le cerceuil dans la tombe, j'entendait ses cris, j'entendais ses ongles qui grattait sur les parois pour sortir.
+				Vespillo: [speeed=0.1] Elle ne pouvait pas sortir. J'ai cadenassé le cerceuil, comme avec tout les autres. Parfois j'ai l'impression de l'entendre gratter, encore.
+				L'inconnu: Je suis desolé...
+				Vespillo: Ne soit pas desolé! Ce n'est pas de la pitié qui lui rendrat son ame. Tout ca est passé maintenant, et je doit oublier, tout oublier, sinon la bête me prendra aussi.
+				set Global.Vespillo_progression = 3
 			- Aurevoir
 				L'inconnu: Aurevoir, l'inconnu.
 				Vespillo: Aurevoir.

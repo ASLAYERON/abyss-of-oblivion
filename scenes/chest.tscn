@@ -91,7 +91,7 @@ radius = 25.0799
 [node name="CHEST" type="Node2D"]
 script = ExtResource("1_sy5e1")
 
-[node name="chest_body" type="StaticBody2D" parent="."]
+[node name="chest_body" type="Area2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="chest_body"]
 position = Vector2(0, -4)
@@ -100,7 +100,6 @@ animation = &"opened"
 frame_progress = 0.395922
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="chest_body"]
-visible = false
 shape = SubResource("RectangleShape2D_nnvde")
 
 [node name="opening_timer" type="Timer" parent="."]
@@ -110,6 +109,7 @@ one_shot = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_sy5e1")
 
 [connection signal="animation_finished" from="chest_body/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

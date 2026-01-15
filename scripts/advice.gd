@@ -1,5 +1,4 @@
 extends Node2D
-@onready var advice_zone: Area2D = $advice_zone
 @onready var dialogue_area: Area2D = $dialogue_area
 var is_a_player_here=false
 var player=null

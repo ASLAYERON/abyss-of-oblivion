@@ -35,7 +35,8 @@ set Global.state = "playing"
 => END
 ~ Vespa
 Tombe: Ici repose Vepa La Guepe, reine de beautée et reine de coeur, que l'Absolu la guide loin des ténèbres de ces terres.
-set Global.Vespillo_progression = 1
+if Global.Vespillo==0 : 
+	set Global.Vespillo_progression = 1
 set Global.state = "playing"
 => END
 ~ Orligrotek
