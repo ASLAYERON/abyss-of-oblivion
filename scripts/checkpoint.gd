@@ -6,6 +6,7 @@ var player = null
 func _process(delta: float) -> void:
 	if is_a_player_here:
 		if Input.is_action_just_pressed("interact"):
+			print(player.position)
 			Global.state="rest"
 			player.refill_health_points()
 			Global.reset_enemies()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://3xx6dc27qdqf"]
+[gd_scene load_steps=93 format=3 uid="uid://3xx6dc27qdqf"]
 
 [ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
 [ext_resource type="Script" uid="uid://bltur0sv6syda" path="res://scripts/camera_2d.gd" id="2_dqkch"]
@@ -25,9 +25,10 @@
 [ext_resource type="AudioStream" uid="uid://bwa0nstoxj8nm" path="res://assets/sounds/player/running (6).mp3" id="23_dt7fs"]
 [ext_resource type="AudioStream" uid="uid://jl7coapdijqo" path="res://assets/sounds/player/running (7).mp3" id="24_wqfne"]
 [ext_resource type="AudioStream" uid="uid://b0mwsxuf8tora" path="res://assets/sounds/player/ladder_climb.mp3" id="25_ke2ow"]
+[ext_resource type="AudioStream" uid="uid://v004os4bbgsh" path="res://assets/sounds/player/shield_hit.mp3" id="26_ujl30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
-size = Vector2(12, 16)
+size = Vector2(12, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
 atlas = ExtResource("3_rdoyk")
@@ -590,6 +591,7 @@ safe_margin = 0.1
 script = ExtResource("1_b8584")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_itjk0")
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -641,7 +643,6 @@ stream = ExtResource("5_smehm")
 
 [node name="footstep" type="AudioStreamPlayer" parent="sounds"]
 stream = SubResource("AudioStreamRandomizer_ujl30")
-bus = &"Sounds"
 playback_type = 1
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="sounds"]
@@ -649,9 +650,13 @@ stream = SubResource("AudioStreamRandomizer_y4r1p")
 
 [node name="running" type="AudioStreamPlayer" parent="sounds"]
 stream = SubResource("AudioStreamRandomizer_wnwbv")
+volume_db = 5.0
 
 [node name="ladder_climb" type="AudioStreamPlayer" parent="sounds"]
 stream = SubResource("AudioStreamRandomizer_31cv2")
+
+[node name="shield_hit" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("26_ujl30")
 
 [connection signal="animation_finished" from="PLAYER" to="." method="_on_player_animation_finished"]
 [connection signal="timeout" from="timers/iframe_timer" to="." method="_on_iframe_timer_timeout"]

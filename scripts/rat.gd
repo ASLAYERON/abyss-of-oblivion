@@ -103,19 +103,23 @@ func _ready() -> void:
 	position=start_position
 
 func _physics_process(delta: float) -> void:
-	if !is_on_floor():
-		velocity += get_gravity() * delta
-	if !is_awake:
-		sleep()
-	else:
-		set_collision_layer_value(1,true)
-		direction = player.position.x-position.x
-		if is_stunned:
-			pass
+	var distance = sqrt((get_parent().player.position.x-position.x)**2 +(get_parent().player.position.y-position.y)**2)
+	if distance <= 300:
+		if !is_on_floor():
+			velocity += get_gravity() * delta
+		if !is_awake:
+			sleep()
 		else:
-			if abs(direction) < 20: #attack range
-				attack()
+			set_collision_layer_value(1,true)
+			direction = player.position.x-position.x
+			if is_stunned:
+				pass
 			else:
-				move()
-	move_and_slide()
+				if abs(direction) < 20: #attack range
+					attack()
+				else:
+					move()
+		move_and_slide()
+	else:
+		pass
 	

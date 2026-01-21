@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1wwwfnipv2lb"]
+
+[ext_resource type="Script" uid="uid://3ot8ppxguxku" path="res://scripts/block_door.gd" id="1_y8orj"]
+[ext_resource type="Texture2D" uid="uid://b24ojofrlcutq" path="res://assets/sprites/block_door.png" id="2_gdf2u"]
+[ext_resource type="AudioStream" uid="uid://bhjacm6w446bn" path="res://assets/sounds/misc/stone_crack.mp3" id="3_gdf2u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8orj"]
+size = Vector2(76, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaba2"]
+size = Vector2(48, 40)
+
+[node name="block_door" type="Node2D"]
+script = ExtResource("1_y8orj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_y8orj")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="door" type="StaticBody2D" parent="."]
+
+[node name="BlockDoor" type="Sprite2D" parent="door"]
+texture = ExtResource("2_gdf2u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door"]
+shape = SubResource("RectangleShape2D_oaba2")
+debug_color = Color(0, 0, 0, 0.42)
+
+[node name="scratch" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gdf2u")
+volume_db = 15.0
+pitch_scale = 0.8
+max_distance = 150.0
+bus = &"Sounds"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,7 +1,8 @@
 extends Node2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $chest_body/AnimatedSprite2D
 @onready var opening_timer: Timer = $opening_timer
-
+@onready var opening: AudioStreamPlayer = $opening
+@onready var opened: AudioStreamPlayer = $opened
 @export var coins_content: int = 1
 
 var coin = preload("res://scenes/coin.tscn")
@@ -20,10 +21,12 @@ func _process(delta: float) -> void:
 			else:
 				opening_timer.stop()
 				timer_playing=false
+				opening.stop()
 				animated_sprite_2d.play("default")
 		else :
 			if Input.is_action_pressed("interact"):
 				opening_timer.start()
+				opening.play()
 				timer_playing=true
 				animated_sprite_2d.play("opening")	
 			else:
@@ -42,6 +45,7 @@ func _on_opening_timer_timeout() -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	state="opened"
+	opened.play()
 	for i in range(coins_content):
 		var new_coin=coin.instantiate()
 		is_opened=true

@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var parry: AudioStreamPlayer = $sounds/parry
 @onready var running: AudioStreamPlayer = $sounds/running
 @onready var ladder_climb: AudioStreamPlayer = $sounds/ladder_climb
+@onready var shield_hit: AudioStreamPlayer = $sounds/shield_hit
 ## TIMERS
 @onready var parry_timer: Timer = $timers/parry_timer
 @onready var climb_time: Timer = $timers/climb_time
@@ -32,7 +33,7 @@ var previous_velocity_y: float = 0.0
 #int
 var max_stamina: int = 100
 var stamina: int = max_stamina
-var max_health: int = 300  
+var max_health: int = 50
 var health_points: int = max_health
 var run_factor: int = 1
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
@@ -64,6 +65,7 @@ func damage(hp,direction,caster):
 			caster.stun()
 		elif stamina > hp:
 			stamina -= hp
+			shield_hit.play()
 		else:
 			stamina = 0
 			health_points -= hp - stamina
@@ -238,6 +240,7 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 					is_making_noise=true
 			else:
 				velocity.y=0
+				ladder_climb.stop()
 
 ## ACTIONS
 func block():
@@ -284,7 +287,7 @@ func debugMode():         #passe en debug mode (god mode)
 
 ## SAVE & LOAD
 func save_game() -> void:
-	saveSystem._save(position,player.get_tree().current_scene.scene_file_path,Global.Altstein_progression,Global.Vespillo_progression,Global.Geld_Kampfer_progression,Global.have_shield,Global.coins)
+	saveSystem._save(position,player.get_tree().current_scene.scene_file_path)
 	UI.rest_menu.visible = false
 	Global.state = "playing"
 func load_game() -> void:
@@ -321,6 +324,9 @@ func _on_parry_timer_timeout() -> void:
 # ##################################
 ## INITIALISATION
 func _ready():
+	max_health = Global.max_health
+	max_stamina = Global.max_stamina
+	refill_health_points()
 	UI.change_coin_value(Global.coins)
 	UI.rest_menu.visible = false
 

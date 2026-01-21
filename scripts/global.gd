@@ -9,6 +9,14 @@ var Vespillo_progression = 0
 var Geld_Kampfer_progression = 0
 var coins = 0
 var have_shield = false
+var max_health = 50
+var max_stamina = 50
+
+var checkpoints = {
+	"Foret des morts": [Vector2(-135.0, 232.0),"res://scenes/arrival.tscn"],
+	"Antre des rats": [Vector2(1124.0, 184.0),"res://scenes/caves.tscn"],
+	"Camp de l'ancien heros": [Vector2(1465.0, 1224.0),"res://scenes/caves.tscn"],
+}
 
 var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict.
 	"caves":{

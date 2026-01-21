@@ -9,16 +9,20 @@ var contents_to_save : Dictionary = {
 	"Geld_Kampfer_progression":0,
 	"have_shield":0,
 	"coins":0,
+	"max_health":50,
+	"max_stamina":50,
 }
 
-func _save(player_position,scene_file_path,Altstein_progression,Vespillo_progression,Geld_Kampfer_progression,have_shield,coins):
+func _save(player_position,scene_file_path):
 	contents_to_save.scene_file_path = scene_file_path
 	contents_to_save.player_position = player_position
-	contents_to_save.Altstein_progression = Altstein_progression
-	contents_to_save.Vespillo_progression = Vespillo_progression
-	contents_to_save.Geld_Kampfer_progression = Geld_Kampfer_progression
-	contents_to_save.have_shield = have_shield
-	contents_to_save.coins = coins
+	contents_to_save.Altstein_progression = Global.Altstein_progression
+	contents_to_save.Vespillo_progression = Global.Vespillo_progression
+	contents_to_save.Geld_Kampfer_progression = Global.Geld_Kampfer_progression
+	contents_to_save.have_shield = Global.have_shield
+	contents_to_save.coins = Global.coins
+	contents_to_save.max_health = Global.max_health
+	contents_to_save.max_stamina = Global.max_stamina
 	var file = FileAccess.open(save_location,FileAccess.WRITE)
 	file.store_var(contents_to_save.duplicate())
 	file.close()
@@ -35,4 +39,6 @@ func _load():
 		Global.Geld_Kampfer_progression = save_data.Geld_Kampfer_progression
 		Global.have_shield = save_data.have_shield
 		Global.coins = save_data.coins
+		Global.max_health = save_data.max_health
+		Global.max_stamina = save_data.max_stamina
 		return save_data

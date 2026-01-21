@@ -32,3 +32,9 @@ func _on_portal_to_arrival_body_entered(body: Node2D) -> void:
 
 func _on_ambiance_finished() -> void:
 	ambiance.play()
+
+
+func _on_portal_to_sewer_body_entered(body: Node2D) -> void:
+	if body.name=="player":
+		Global.tp_offset=Vector2(0,0)
+		get_tree().change_scene_to_file("res://scenes/sewer_part_1.tscn")

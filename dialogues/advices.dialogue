@@ -4,22 +4,26 @@ Conseil: Bougez de droite a gauche avec les croix directionnelles gauche et droi
 set Global.state = "playing"
 => END
 ~ advice2
-Conseil: Vous pouvez grimper sur de petites hauteurs en avancant vers elles.
+Conseil: Courez avec majuscule. Vous ne pouvez courir que s'il vous reste de l'endurance (barre bleue)
 set Global.state = "playing"
 => END
 ~ advice3
-Conseil: Sur l'echelle, utiliser les croix directionelles haut et bas pour monter/descendre
+Conseil: Vous pouvez grimper sur de petites hauteurs en avancant vers elles.
 set Global.state = "playing"
 => END
 ~ advice4
-Conseil: Sauter d'un telle hauteur pourrait etre dangereux
+Conseil: Sur l'echelle, utiliser les croix directionelles haut et bas pour monter/descendre
 set Global.state = "playing"
 => END
 ~ advice5
-Conseil: Qui sait ce qui pourrait se passer si vous sautez ?
+Conseil: Sauter d'un telle hauteur pourrait etre dangereux
 set Global.state = "playing"
 => END
 ~ advice6
+Conseil: Qui sait ce qui pourrait se passer si vous sautez ?
+set Global.state = "playing"
+=> END
+~ advice7
 Conseil: Etes vous sur ?
 set Global.state = "playing"
 => END
@@ -35,7 +39,7 @@ set Global.state = "playing"
 => END
 ~ Vespa
 Tombe: Ici repose Vepa La Guepe, reine de beautée et reine de coeur, que l'Absolu la guide loin des ténèbres de ces terres.
-if Global.Vespillo==0 : 
+if Global.Vespillo_progression == 0: 
 	set Global.Vespillo_progression = 1
 set Global.state = "playing"
 => END
@@ -46,5 +50,9 @@ set Global.state = "playing"
 
 ~ not_develloped
 Dev: Desolé, arriver j'usqu'ici ne sert a rien pour l'instant, venz plus tard !
+set Global.state = "playing"
+=> END
+~ not_develloped2
+Dev: Cette zone n'est pas devellopée mais sera la prochaine a arriver, merci d'avoir joué a Abyss of Oblivion!
 set Global.state = "playing"
 => END

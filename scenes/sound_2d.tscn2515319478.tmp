@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvbfjibwnm366"]
+
+[ext_resource type="Script" uid="uid://u024asaqn5ib" path="res://scripts/sound_2d.gd" id="1_f70l4"]
+
+[node name="sound2d" type="AudioStreamPlayer"]
+volume_db = 5.0
+script = ExtResource("1_f70l4")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

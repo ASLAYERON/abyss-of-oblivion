@@ -8,7 +8,7 @@ Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et d
 - Le restent ?
 	Vespillo: Ceux que l'on enterre ici ne sont pas morts, enfin, pas tout a fait. Ceux que l'on inhume subissent un sort bien pire que cela.
 	L'inconnu: De quoi parlez vous ?
-	Vespillo: Ils ont été pris par la bête, on leur a volé leur visage. Ceux la ne sont plus rien, ils sont des carcasses.
+	Vespillo: Ils ont été pris par la bête, on leur a volé leur visage. Ceux la ne sont plus rien, des carcasses, des sans-ames.
 	L'inconnu: ...
 	- Aurevoir
 		L'inconnu: Aurevoir
@@ -20,22 +20,23 @@ Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et d
 		L'inconnu: Et ensuite...
 		Vespillo: Il deviennent comme des animaux, comme s'il cherchaient a retrouver ce qu'il ont perdus a jamais.
 		L'inconnu: ...
-		Vespillo: Je ne sais pas si le pire est pour eux, ou pour nous qui les voyons disparaitre. Mais bon, je m'y suis fait, c'est mon travail, rien d'anomal, apres tout.
+		Vespillo: Je ne sais pas si le pire est pour eux, ou pour nous qui les voyons disparaitre. Mais bon, je m'y suis fait, c'est mon travail, c'est mon choix.
 		if Global.Vespillo_progression == 1:
 			- Vespa
 				Vespillo: ...
 				Vespillo: Tu as vu la tombe. C'est moi qui l'ai enterré, comme tout les autres; mais Vespa, ca n'a jamais été comme avec tout les autres.
 				L'inconnu: ...
-				Vespillo: Je l'aimais l'inconnu, je l'aimait plus que je ne me suis jamais aimé. Elle etait tout pour moi, et maintenant plus rien n'avais de sens...
-				Vespillo: ... [speed=0.1] C'est la bête qui l'a pris. Elle n'était plus elle même, elle allait nous faire du mal!
+				Vespillo: Je l'aimais l'inconnu, je l'aimait plus que je ne me suis jamais aimé. Elle etait tout pour moi, et maintenant plus rien n'a de sens...
+				Vespillo: ... [speed=0.2] C'est la bête qui l'a pris.[speed=0.5] Elle n'était plus elle même, elle allait nous faire du mal!
 				Vespillo: J'ai fait ce que j'avais a faire. Quand j'ai descendu le cerceuil dans la tombe, j'entendait ses cris, j'entendais ses ongles qui grattait sur les parois pour sortir.
-				Vespillo: [speeed=0.1] Elle ne pouvait pas sortir. J'ai cadenassé le cerceuil, comme avec tout les autres. Parfois j'ai l'impression de l'entendre gratter, encore.
+				Vespillo: [speed=0.1] Elle ne pouvait pas sortir.[speed=0.4]J'ai cadenassé le cerceuil, comme avec tout les autres. Parfois j'ai l'impression de l'entendre gratter, encore.
 				L'inconnu: Je suis desolé...
 				Vespillo: Ne soit pas desolé! Ce n'est pas de la pitié qui lui rendrat son ame. Tout ca est passé maintenant, et je doit oublier, tout oublier, sinon la bête me prendra aussi.
 				set Global.Vespillo_progression = 3
+				set Global.state = "playing"
 			- Aurevoir
-				L'inconnu: Aurevoir, l'inconnu.
-				Vespillo: Aurevoir.
+				Vespillo: Aurevoir, l'inconnu.
+				L'inconnu: Aurevoir.
 				set Global.state = "playing"
 		else:
 			- Merci
@@ -45,6 +46,21 @@ Vespillo : Sepultombre est un cimetiere. C'est mon travail de les enterrer, et d
 				Vespillo: Aurevoir.
 				set Global.state = "playing"
 - Pourquoi ici ?
+	Vespillo: Cette terre a quelque chose de special, malgré que nous soyons sous terre, elle fait pousser les arbres
+	L'inconnu: C'est étrange...?
+	Vespillo: Ce sont les seules plantes qui ont subsistées. Cette terre semble apaiser les âmes, ou les engloutir, je ne sais pas.
+	- Aurevoir
+		Vespillo: Aurevoir, l'inconnu...
+		L'inconnu: Aurevoir...
+		set Global.state = "playing"
+		=> END
+	- Les corps
+		L'inconnu: Les corps se decomposent-ils ?
+		Vespillo: Non, il ne pourrisse pas, il restent tel quel, comme figé. La terre n'avale pas leurs corps, mais leur esprit.
+		L'inconnu: Et les squelettes ?
+		Vespillo: Les années et les combats les ont decharnés. Certains datent d'avant la bête, d'avant la folie. Ce sont des vestiges de temps passés, de nos erreurs.
+		set Global.state = "playing"
+		=> END
 - Aurevoir
 	L'inconnu: Aurevoir
 	Vespillo: Aurevoir.

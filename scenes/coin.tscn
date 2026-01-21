@@ -75,5 +75,10 @@ shape = SubResource("CircleShape2D_i64fm")
 wait_time = 0.3
 one_shot = true
 
+[node name="depop_timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
 [connection signal="body_entered" from="coin_body/add_coin_area" to="." method="_on_add_coin_area_body_entered"]
 [connection signal="timeout" from="coin_body/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="depop_timer" to="." method="_on_depop_timer_timeout"]

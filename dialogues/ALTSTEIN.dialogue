@@ -51,6 +51,10 @@ Altstein : Tu semble perdu ici, l'inconnu... Peut etre puis-je t'aider ?
 			Altstein: Oui, l'inconnu, il faut s'oublier dans l'abysse, oublier son vrai nom, oublier son visage, 
 			Altstein: La creature se nourrit de nous, elle se nourrit de qui nous sommes	  
 - Le vent
+	L'inconnu: Pourquoi le vent souffle ?
+	Altstein: Je ne sais pas, malgré que nous soyons sous terre, le vent souffle dans les feuilles. Les anciens disaient que c'est la voix des morts, qui reviennent nous chanter leurs regrets.
+	L'inconnu: Tu entends ces chants ?
+	Altstein: Je crois que j'entends des paroles, je les ressent en moi, mais je ne sais pas si cela vietn du vent ou si cela fait simplement trop lontemps que je suis ici.
 - Aurevoir
 	Altstein: Aurevoir, l'inconnu...
 set Global.state = "playing"

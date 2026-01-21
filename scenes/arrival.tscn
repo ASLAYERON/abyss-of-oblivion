@@ -111,7 +111,7 @@ position = Vector2(-837, -476)
 [node name="lights" type="Node" parent="."]
 
 [node name="FireFx" parent="lights" instance=ExtResource("13_cpjec")]
-position = Vector2(-154, 235)
+position = Vector2(-152, 239)
 
 [node name="FireFx2" parent="lights" instance=ExtResource("13_cpjec")]
 position = Vector2(9, 202)
@@ -174,7 +174,6 @@ advice_dialogue = "Orligrotek"
 stream = SubResource("AudioStreamRandomizer_rou6b")
 volume_db = -1.0
 autoplay = true
-bus = &"Sounds"
 
 [node name="water_sound" type="AudioStreamPlayer2D" parent="ambiance"]
 position = Vector2(-537, 116)
@@ -182,7 +181,6 @@ stream = ExtResource("17_wojml")
 volume_db = 4.0
 autoplay = true
 max_distance = 100.0
-bus = &"Sounds"
 
 [node name="water_sound2" type="AudioStreamPlayer2D" parent="ambiance"]
 position = Vector2(73, 253)
@@ -190,7 +188,6 @@ stream = ExtResource("17_wojml")
 volume_db = 4.0
 autoplay = true
 max_distance = 100.0
-bus = &"Sounds"
 
 [node name="water_sound3" type="AudioStreamPlayer2D" parent="ambiance"]
 position = Vector2(339, 253)
@@ -198,7 +195,6 @@ stream = ExtResource("17_wojml")
 volume_db = 4.0
 autoplay = true
 max_distance = 100.0
-bus = &"Sounds"
 
 [node name="water_sound4" type="AudioStreamPlayer2D" parent="ambiance"]
 position = Vector2(828, 273)
@@ -206,13 +202,11 @@ stream = ExtResource("17_wojml")
 volume_db = 4.0
 autoplay = true
 max_distance = 100.0
-bus = &"Sounds"
 
 [node name="Sepultombre" type="AudioStreamPlayer" parent="ambiance"]
 stream = ExtResource("9_nn23p")
 autoplay = true
 max_polyphony = 3
-bus = &"Music"
 
 [connection signal="body_entered" from="PortalToCaves" to="." method="_on_portal_to_caves_body_entered"]
 [connection signal="finished" from="ambiance/Ambiance" to="." method="_on_ambiance_finished"]
