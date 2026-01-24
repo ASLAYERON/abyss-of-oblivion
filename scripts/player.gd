@@ -3,8 +3,10 @@ extends CharacterBody2D
 
 	#import des noeuds
 @onready var player: AnimatedSprite2D = $PLAYER
-@onready var UI: Control = $UI
+@onready var viewport: CanvasLayer = $Viewport
 @onready var camera: Camera2D = $Camera
+@onready var UI: Control = viewport.UI
+@onready var fade_transition: CanvasModulate = $fade_transition
 ## SOUNDS
 @onready var footstep: AudioStreamPlayer = $sounds/footstep
 @onready var hit_hurt: AudioStreamPlayer = $sounds/hitHurt
@@ -18,6 +20,7 @@ extends CharacterBody2D
 @onready var iframe_timer: Timer = $timers/iframe_timer
 @onready var freeze_timer: Timer = $timers/freeze_timer
 @onready var get_up_timer: Timer = $"timers/get_up timer"
+@onready var spawn_timer: Timer = $timers/spawn_timer
 # #############################################
 
 	#init des var
@@ -28,6 +31,7 @@ var actual_action: String = "IDLE"
 var SPEED: float = 30.0
 var CLIMB_VELOCITY: float = -60.0
 var noise: float = 0.0
+var fall_noise: float = 0.0
 var noise_goal: float = 0.0
 var previous_velocity_y: float = 0.0
 #int
@@ -89,10 +93,17 @@ func damage(hp,direction,caster):
 		UI.show_freeze_vignette(true)
 func check_life():
 	if health_points<1 and Global.state != "freeze":
-		get_tree().change_scene_to_file("res://scenes/start.tscn")
+		Global.state = "dying"
+		fade_transition.fade_out()
 	UI.upd_health(health_points,max_health)
 func refill_health_points():
 	health_points=max_health
+func respawn():
+	Global.tp_offset = Global.checkpoints[Global.active_checkpoint][0]
+	Global.reset_enemies()
+	refill_health_points()
+	get_tree().change_scene_to_file(Global.checkpoints[Global.active_checkpoint][1])
+	Global.state = "playing"
 
 ## HANDLINGS
 func handle_stamina():
@@ -107,14 +118,14 @@ func handle_gravity(delta):
 			#anim et gros bruit si grosse chutte
 			if previous_velocity_y>200:
 				if noise_sensor:
-					noise += 5 + previous_velocity_y/7
+					fall_noise += 5 + previous_velocity_y/7
 					is_making_noise= true
 				is_getting_up=true
 				#la grosse chute a un cooldown
 				get_up_timer.start()
 			else: #petit bruit si petite chute
 				if noise_sensor:
-					noise += 10
+					fall_noise += 10
 					is_making_noise= true	
 		was_on_floor=true
 	else: #fait tomber le joueur
@@ -125,6 +136,8 @@ func handle_noise():
 	if noise_sensor:
 		#borne du bruit et desincrementation si silencieux
 		if noise>100: noise=100
+		noise += fall_noise
+		fall_noise = 0
 		if is_making_noise:
 			noise_goal = 30 + abs(velocity.x)/3 + abs(velocity.y)/8
 			if noise < noise_goal:
@@ -173,15 +186,13 @@ func animate_player(direction):
 					if old_direction > 0: actual_action = "IDLE_RIGHT"
 					else: actual_action = "IDLE_LEFT"
 				else: actual_action = "IDLE"
-	elif Global.state == "rest":
-		actual_action = "REST"
-	elif Global.state == "talking":
-		actual_action = "IDLE"
+	elif Global.state == "rest": actual_action = "REST"
+	elif Global.state == "talking": actual_action = "IDLE"
 	elif Global.state == "freeze":
 		if hit_direction: actual_action = "HIT_LEFT"
 		else : actual_action = "HIT_RIGHT"
-	elif Global.state == "cutscene":
-		actual_action = "UPGRADE"
+	elif Global.state == "cutscene": actual_action = "UPGRADE"
+	elif Global.state == "dying": actual_action = "DYING"
 func animation(actual_action):
 	player.play(actual_action)		
 
@@ -263,12 +274,8 @@ func add_coin(coin_value):
 	UI.change_coin_value(Global.coins)		
 func show_text(text):     #montre un texte (instructions)
 	if text=="KILL":
-		if noise_sensor:
-			UI.noise_bar.visible=true
 		UI.instruction.visible=false
 	else:
-		if noise_sensor:
-			UI.noise_bar.visible=false
 		UI.instruction.text=text
 		UI.instruction.visible=true	
 func debugMode():         #passe en debug mode (god mode)	
@@ -285,16 +292,6 @@ func debugMode():         #passe en debug mode (god mode)
 		SPEED = 200.0
 		CLIMB_VELOCITY = -120.0
 
-## SAVE & LOAD
-func save_game() -> void:
-	saveSystem._save(position,player.get_tree().current_scene.scene_file_path)
-	UI.rest_menu.visible = false
-	Global.state = "playing"
-func load_game() -> void:
-	var save_data=saveSystem._load()
-	get_tree().change_scene_to_file(save_data.scene_file_path)
-	UI.rest_menu.visible = false
-	Global.state = "playing"
 
 ## #######  FONCTIONS EVENT
 func _on_climb_time_timeout() -> void: #timer du grimpage aux murs
@@ -305,7 +302,9 @@ func _on_get_up_timer_timeout() -> void: #timer grosse chute
 	actual_action="IDLE"
 
 func _on_player_animation_finished() -> void:
-	if is_transitioning:
+	if Global.state == "dying":
+		respawn()
+	elif is_transitioning:
 		is_transitioning=false
 
 func _on_iframe_timer_timeout() -> void:
@@ -321,14 +320,22 @@ func _on_freeze_timer_timeout() -> void:
 
 func _on_parry_timer_timeout() -> void:
 	is_parrying = false
+	
+func _on_spawn_timer_timeout() -> void:
+	camera.position_smoothing_enabled = true
 # ##################################
 ## INITIALISATION
 func _ready():
+	camera.position_smoothing_enabled = false
+	fade_transition.visible=true
 	max_health = Global.max_health
 	max_stamina = Global.max_stamina
 	refill_health_points()
+	UI.visible = true
 	UI.change_coin_value(Global.coins)
 	UI.rest_menu.visible = false
+	fade_transition.fade_in()
+	spawn_timer.start()
 
 # ##################################
 
@@ -359,12 +366,15 @@ func _physics_process(delta: float) -> void:
 
 	#etat de repos	
 	elif Global.state == "rest":
-		UI.rest_menu.visible=true
+		pass
 		
 	#est hit
 	elif Global.state == "freeze":
 		pass
 	elif Global.state == "cutscene":
 		pass
+	elif Global.state == "dying":
+		handle_gravity(delta)
+		move_and_slide()
 	animate_player(direction)	
 	animation(actual_action)

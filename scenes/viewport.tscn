@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5tvirsjvxe0l"]
+
+[ext_resource type="Script" uid="uid://dqbxei2sqfl07" path="res://scripts/viewport.gd" id="1_0wal2"]
+[ext_resource type="PackedScene" uid="uid://cbhr1psi0hd28" path="res://scenes/UI.tscn" id="2_rhx5r"]
+
+[node name="Viewport" type="CanvasLayer"]
+layer = 3
+scale = Vector2(6, 6)
+transform = Transform2D(6, 0, 0, 6, 0, 0)
+script = ExtResource("1_0wal2")
+
+[node name="UI" parent="." instance=ExtResource("2_rhx5r")]
+light_mask = 2

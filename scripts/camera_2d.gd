@@ -1,5 +1,5 @@
 extends Camera2D
-
+@onready var UI: Control = $UI
 @export var randomStrength: float = 1.0
 @export var shakeFade: float = 7.0
 

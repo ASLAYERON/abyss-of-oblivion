@@ -4,8 +4,9 @@ extends Control
 @onready var coin_counter: Label = $upper_bar/coin_counter
 @onready var freeze_vignette: Sprite2D = $freeze_vignette
 @onready var iframes_vignette: Sprite2D = $iframes_vignette
-@onready var stamina_bar: TextureProgressBar = $upper_bar/VBoxContainer/stamina_bar
+@onready var upper_bar: HBoxContainer = $upper_bar
 @onready var health_bar: TextureProgressBar = $upper_bar/VBoxContainer/health_bar
+@onready var stamina_bar: TextureProgressBar = $upper_bar/VBoxContainer/stamina_bar
 @onready var noise_bar: TextureProgressBar = $upper_bar/noise_bar
 
 #updt health and stamina
@@ -18,13 +19,17 @@ func upd_stamina(stamina,max_stamina):
 #updt piece
 func change_coin_value(coin_value):
 	coin_counter.text=str(coin_value)
-#bouton save
-func _on_save_button_pressed() -> void:
-	get_parent().save_game()
+#bouton quit
+func _on_quit_button_pressed() -> void:
+	rest_menu.visible = false
+	upper_bar.visible = true
+	get_parent().get_parent().camera.offset = Vector2(0,0)
+	Global.state = "playing"
 
 #bouton load
 func _on_load_button_pressed() -> void:
-	get_parent().load_game()
+	pass
+	#get_parent().load_game()
 	
 func show_freeze_vignette(Bool):
 	freeze_vignette.visible = Bool

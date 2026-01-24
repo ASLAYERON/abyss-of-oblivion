@@ -2,8 +2,7 @@ extends Node
 const save_location = "user://SaveFile.json"
 
 var contents_to_save : Dictionary = {
-	"player_position":Vector2.ZERO,
-	"scene_file_path":"",
+	"active_checkpoint":"",
 	"Altstein_progression":0,
 	"Vespillo_progression":0,
 	"Geld_Kampfer_progression":0,
@@ -13,9 +12,8 @@ var contents_to_save : Dictionary = {
 	"max_stamina":50,
 }
 
-func _save(player_position,scene_file_path):
-	contents_to_save.scene_file_path = scene_file_path
-	contents_to_save.player_position = player_position
+func _save():
+	contents_to_save.active_checkpoint = Global.active_checkpoint
 	contents_to_save.Altstein_progression = Global.Altstein_progression
 	contents_to_save.Vespillo_progression = Global.Vespillo_progression
 	contents_to_save.Geld_Kampfer_progression = Global.Geld_Kampfer_progression
@@ -33,7 +31,8 @@ func _load():
 		var data = file.get_var()
 		file.close()
 		var save_data = data.duplicate()
-		Global.tp_offset = save_data.player_position
+		Global.active_checkpoint = save_data.active_checkpoint
+		Global.tp_offset = Global.checkpoints[save_data.active_checkpoint][0]
 		Global.Altstein_progression = save_data.Altstein_progression
 		Global.Vespillo_progression = save_data.Vespillo_progression
 		Global.Geld_Kampfer_progression = save_data.Geld_Kampfer_progression
@@ -41,4 +40,6 @@ func _load():
 		Global.coins = save_data.coins
 		Global.max_health = save_data.max_health
 		Global.max_stamina = save_data.max_stamina
+		get_tree().change_scene_to_file(Global.checkpoints[save_data.active_checkpoint][1])
+		Global.state = "playing"
 		return save_data

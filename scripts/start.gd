@@ -44,7 +44,4 @@ func _on_texture_button_1_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/beginning_cutscene.tscn")
 
 func _on_texture_button_2_pressed() -> void:
-	var save_data=saveSystem._load()
-	get_tree().change_scene_to_file(save_data.scene_file_path)
-	Global.tp_offset=save_data.player_position
-	Global.state="playing"
+	saveSystem._load()

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bn5vpax0eo6lv" path="res://scripts/arrival.gd" id="1_5gvt2"]
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="1_8wu76"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="2_nn23p"]
-[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="3_gnnrs"]
 [ext_resource type="PackedScene" uid="uid://bbu7748am6cbk" path="res://scenes/void.tscn" id="5_5gvt2"]
 [ext_resource type="Texture2D" uid="uid://bw7c38cbo6wp0" path="res://Abyss of oblivion assets workshop/pixil-frame-0(2).png" id="5_83qe4"]
 [ext_resource type="Texture2D" uid="uid://bnybo10kfb4oi" path="res://Abyss of oblivion assets workshop/pixil-frame-0(7).png" id="6_cunyt"]
@@ -22,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://c243nad3j31us" path="res://assets/sounds/sepultombre/sepultombre-ambiance (4).mp3" id="16_5eweq"]
 [ext_resource type="AudioStream" uid="uid://bdpd8gt0jredx" path="res://assets/sounds/sepultombre/sepultombre-ambiance (5).mp3" id="17_3oarw"]
 [ext_resource type="AudioStream" uid="uid://cqv4id6qhklyu" path="res://assets/sounds/common/riviere.mp3" id="17_wojml"]
+[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="22_rou6b"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_kh044"]
 a = Vector2(-1, -6)
@@ -105,9 +105,6 @@ texture = ExtResource("6_cunyt")
 position = Vector2(-706, 117)
 texture = ExtResource("6_cunyt")
 
-[node name="player" parent="." instance=ExtResource("3_gnnrs")]
-position = Vector2(-837, -476)
-
 [node name="lights" type="Node" parent="."]
 
 [node name="FireFx" parent="lights" instance=ExtResource("13_cpjec")]
@@ -132,6 +129,7 @@ position = Vector2(1111, 233)
 
 [node name="checkpoint" parent="checkpoints" instance=ExtResource("7_ua4bd")]
 position = Vector2(-152, 237)
+checkpoint_name = "Foret des morts"
 
 [node name="ladder" type="Node" parent="."]
 
@@ -207,6 +205,17 @@ max_distance = 100.0
 stream = ExtResource("9_nn23p")
 autoplay = true
 max_polyphony = 3
+
+[node name="player" parent="." instance=ExtResource("22_rou6b")]
+position = Vector2(-1217, -372)
+
+[node name="spawn_mask" type="ColorRect" parent="."]
+z_index = 5
+offset_left = -1346.0
+offset_top = -433.0
+offset_right = -1108.0
+offset_bottom = -285.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="body_entered" from="PortalToCaves" to="." method="_on_portal_to_caves_body_entered"]
 [connection signal="finished" from="ambiance/Ambiance" to="." method="_on_ambiance_finished"]

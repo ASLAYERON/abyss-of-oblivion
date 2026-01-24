@@ -1,8 +1,9 @@
-[gd_scene load_steps=98 format=3 uid="uid://3xx6dc27qdqf"]
+[gd_scene load_steps=93 format=3 uid="uid://3xx6dc27qdqf"]
 
 [ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
 [ext_resource type="Texture2D" uid="uid://dmdng4ybdkkw0" path="res://assets/sprites/PLAYER_SPRITESHEET.png" id="3_rdoyk"]
 [ext_resource type="AudioStream" uid="uid://c8slves8astns" path="res://assets/sounds/player/hit1.mp3" id="5_fjrip"]
+[ext_resource type="PackedScene" uid="uid://cbhr1psi0hd28" path="res://scenes/UI.tscn" id="5_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://8kargpmh4i1p" path="res://assets/sounds/player/parry.mp3" id="5_smehm"]
 [ext_resource type="AudioStream" uid="uid://nuvotqqt2dm7" path="res://assets/sounds/player/hit2.mp3" id="6_smehm"]
 [ext_resource type="AudioStream" uid="uid://lyqk0382tv62" path="res://assets/sounds/player/hit3.mp3" id="7_ur7pv"]
@@ -23,13 +24,11 @@
 [ext_resource type="AudioStream" uid="uid://bwa0nstoxj8nm" path="res://assets/sounds/player/running (6).mp3" id="23_dt7fs"]
 [ext_resource type="AudioStream" uid="uid://jl7coapdijqo" path="res://assets/sounds/player/running (7).mp3" id="24_wqfne"]
 [ext_resource type="AudioStream" uid="uid://b0mwsxuf8tora" path="res://assets/sounds/player/ladder_climb.mp3" id="25_ke2ow"]
-[ext_resource type="PackedScene" uid="uid://b5tvirsjvxe0l" path="res://scenes/viewport.tscn" id="25_ujl30"]
-[ext_resource type="PackedScene" uid="uid://b1nle8wtsm32m" path="res://scenes/camera.tscn" id="26_31cv2"]
+[ext_resource type="PackedScene" uid="uid://b1nle8wtsm32m" path="res://scenes/camera.tscn" id="25_ujl30"]
 [ext_resource type="AudioStream" uid="uid://v004os4bbgsh" path="res://assets/sounds/player/shield_hit.mp3" id="26_ujl30"]
-[ext_resource type="PackedScene" uid="uid://clt8qha503vd1" path="res://scenes/fade_transition.tscn" id="27_31cv2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
-size = Vector2(12, 16)
+size = Vector2(12, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
 atlas = ExtResource("3_rdoyk")
@@ -74,22 +73,6 @@ region = Rect2(128, 48, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("3_rdoyk")
 region = Rect2(144, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tk41t"]
-atlas = ExtResource("3_rdoyk")
-region = Rect2(144, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fuw3a"]
-atlas = ExtResource("3_rdoyk")
-region = Rect2(128, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8txt3"]
-atlas = ExtResource("3_rdoyk")
-region = Rect2(112, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
-atlas = ExtResource("3_rdoyk")
-region = Rect2(96, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
 atlas = ExtResource("3_rdoyk")
@@ -341,23 +324,6 @@ animations = [{
 "loop": true,
 "name": &"DEBUG",
 "speed": 11.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tk41t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fuw3a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8txt3")
-}, {
-"duration": 7.0,
-"texture": SubResource("AtlasTexture_2w11d")
-}],
-"loop": false,
-"name": &"DYING",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.5,
@@ -625,13 +591,12 @@ safe_margin = 0.1
 script = ExtResource("1_b8584")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_itjk0")
 
 [node name="PLAYER" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_w8vpm")
-animation = &"DYING"
-frame = 3
-frame_progress = 1.0
+animation = &"IDLE"
 
 [node name="timers" type="Node" parent="."]
 
@@ -650,10 +615,6 @@ wait_time = 0.3
 one_shot = true
 
 [node name="parry_timer" type="Timer" parent="timers"]
-wait_time = 0.1
-one_shot = true
-
-[node name="spawn_timer" type="Timer" parent="timers"]
 wait_time = 0.1
 one_shot = true
 
@@ -679,12 +640,9 @@ stream = SubResource("AudioStreamRandomizer_31cv2")
 [node name="shield_hit" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource("26_ujl30")
 
-[node name="Viewport" parent="." instance=ExtResource("25_ujl30")]
+[node name="Camera" parent="." instance=ExtResource("25_ujl30")]
 
-[node name="Camera" parent="." instance=ExtResource("26_31cv2")]
-
-[node name="fade_transition" parent="." instance=ExtResource("27_31cv2")]
-visible = false
+[node name="UI" parent="." instance=ExtResource("5_qlg0r")]
 
 [connection signal="animation_finished" from="PLAYER" to="." method="_on_player_animation_finished"]
 [connection signal="timeout" from="timers/iframe_timer" to="." method="_on_iframe_timer_timeout"]
@@ -692,4 +650,3 @@ visible = false
 [connection signal="timeout" from="timers/get_up timer" to="." method="_on_get_up_timer_timeout"]
 [connection signal="timeout" from="timers/climb_time" to="." method="_on_climb_time_timeout"]
 [connection signal="timeout" from="timers/parry_timer" to="." method="_on_parry_timer_timeout"]
-[connection signal="timeout" from="timers/spawn_timer" to="." method="_on_spawn_timer_timeout"]

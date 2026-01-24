@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1nle8wtsm32m"]
+
+[ext_resource type="Script" uid="uid://bltur0sv6syda" path="res://scripts/camera_2d.gd" id="1_cvpoc"]
+
+[node name="Camera" type="Camera2D"]
+zoom = Vector2(6, 6)
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("1_cvpoc")
+randomStrength = 1.5
+shakeFade = 6.0

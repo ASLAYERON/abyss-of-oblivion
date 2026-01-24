@@ -11,11 +11,13 @@ var coins = 0
 var have_shield = false
 var max_health = 50
 var max_stamina = 50
+var active_checkpoint: String = ""
 
 var checkpoints = {
 	"Foret des morts": [Vector2(-135.0, 232.0),"res://scenes/arrival.tscn"],
-	"Antre des rats": [Vector2(1124.0, 184.0),"res://scenes/caves.tscn"],
+	"Antre des rats": [Vector2(1161.0, 184.0),"res://scenes/caves.tscn"],
 	"Camp de l'ancien heros": [Vector2(1465.0, 1224.0),"res://scenes/caves.tscn"],
+	"Caveau du roi des rats": [Vector2(-408.0, 1032.0),"res://scenes/caves.tscn"],
 }
 
 var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict.
@@ -68,3 +70,7 @@ func reset_enemies():#recerée tout les ennemis a chaque repos, est appelé par 
 		"rat01":["rat",Vector2(52,-9)],		
 	}
 	}
+
+func save_game(new_active_checkpoint) -> void:
+	active_checkpoint = new_active_checkpoint
+	saveSystem._save()
