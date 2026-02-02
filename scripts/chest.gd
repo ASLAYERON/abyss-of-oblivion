@@ -5,14 +5,20 @@ extends Node2D
 @onready var opened: AudioStreamPlayer = $opened
 @export var coins_content: int = 1
 
+var level = ""
+var indice = 0
+
 var coin = preload("res://scenes/coin.tscn")
 var state = "default"
 var timer_playing = false
 var is_opened = false
 var player = null
 
+
 func _process(delta: float) -> void:
 	if state=="default":
+		if is_opened:
+			state = "opened"
 		animated_sprite_2d.play("default")
 	elif state=="player_here":
 		if timer_playing:
@@ -46,6 +52,8 @@ func _on_opening_timer_timeout() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	state="opened"
 	opened.play()
+	Global.chest[level][indice] = true
+	print (Global.chest)
 	for i in range(coins_content):
 		var new_coin=coin.instantiate()
 		is_opened=true

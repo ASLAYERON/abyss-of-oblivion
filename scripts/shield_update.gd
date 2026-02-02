@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 		else:
 			Global.state = "playing"
 			Global.have_shield = true
+			Global.Geld_Kampfer_progression = 2
 			queue_free()
 
 

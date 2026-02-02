@@ -1,4 +1,46 @@
-~ start
-Geld Kampfer: Yeah bruh, come back later, the dev is a wanker
+~ first_encounter
+Geld Kampfer: Bien le bonjour, l'inconnu; je suis Geld-Kampfer, pour vous servir!
+L'inconnu: Vous vivez ici ?
+Geld Kampfer: Vous savez, j'ai longtemps parcouru ce monde souterrain, mais maintenant, je suis fatigué, je ne fait plus le poids... Je peut plus...
+L'inconnu: ...
+Geld Kampfer: Je sais, c'est pathétique, mais je n'ai rien trouvé d'autres que de trainer mes guetres ici.
+Geld Kampfer: Tu sais les rats peuvent etre de bonne companie, hein ? HAHAHA !
+Geld Kampfer: Je suis desolé, c'est ridicule... Mais fut un temps j'ai été un guerrier, je pourrait t'apprendre a te battre !
+L'inconnu: Avec grand plaisir !
+set Global.Geld_Kampfer_progression = 1
 set Global.state = "playing"
-=> END
+=> END!
+~ already_met
+Geld Kampfer: Je peux t'aider ?
+- Le bouclier
+	L'inconnu: Avez vous entendu parler d'un bouclier ?
+	Geld Kampfer: Oui, j'ai deja remarqué cet ecu un peu a l'est, il semble attendre quelque chose...
+- Aurevoir
+	Geld Kampfer: A la revoyure, l'inconnu !
+	L'inconnu: Aurevoir !
+set Global.state = "playing"
+=> END!
+~ have_shield
+Geld Kampfer: Oh, mais, tu as recuperé l'Ecu ! Cela faisait longtemps que je le voyait, il semble qu'il t'etait destiné !
+Geld Kampfer: Je pourrais t'entrainer!
+- Avec plaisir
+	Geld Kampfer: Genial !
+	=> training1
+- Non merci...
+	Geld Kampfer: Tant pis !
+set Global.state = "playing"
+=> END!
+~ training1
+Geld Kampfer: Prepare toi a parer mon coup avec ton bouclier, ne le sort que juste avant l'impact pour parer !
+set Global.state = "playing"
+set Global.Geld_Kampfer_progression = 4
+=> END!
+~ training1_done
+Geld Kampfer: Bravo ! Avec cela, tu devrais etre pret a affronter les dangers qui t'atendent !
+set Global.Geld_Kampfer_progression = 6
+set Global.state = "playing"
+=> END!
+~ sending_you
+Geld Kampfer: Que la bonne fortune soit avec toi dans tes aventures l'inconnu !
+set Global.state = "playing"
+=> END!

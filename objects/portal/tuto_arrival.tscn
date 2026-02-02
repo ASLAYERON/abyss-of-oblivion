@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://droggvqqv5cbl"]
+
+[ext_resource type="PackedScene" uid="uid://dhsn6ti6xckfp" path="res://objects/portal/portal.tscn" id="1_rtf31"]
+
+[node name="ArrivalCave" type="Node2D"]
+
+[node name="portal" parent="." instance=ExtResource("1_rtf31")]
+scene_a = "res://scenes/arrival.tscn"
+tp_a = Vector2(-752, 476)

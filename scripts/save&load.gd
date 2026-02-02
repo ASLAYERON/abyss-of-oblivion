@@ -10,6 +10,7 @@ var contents_to_save : Dictionary = {
 	"coins":0,
 	"max_health":50,
 	"max_stamina":50,
+	"chest":{},
 }
 
 func _save():
@@ -21,6 +22,7 @@ func _save():
 	contents_to_save.coins = Global.coins
 	contents_to_save.max_health = Global.max_health
 	contents_to_save.max_stamina = Global.max_stamina
+	contents_to_save.chest = Global.chest
 	var file = FileAccess.open(save_location,FileAccess.WRITE)
 	file.store_var(contents_to_save.duplicate())
 	file.close()
@@ -40,6 +42,8 @@ func _load():
 		Global.coins = save_data.coins
 		Global.max_health = save_data.max_health
 		Global.max_stamina = save_data.max_stamina
+		Global.chest = save_data.chest
+		print(Global.chest)
 		get_tree().change_scene_to_file(Global.checkpoints[save_data.active_checkpoint][1])
 		Global.state = "playing"
 		return save_data

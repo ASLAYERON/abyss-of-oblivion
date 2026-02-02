@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bh1d2p45vd1eu"]
+[gd_scene load_steps=10 format=4 uid="uid://bh1d2p45vd1eu"]
 
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="1_c13y7"]
 [ext_resource type="Script" uid="uid://d1y3xcpgocdxk" path="res://scripts/tutorial.gd" id="1_ckvwl"]
@@ -7,12 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="4_4kmhl"]
 [ext_resource type="PackedScene" uid="uid://dkbqyjm83ehip" path="res://scenes/ladder.tscn" id="5_cq4me"]
 [ext_resource type="PackedScene" uid="uid://dpu1cnisseox6" path="res://scenes/advice.tscn" id="6_6yjpi"]
-[ext_resource type="PackedScene" uid="uid://bbu7748am6cbk" path="res://scenes/void.tscn" id="7_gbqnl"]
+[ext_resource type="PackedScene" uid="uid://droggvqqv5cbl" path="res://objects/portal/tuto_arrival.tscn" id="9_0epgs"]
 [ext_resource type="PackedScene" uid="uid://d0lqjoujef6t1" path="res://scenes/fire_fx.tscn" id="9_nlqja"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_6yjpi"]
-a = Vector2(-21, 24)
-b = Vector2(32, 24)
 
 [node name="Tutorial" type="Node2D"]
 modulate = Color(0.556953, 0.556953, 0.556953, 1)
@@ -98,13 +94,6 @@ advice_dialogue = "advice7"
 [node name="PortalToArrival" type="Area2D" parent="."]
 position = Vector2(1252, 224)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalToArrival"]
-position = Vector2(-687, -67)
-shape = SubResource("SegmentShape2D_6yjpi")
-
-[node name="void" parent="PortalToArrival" instance=ExtResource("7_gbqnl")]
-position = Vector2(-684, -46)
-
 [node name="lights" type="Node" parent="."]
 
 [node name="FireFx" parent="lights" instance=ExtResource("9_nlqja")]
@@ -118,5 +107,8 @@ position = Vector2(-73, -23)
 
 [node name="FireFx4" parent="lights" instance=ExtResource("9_nlqja")]
 position = Vector2(-40, -22)
+
+[node name="ArrivalCave" parent="." instance=ExtResource("9_0epgs")]
+position = Vector2(569, 185)
 
 [connection signal="body_entered" from="PortalToArrival" to="." method="_on_portal_to_arrival_body_entered"]

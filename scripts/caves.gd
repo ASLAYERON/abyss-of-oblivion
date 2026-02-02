@@ -3,6 +3,9 @@ extends Node2D
 @onready var bg: Sprite2D = $Background/Bg
 @onready var ambiance: AudioStreamPlayer = $Ambiance/Ambiance
 @onready var shield_update: Area2D = $shield_update
+@onready var chests: Node = $CHESTS
+@onready var music: AudioStreamPlayer = $music
+
 
 const rat = preload("res://scenes/rat.tscn")
 var new_enemy=null
@@ -14,6 +17,12 @@ func _ready() -> void:
 	player.UI.noise_bar.visible=true
 	player.position=Global.tp_offset
 	
+	var chest_indice = 0
+	for chest in chests.get_children():
+		chest.level = "caves"
+		chest.indice = chest_indice
+		chest.is_opened = Global.chest["caves"][chest_indice]
+		chest_indice += 1
 	
 	for enemy in Global.enemies["caves"]:
 		if Global.enemies["caves"][enemy][0]=="rat" :
@@ -23,18 +32,8 @@ func _ready() -> void:
 		new_enemy.start_position=Global.enemies["caves"][enemy][1]
 		add_child(new_enemy)
 
-
-func _on_portal_to_arrival_body_entered(body: Node2D) -> void:
-	if body.name=="player":
-		Global.tp_offset=Vector2(1240,245)
-		get_tree().change_scene_to_file("res://scenes/arrival.tscn")
-
-
 func _on_ambiance_finished() -> void:
 	ambiance.play()
 
-
-func _on_portal_to_sewer_body_entered(body: Node2D) -> void:
-	if body.name=="player":
-		Global.tp_offset=Vector2(0,0)
-		get_tree().change_scene_to_file("res://scenes/sewer_part_1.tscn")
+func _on_music_finished() -> void:
+	music.play()

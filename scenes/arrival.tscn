@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=4 uid="uid://wyowxgx0xcy7"]
+[gd_scene load_steps=24 format=4 uid="uid://wyowxgx0xcy7"]
 
 [ext_resource type="Script" uid="uid://bn5vpax0eo6lv" path="res://scripts/arrival.gd" id="1_5gvt2"]
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="1_8wu76"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="2_nn23p"]
-[ext_resource type="PackedScene" uid="uid://bbu7748am6cbk" path="res://scenes/void.tscn" id="5_5gvt2"]
 [ext_resource type="Texture2D" uid="uid://bw7c38cbo6wp0" path="res://Abyss of oblivion assets workshop/pixil-frame-0(2).png" id="5_83qe4"]
 [ext_resource type="Texture2D" uid="uid://bnybo10kfb4oi" path="res://Abyss of oblivion assets workshop/pixil-frame-0(7).png" id="6_cunyt"]
 [ext_resource type="Texture2D" uid="uid://bx4mfd0x7chpj" path="res://Abyss of oblivion assets workshop/pixil-frame-0(8).png" id="6_rou6b"]
@@ -21,11 +20,8 @@
 [ext_resource type="AudioStream" uid="uid://c243nad3j31us" path="res://assets/sounds/sepultombre/sepultombre-ambiance (4).mp3" id="16_5eweq"]
 [ext_resource type="AudioStream" uid="uid://bdpd8gt0jredx" path="res://assets/sounds/sepultombre/sepultombre-ambiance (5).mp3" id="17_3oarw"]
 [ext_resource type="AudioStream" uid="uid://cqv4id6qhklyu" path="res://assets/sounds/common/riviere.mp3" id="17_wojml"]
+[ext_resource type="PackedScene" uid="uid://d0rwvxkbpahyx" path="res://objects/portal/arrival_cave.tscn" id="22_4ornq"]
 [ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="22_rou6b"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_kh044"]
-a = Vector2(-1, -6)
-b = Vector2(-1, 39)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rou6b"]
 streams_count = 5
@@ -136,12 +132,6 @@ checkpoint_name = "Foret des morts"
 [node name="PortalToCaves" type="Area2D" parent="."]
 position = Vector2(1252, 224)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalToCaves"]
-shape = SubResource("SegmentShape2D_kh044")
-
-[node name="void" parent="." instance=ExtResource("5_5gvt2")]
-position = Vector2(1276, 245)
-
 [node name="Can_Interact" type="Node" parent="."]
 
 [node name="PNJ-vespillo" parent="Can_Interact" instance=ExtResource("9_cpjec")]
@@ -216,6 +206,9 @@ offset_top = -433.0
 offset_right = -1108.0
 offset_bottom = -285.0
 color = Color(0, 0, 0, 1)
+
+[node name="ArrivalCave" parent="." instance=ExtResource("22_4ornq")]
+position = Vector2(1266, 241)
 
 [connection signal="body_entered" from="PortalToCaves" to="." method="_on_portal_to_caves_body_entered"]
 [connection signal="finished" from="ambiance/Ambiance" to="." method="_on_ambiance_finished"]

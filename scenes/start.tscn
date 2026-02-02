@@ -1,167 +1,21 @@
-[gd_scene load_steps=31 format=3 uid="uid://bw8bdwscg5lus"]
+[gd_scene load_steps=15 format=3 uid="uid://bw8bdwscg5lus"]
 
 [ext_resource type="Script" uid="uid://4evlacl3e77s" path="res://scripts/start.gd" id="1_bodal"]
-[ext_resource type="Texture2D" uid="uid://cxagpoy056imj" path="res://Abyss of oblivion assets workshop/test.png" id="3_4ge6i"]
-[ext_resource type="Texture2D" uid="uid://ds6wsn7k1h8eo" path="res://Abyss of oblivion assets workshop/start_button_click.png" id="4_8itgj"]
-[ext_resource type="Texture2D" uid="uid://cvqen2yqgq25o" path="res://Abyss of oblivion assets workshop/start_button_hover.png" id="5_tn317"]
-[ext_resource type="Texture2D" uid="uid://pfv8xvdbsdri" path="res://Abyss of oblivion assets workshop/LOAD-NORMAL.png" id="6_1nvso"]
-[ext_resource type="Texture2D" uid="uid://f45x1fsqy5ri" path="res://Abyss of oblivion assets workshop/2025_11_09_02l_Kleki.png" id="7_4ge6i"]
-[ext_resource type="Texture2D" uid="uid://6ropll56krjf" path="res://Abyss of oblivion assets workshop/LOAD-CLICK.png" id="7_gsp51"]
-[ext_resource type="Texture2D" uid="uid://f5n1a1qg50vv" path="res://Abyss of oblivion assets workshop/pixilart-sprite(4).png" id="8_tn317"]
+[ext_resource type="Texture2D" uid="uid://ci23oewimy2gr" path="res://assets/sprites/UI/start.png" id="2_1nvso"]
+[ext_resource type="Texture2D" uid="uid://dk0tj1quwxbcn" path="res://assets/sprites/UI/start_toggle.png" id="3_gsp51"]
+[ext_resource type="Texture2D" uid="uid://ddoa2mqqjdmed" path="res://assets/sprites/UI/load.png" id="4_r8uic"]
+[ext_resource type="Texture2D" uid="uid://bqsbeakpsvpvg" path="res://assets/sprites/UI/load_toggle.png" id="5_x1pfr"]
+[ext_resource type="Texture2D" uid="uid://dpn27g74kmrg4" path="res://assets/sprites/UI/settings.png" id="6_n0tym"]
+[ext_resource type="Texture2D" uid="uid://8tq0dmcjjs4h" path="res://assets/sprites/UI/settings_toggle.png" id="7_8jfef"]
+[ext_resource type="Texture2D" uid="uid://c7h1n46wxhmum" path="res://assets/sprites/UI/quit.png" id="8_qfvu4"]
+[ext_resource type="Texture2D" uid="uid://blleialv7by61" path="res://assets/sprites/UI/quit_toggle.png" id="9_twuju"]
 [ext_resource type="AudioStream" uid="uid://13urc524u2e8" path="res://assets/music/title_screenA2O.mp3" id="10_m8nf6"]
 [ext_resource type="Texture2D" uid="uid://bi5y7rtdm2d7x" path="res://assets/sprites/TITLE_SPRITESHEET1.png" id="11_pgjjs"]
+[ext_resource type="Texture2D" uid="uid://f45x1fsqy5ri" path="res://Abyss of oblivion assets workshop/2025_11_09_02l_Kleki.png" id="12_1nvso"]
+[ext_resource type="PackedScene" uid="uid://clt8qha503vd1" path="res://scenes/fade_transition.tscn" id="13_gsp51"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nvso"]
-size = Vector2(123.5, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m8nf6"]
-atlas = ExtResource("8_tn317")
-region = Rect2(448, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgjjs"]
-atlas = ExtResource("8_tn317")
-region = Rect2(384, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1nvso"]
-atlas = ExtResource("8_tn317")
-region = Rect2(320, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gsp51"]
-atlas = ExtResource("8_tn317")
-region = Rect2(256, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8uic"]
-atlas = ExtResource("8_tn317")
-region = Rect2(192, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1pfr"]
-atlas = ExtResource("8_tn317")
-region = Rect2(128, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n0tym"]
-atlas = ExtResource("8_tn317")
-region = Rect2(64, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8jfef"]
-atlas = ExtResource("8_tn317")
-region = Rect2(0, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tn317"]
-atlas = ExtResource("8_tn317")
-region = Rect2(448, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfvu4"]
-atlas = ExtResource("8_tn317")
-region = Rect2(0, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aox1m"]
-atlas = ExtResource("8_tn317")
-region = Rect2(0, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hp05y"]
-atlas = ExtResource("8_tn317")
-region = Rect2(64, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g3i1d"]
-atlas = ExtResource("8_tn317")
-region = Rect2(128, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cdrmf"]
-atlas = ExtResource("8_tn317")
-region = Rect2(192, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b1pjr"]
-atlas = ExtResource("8_tn317")
-region = Rect2(256, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_71xtm"]
-atlas = ExtResource("8_tn317")
-region = Rect2(320, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7e6r"]
-atlas = ExtResource("8_tn317")
-region = Rect2(384, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8aotp"]
-atlas = ExtResource("8_tn317")
-region = Rect2(448, 0, 64, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ya0au"]
-animations = [{
-"frames": [{
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_m8nf6")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_pgjjs")
-}, {
-"duration": 1.5,
-"texture": SubResource("AtlasTexture_1nvso")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gsp51")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r8uic")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x1pfr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n0tym")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8jfef")
-}],
-"loop": false,
-"name": &"coming",
-"speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tn317")
-}],
-"loop": true,
-"name": &"empty",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qfvu4")
-}],
-"loop": true,
-"name": &"filled",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aox1m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hp05y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g3i1d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cdrmf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b1pjr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_71xtm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d7e6r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8aotp")
-}],
-"loop": false,
-"name": &"going_away",
-"speed": 20.0
-}]
+[sub_resource type="ButtonGroup" id="ButtonGroup_pgjjs"]
+allow_unpress = true
 
 [node name="START" type="Control"]
 layout_mode = 3
@@ -181,68 +35,86 @@ offset_right = 322.0
 offset_bottom = 182.0
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="UI" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_right = 322.0
 offset_bottom = 182.0
-theme_override_constants/margin_left = 31
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 layout_mode = 2
-theme_override_constants/separation = 44
+size_flags_vertical = 8
 alignment = 2
 
-[node name="TextureButton1" type="TextureButton" parent="MarginContainer/VBoxContainer"]
-z_index = 3
+[node name="START" type="TextureButton" parent="UI/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("3_4ge6i")
-texture_pressed = ExtResource("4_8itgj")
-texture_hover = ExtResource("5_tn317")
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_neighbor_top = NodePath("../QUIT")
+focus_neighbor_bottom = NodePath("../LOAD")
+focus_next = NodePath("../LOAD")
+focus_previous = NodePath("../QUIT")
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_pgjjs")
+texture_normal = ExtResource("2_1nvso")
+texture_pressed = ExtResource("3_gsp51")
+texture_hover = ExtResource("2_1nvso")
+texture_focused = ExtResource("3_gsp51")
 
-[node name="TextureButton2" type="TextureButton" parent="MarginContainer/VBoxContainer"]
-z_index = 3
+[node name="LOAD" type="TextureButton" parent="UI/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("6_1nvso")
-texture_pressed = ExtResource("7_gsp51")
-texture_hover = ExtResource("6_1nvso")
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_neighbor_top = NodePath("../START")
+focus_neighbor_bottom = NodePath("../SETTINGS")
+focus_next = NodePath("../SETTINGS")
+focus_previous = NodePath("../START")
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_pgjjs")
+texture_normal = ExtResource("4_r8uic")
+texture_pressed = ExtResource("5_x1pfr")
+texture_hover = ExtResource("4_r8uic")
+texture_focused = ExtResource("5_x1pfr")
 
-[node name="2025110902lKleki" type="Sprite2D" parent="."]
-position = Vector2(229, 115)
-texture = ExtResource("7_4ge6i")
+[node name="SETTINGS" type="TextureButton" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_neighbor_top = NodePath("../LOAD")
+focus_neighbor_bottom = NodePath("../QUIT")
+focus_next = NodePath("../QUIT")
+focus_previous = NodePath("../LOAD")
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_pgjjs")
+texture_normal = ExtResource("6_n0tym")
+texture_pressed = ExtResource("7_8jfef")
+texture_hover = ExtResource("6_n0tym")
+texture_focused = ExtResource("7_8jfef")
 
-[node name="stroke1" type="Area2D" parent="."]
-position = Vector2(0, -43)
+[node name="QUIT" type="TextureButton" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_neighbor_top = NodePath("../SETTINGS")
+focus_neighbor_bottom = NodePath("../START")
+focus_next = NodePath("../START")
+focus_previous = NodePath("../SETTINGS")
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_pgjjs")
+texture_normal = ExtResource("8_qfvu4")
+texture_pressed = ExtResource("9_twuju")
+texture_hover = ExtResource("8_qfvu4")
+texture_focused = ExtResource("9_twuju")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="stroke1"]
-visible = false
-position = Vector2(62.25, 137)
-shape = SubResource("RectangleShape2D_1nvso")
-
-[node name="stroke1" type="AnimatedSprite2D" parent="stroke1"]
-position = Vector2(74, 138)
-scale = Vector2(2.4, 2)
-sprite_frames = SubResource("SpriteFrames_ya0au")
-animation = &"filled"
-
-[node name="stroke2" type="Area2D" parent="."]
-position = Vector2(0, 19)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="stroke2"]
-visible = false
-position = Vector2(62.25, 137)
-shape = SubResource("RectangleShape2D_1nvso")
-
-[node name="stroke2" type="AnimatedSprite2D" parent="stroke2"]
-position = Vector2(62, 138)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_ya0au")
-animation = &"filled"
-
-[node name="TitleSpritesheet1" type="Sprite2D" parent="."]
-position = Vector2(160, 24)
+[node name="TitleSpritesheet1" type="Sprite2D" parent="UI"]
+position = Vector2(160, 60)
 scale = Vector2(2, 2)
 texture = ExtResource("11_pgjjs")
 hframes = 5
@@ -252,13 +124,22 @@ vframes = 4
 stream = ExtResource("10_m8nf6")
 volume_db = -10.0
 autoplay = true
-bus = &"Music"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton1" to="." method="_on_texture_button_1_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton2" to="." method="_on_texture_button_2_pressed"]
-[connection signal="mouse_entered" from="stroke1" to="." method="_on_bande_mouse_entered"]
-[connection signal="mouse_exited" from="stroke1" to="." method="_on_bande_mouse_exited"]
-[connection signal="animation_finished" from="stroke1/stroke1" to="." method="_on_stroke_1_animation_finished"]
-[connection signal="mouse_entered" from="stroke2" to="." method="_on_stroke_2_mouse_entered"]
-[connection signal="mouse_exited" from="stroke2" to="." method="_on_stroke_2_mouse_exited"]
-[connection signal="animation_finished" from="stroke2/stroke2" to="." method="_on_stroke_2_animation_finished"]
+[node name="logo" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(159, 94)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_1nvso")
+
+[node name="fade_transition" parent="." instance=ExtResource("13_gsp51")]
+visible = false
+
+[node name="logo_fade_out_timer" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
+
+[connection signal="pressed" from="UI/VBoxContainer/START" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/LOAD" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/SETTINGS" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/QUIT" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="logo_fade_out_timer" to="." method="_on_logo_fade_out_timer_timeout"]

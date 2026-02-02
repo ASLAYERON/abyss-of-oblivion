@@ -99,6 +99,7 @@ func check_life():
 func refill_health_points():
 	health_points=max_health
 func respawn():
+	Global.save_game(Global.active_checkpoint)
 	Global.tp_offset = Global.checkpoints[Global.active_checkpoint][0]
 	Global.reset_enemies()
 	refill_health_points()
@@ -326,6 +327,7 @@ func _on_spawn_timer_timeout() -> void:
 # ##################################
 ## INITIALISATION
 func _ready():
+	viewport.visible = true
 	camera.position_smoothing_enabled = false
 	fade_transition.visible=true
 	max_health = Global.max_health

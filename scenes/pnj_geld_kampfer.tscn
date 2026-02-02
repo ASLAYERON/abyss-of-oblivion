@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbl82lt4ad64p"]
+[gd_scene load_steps=18 format=3 uid="uid://dbl82lt4ad64p"]
 
 [ext_resource type="Script" uid="uid://c1yt5ajj5e67o" path="res://scripts/pnj_geld_kampfer.gd" id="1_oaf5n"]
 [ext_resource type="Texture2D" uid="uid://b7ip7m6dbfgwk" path="res://assets/sprites/Geld_Kampfer_spritesheet.png" id="2_37s48"]
@@ -6,6 +6,26 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ltwvs"]
 radius = 24.0208
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvpwt"]
+atlas = ExtResource("2_37s48")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tugu"]
+atlas = ExtResource("2_37s48")
+region = Rect2(32, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogid4"]
+atlas = ExtResource("2_37s48")
+region = Rect2(64, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atssh"]
+atlas = ExtResource("2_37s48")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0im8k"]
+atlas = ExtResource("2_37s48")
+region = Rect2(64, 16, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mgyq"]
 atlas = ExtResource("2_37s48")
@@ -33,6 +53,31 @@ region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wtqlp"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvpwt")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5tugu")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ogid4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atssh")
+}],
+"loop": true,
+"name": &"ATTACK",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0im8k")
+}],
+"loop": true,
+"name": &"ATTACK_2",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_5mgyq")
@@ -65,6 +110,9 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bvpwt"]
+radius = 6.0
+
 [node name="PNJ-Geld_Kampfer" type="Node2D"]
 script = ExtResource("1_oaf5n")
 
@@ -77,8 +125,8 @@ shape = SubResource("CircleShape2D_ltwvs")
 [node name="Geld Kampfer animation" type="AnimatedSprite2D" parent="."]
 z_index = -1
 sprite_frames = SubResource("SpriteFrames_wtqlp")
-animation = &"TALKING"
-frame_progress = 0.181086
+animation = &"ATTACK_2"
+frame_progress = 0.3038
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 light_mask = 2
@@ -88,5 +136,14 @@ shadow_enabled = true
 texture = ExtResource("4_37s48")
 texture_scale = 1.5
 
+[node name="attack_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_zone"]
+position = Vector2(-8, 2)
+shape = SubResource("CircleShape2D_bvpwt")
+debug_color = Color(0.935869, 0.228832, 0.286979, 0.42)
+
 [connection signal="body_entered" from="Dialogue-area" to="." method="_on_dialoguearea_body_entered"]
 [connection signal="body_exited" from="Dialogue-area" to="." method="_on_dialoguearea_body_exited"]
+[connection signal="animation_looped" from="Geld Kampfer animation" to="." method="_on_geld_kampfer_animation_animation_looped"]
+[connection signal="body_entered" from="attack_zone" to="." method="_on_attack_zone_body_entered"]

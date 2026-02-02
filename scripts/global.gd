@@ -19,8 +19,7 @@ var checkpoints = {
 	"Camp de l'ancien heros": [Vector2(1465.0, 1224.0),"res://scenes/caves.tscn"],
 	"Caveau du roi des rats": [Vector2(-408.0, 1032.0),"res://scenes/caves.tscn"],
 }
-
-var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict.
+var enemies= { #dict des mobs, la scene genere des ennemis sur la base de ce dict.
 	"caves":{
 		"rat01":["rat",Vector2(958,584)], #type,position
 		"rat02":["rat",Vector2(1120,552)],
@@ -43,6 +42,9 @@ var enemies={ #dict des mobs, la scene genere des ennemis sur la base de ce dict
 	"debug_room":{
 		"rat01":["rat",Vector2(52,-9)],		
 	}
+}
+var chest = {
+	"caves": [false, false,false, false,false, false,false]
 }
 
 func reset_enemies():#recerée tout les ennemis a chaque repos, est appelé par checkpoint
@@ -70,7 +72,6 @@ func reset_enemies():#recerée tout les ennemis a chaque repos, est appelé par 
 		"rat01":["rat",Vector2(52,-9)],		
 	}
 	}
-
 func save_game(new_active_checkpoint) -> void:
 	active_checkpoint = new_active_checkpoint
 	saveSystem._save()

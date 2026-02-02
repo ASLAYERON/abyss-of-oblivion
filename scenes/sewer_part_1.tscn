@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://b6ojp8u2dcuiv"]
+[gd_scene load_steps=5 format=4 uid="uid://b6ojp8u2dcuiv"]
 
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="1_5582u"]
 [ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="2_y08vw"]
 [ext_resource type="PackedScene" uid="uid://dpu1cnisseox6" path="res://scenes/advice.tscn" id="3_y08vw"]
+[ext_resource type="PackedScene" uid="uid://u7jkrfwpvv4x" path="res://objects/portal/cave_sewer1.tscn" id="4_rcsk6"]
 
 [node name="sewer_part1" type="Node2D"]
 
@@ -22,8 +23,12 @@ tile_map_data = PackedByteArray("AABGABQAAwAIAAEAAABIABUAAwAIAAEAAABMABUAAwAJAAE
 tile_set = ExtResource("1_5582u")
 
 [node name="player" parent="." instance=ExtResource("2_y08vw")]
+position = Vector2(6, 7)
 collision_priority = 0.8
 
 [node name="advice" parent="." instance=ExtResource("3_y08vw")]
 position = Vector2(133, 9)
 advice_dialogue = "not_develloped2"
+
+[node name="ArrivalCave" parent="." instance=ExtResource("4_rcsk6")]
+position = Vector2(-44, 2)

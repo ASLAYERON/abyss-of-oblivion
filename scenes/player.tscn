@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://clt8qha503vd1" path="res://scenes/fade_transition.tscn" id="27_31cv2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
-size = Vector2(12, 16)
+size = Vector2(12, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
 atlas = ExtResource("3_rdoyk")
@@ -625,13 +625,12 @@ safe_margin = 0.1
 script = ExtResource("1_b8584")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_itjk0")
 
 [node name="PLAYER" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_w8vpm")
-animation = &"DYING"
-frame = 3
-frame_progress = 1.0
+animation = &"IDLE"
 
 [node name="timers" type="Node" parent="."]
 
@@ -680,6 +679,7 @@ stream = SubResource("AudioStreamRandomizer_31cv2")
 stream = ExtResource("26_ujl30")
 
 [node name="Viewport" parent="." instance=ExtResource("25_ujl30")]
+visible = false
 
 [node name="Camera" parent="." instance=ExtResource("26_31cv2")]
 

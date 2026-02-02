@@ -15,8 +15,5 @@ func _on_portal_to_caves_body_entered(body: Node2D) -> void:
 		Global.tp_offset=Vector2(851,136)
 		get_tree().change_scene_to_file("res://scenes/caves.tscn")
 
-
-
-
 func _on_ambiance_finished() -> void:
 	ambiance.play()
