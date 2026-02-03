@@ -348,7 +348,7 @@ func _physics_process(delta: float) -> void:
 	if Global.state=="playing":
 		#declenche mode debug
 		if Input.is_action_just_pressed("debug"):
-			debugMode()
+			debugMode()		
 		handle_gravity(delta)
 		
 		## Move and sound

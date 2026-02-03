@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var attack_timer: Timer = $attack_timer
 @onready var climb_time: Timer = $climb_time
 @onready var warning: AnimatedSprite2D = $warning
+@onready var snore: AudioStreamPlayer2D = $snore
+@onready var squeak: AudioStreamPlayer2D = $squeak
+
 
 ## OBJECT
 var player = null
@@ -108,8 +111,12 @@ func _physics_process(delta: float) -> void:
 		if !is_on_floor():
 			velocity += get_gravity() * delta
 		if !is_awake:
+			if !snore.playing: snore.play()
+			if squeak.playing:squeak.stop()
 			sleep()
 		else:
+			if !squeak.playing: squeak.play()
+			if snore.playing: snore.stop()
 			set_collision_layer_value(1,true)
 			direction = player.position.x-position.x
 			if is_stunned:

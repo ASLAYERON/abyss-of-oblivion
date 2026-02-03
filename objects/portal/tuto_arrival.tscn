@@ -6,4 +6,4 @@
 
 [node name="portal" parent="." instance=ExtResource("1_rtf31")]
 scene_a = "res://scenes/arrival.tscn"
-tp_a = Vector2(-752, 476)
+tp_a = Vector2(-880, -500)

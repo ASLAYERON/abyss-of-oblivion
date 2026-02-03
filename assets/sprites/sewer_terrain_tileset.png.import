@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6ropll56krjf"
-path="res://.godot/imported/LOAD-CLICK.png-a7821c758cb8f1bd45a3e18f17ec06b5.ctex"
+uid="uid://c8naywf6d7fou"
+path="res://.godot/imported/sewer_terrain_tileset.png-2dd64337af74af91cad6697791ff3043.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Abyss of oblivion assets workshop/LOAD-CLICK.png"
-dest_files=["res://.godot/imported/LOAD-CLICK.png-a7821c758cb8f1bd45a3e18f17ec06b5.ctex"]
+source_file="res://assets/sprites/sewer_terrain_tileset.png"
+dest_files=["res://.godot/imported/sewer_terrain_tileset.png-2dd64337af74af91cad6697791ff3043.ctex"]
 
 [params]
 
