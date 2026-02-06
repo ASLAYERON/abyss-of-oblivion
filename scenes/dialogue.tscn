@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dk1pikfm4yye6"]
+[gd_scene load_steps=13 format=3 uid="uid://dk1pikfm4yye6"]
 
 [ext_resource type="Script" uid="uid://ceqnu83s0u18c" path="res://scripts/balloon.gd" id="1_led2e"]
 [ext_resource type="Theme" uid="uid://ch0wiuwjsmdy0" path="res://assets/themes/default_theme.tres" id="2_vogiq"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="4_tp716"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="5_03vpb"]
 [ext_resource type="FontFile" uid="uid://80mvkohr42j8" path="res://assets/fonts/PrintChar21.ttf" id="5_vogiq"]
-[ext_resource type="Texture2D" uid="uid://cjwneekv30lqj" path="res://Abyss of oblivion assets workshop/discussion-faces.png" id="7_x1cjp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -172,14 +171,6 @@ theme = ExtResource("2_vogiq")
 theme_override_fonts/font = ExtResource("3_x1cjp")
 theme_override_font_sizes/font_size = 40
 text = "Response example"
-
-[node name="Discussion-faces" type="Sprite2D" parent="."]
-position = Vector2(95, 417)
-scale = Vector2(8, 8)
-texture = ExtResource("7_x1cjp")
-hframes = 5
-vframes = 2
-frame = 4
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

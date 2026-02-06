@@ -10,8 +10,12 @@ var Geld_Kampfer_progression = 0
 var coins = 0
 var have_shield = false
 var max_health = 50
+var health_points = max_health
 var max_stamina = 50
+var stamina = max_stamina
 var active_checkpoint: String = ""
+
+var dev_mode = true
 
 var checkpoints = {
 	"Foret des morts": [Vector2(-135.0, 232.0),"res://scenes/arrival.tscn"],
@@ -40,7 +44,11 @@ var enemies= { #dict des mobs, la scene genere des ennemis sur la base de ce dic
 		
 	},
 	"debug_room":{
-		"rat01":["rat",Vector2(52,-9)],		
+		"rat00":["rat",Vector2(52,-9)],		
+		"rat01":["rat",Vector2(58,-9)],		
+		"rat02":["rat",Vector2(62,-9)],			
+		"rat03":["rat",Vector2(67,-9)],		
+		
 	}
 }
 var chest = {

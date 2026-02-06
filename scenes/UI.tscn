@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbhr1psi0hd28"]
+[gd_scene load_steps=14 format=3 uid="uid://cbhr1psi0hd28"]
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://brbrw8em6536q" path="res://Abyss of oblivion assets workshop/2025_12_18_0q9_Kleki.png" id="6_3wlde"]
 [ext_resource type="Texture2D" uid="uid://nvo5h5vbl1vk" path="res://Abyss of oblivion assets workshop/noise (1).png" id="7_ukj8e"]
 [ext_resource type="Texture2D" uid="uid://cuvfye6r6y0o3" path="res://Abyss of oblivion assets workshop/noise (2).png" id="8_w7enk"]
+[ext_resource type="Texture2D" uid="uid://ck6c2pxc4tpo1" path="res://assets/sprites/UI/shield_hit.png" id="11_aputy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
 noise_type = 0
@@ -100,6 +101,7 @@ text = "A VENIR
 flat = true
 
 [node name="rest_vignette" type="Sprite2D" parent="rest menu"]
+visible = false
 position = Vector2(-82, 3)
 texture = ExtResource("3_aputy")
 
@@ -176,7 +178,7 @@ mouse_filter = 2
 texture = SubResource("NoiseTexture2D_3wlde")
 expand_mode = 1
 
-[node name="freeze_vignette" type="Sprite2D" parent="."]
+[node name="damage_vignette" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(96, 54)
 texture = ExtResource("6_3wlde")
@@ -186,6 +188,16 @@ visible = false
 modulate = Color(0.78, 0.5148, 0.5148, 0.482353)
 position = Vector2(96.0001, 54)
 texture = ExtResource("6_3wlde")
+
+[node name="shield_hit_vignette" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.537255)
+position = Vector2(96, 54)
+texture = ExtResource("11_aputy")
+
+[node name="parry_vignette" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.537255)
+position = Vector2(96, 54)
+texture = ExtResource("11_aputy")
 
 [connection signal="pressed" from="rest menu/HBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="rest menu/HBoxContainer/a_venir_button" to="." method="_on_load_button_pressed"]

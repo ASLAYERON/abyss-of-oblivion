@@ -69,7 +69,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="rat attack" type="Node2D"]
+[node name="rat attack" type="Node2D" groups=["attack"]]
 z_index = 3
 script = ExtResource("1_6w3un")
 

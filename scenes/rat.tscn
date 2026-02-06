@@ -1,10 +1,11 @@
-[gd_scene load_steps=37 format=3 uid="uid://cp5syrb2ckqss"]
+[gd_scene load_steps=38 format=3 uid="uid://cp5syrb2ckqss"]
 
 [ext_resource type="Texture2D" uid="uid://dvw0iq8m8qslq" path="res://assets/sprites/RAT_SPRITESHEET.png" id="1_1l88y"]
 [ext_resource type="Script" uid="uid://bspv3injpg76k" path="res://scripts/rat.gd" id="1_77a1s"]
 [ext_resource type="Texture2D" uid="uid://yw8g42uwsun" path="res://assets/sprites/signals.png" id="4_3csnj"]
 [ext_resource type="AudioStream" uid="uid://da7r7tnjfjw3k" path="res://assets/sounds/mobs/rat/rat_snore.mp3" id="4_6s34g"]
 [ext_resource type="AudioStream" uid="uid://d0lrsn1j8ee1c" path="res://assets/sounds/mobs/rat/rat_squeak.mp3" id="5_6s34g"]
+[ext_resource type="AudioStream" uid="uid://by6c8mo2rfjrv" path="res://assets/sounds/mobs/rat/rat_hit.mp3" id="6_368s2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77a1s"]
 size = Vector2(16, 7)
@@ -251,7 +252,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="RAT" type="CharacterBody2D"]
+[node name="rat" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_77a1s")
@@ -308,9 +309,20 @@ volume_db = 10.0
 max_distance = 200.0
 attenuation = 0.196146
 
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_368s2")
+volume_db = 10.0
+max_distance = 200.0
+attenuation = 0.196146
+
+[node name="i_frames" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="hear_zone" to="." method="_on_hear_zone_body_entered"]
 [connection signal="body_exited" from="forget_zone" to="." method="_on_forget_zone_body_exited"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="climb_time" to="." method="_on_climb_time_timeout"]
 [connection signal="animation_finished" from="warning" to="." method="_on_warning_animation_finished"]
+[connection signal="timeout" from="i_frames" to="." method="_on_i_frames_timeout"]

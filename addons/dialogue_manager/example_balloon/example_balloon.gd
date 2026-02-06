@@ -1,4 +1,4 @@
-class_name DialogueManagerExampleBalloon extends CanvasLayer
+extends CanvasLayer
 ## A basic dialogue balloon for use with Dialogue Manager.
 
 ## The action to use for advancing the dialogue
@@ -51,6 +51,11 @@ var mutation_cooldown: Timer = Timer.new()
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
+## Changement fait par moi basé sur un tuto de Nathan hoad, le createur de l'addon
+@onready var portrait: TextureRect = %Portrait
+
+
+
 
 func _ready() -> void:
 	balloon.hide()
@@ -97,7 +102,13 @@ func apply_dialogue_line() -> void:
 
 	character_label.visible = not dialogue_line.character.is_empty()
 	character_label.text = tr(dialogue_line.character, "dialogue")
-
+	
+	var portrait_path: String = "res://assets/sprites/portrait/%s.png" %dialogue_line.character.to_lower()
+	if FileAccess.file_exists(portrait_path):
+		portrait.texture = load(portrait_path)
+	else:
+		portrait.texture = null
+	
 	dialogue_label.hide()
 	dialogue_label.dialogue_line = dialogue_line
 

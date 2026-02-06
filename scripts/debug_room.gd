@@ -5,9 +5,8 @@ const rat = preload("res://scenes/rat.tscn")
 
 var new_enemy=null
 func _ready() -> void:
-#	player.visible=true
-#	player.noise_sensor=true
-#	player.progress_bar.visible=true
+	player.visible=true
+	Global.have_shield = true
 	for enemy in Global.enemies["debug_room"]:
 		if Global.enemies["debug_room"][enemy][0]=="rat" :
 			new_enemy = rat.instantiate()

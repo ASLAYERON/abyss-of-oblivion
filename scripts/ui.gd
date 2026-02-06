@@ -2,8 +2,9 @@ extends Control
 @onready var rest_menu: Control = $"rest menu"
 @onready var instruction: Label = $instruction
 @onready var coin_counter: Label = $upper_bar/coin_counter
-@onready var freeze_vignette: Sprite2D = $freeze_vignette
+@onready var damage_vignette: Sprite2D = $damage_vignette
 @onready var iframes_vignette: Sprite2D = $iframes_vignette
+@onready var shield_hit_vignette: Sprite2D = $shield_hit_vignette
 @onready var upper_bar: HBoxContainer = $upper_bar
 @onready var health_bar: TextureProgressBar = $upper_bar/VBoxContainer/health_bar
 @onready var stamina_bar: TextureProgressBar = $upper_bar/VBoxContainer/stamina_bar
@@ -31,8 +32,14 @@ func _on_load_button_pressed() -> void:
 	pass
 	#get_parent().load_game()
 	
-func show_freeze_vignette(Bool):
-	freeze_vignette.visible = Bool
+func show_damage_vignette(Bool):
+	if Bool && shield_hit_vignette.visible:
+		shield_hit_vignette.visible = false
+	damage_vignette.visible = Bool
 	
 func show_iframes_vignette(Bool):
 	iframes_vignette.visible = Bool
+
+func show_shield_hit_vignette(Bool):
+	shield_hit_vignette.visible= Bool
+	

@@ -6,14 +6,16 @@ extends CharacterBody2D
 @onready var warning: AnimatedSprite2D = $warning
 @onready var snore: AudioStreamPlayer2D = $snore
 @onready var squeak: AudioStreamPlayer2D = $squeak
-
-
+@onready var hit: AudioStreamPlayer2D = $hit
+@onready var i_frames: Timer = $i_frames
 ## OBJECT
 var player = null
 const rat_attack = preload("res://scenes/rat_attack.tscn")
 ## INT
 var SPEED = 1.1
 var direction = 0
+var health_points = 40
+var hit_direction = false
 ## BOOL
 var player_is_here: bool = false
 var is_climbing: bool=false
@@ -46,9 +48,9 @@ func attack():
 		attack_timer.start()
 		var new_attack=rat_attack.instantiate()
 		if direction >= 0:
-			new_attack.direction = direction
+			new_attack.direction = true
 		else:
-			new_attack.direction = direction >= 0
+			new_attack.direction = false
 		new_attack.caster = self
 		add_child(new_attack)
 		sprite.play("ATTACK")
@@ -80,6 +82,8 @@ func stun():
 func _on_sprite_animation_finished() -> void:
 	if sprite.animation == "STUNNED":
 		is_stunned = false
+	else:
+		queue_free()
 
 func _on_attack_timer_timeout() -> void:
 	attack_availalbe = true
@@ -101,6 +105,31 @@ func _on_forget_zone_body_exited(body: Node2D) -> void:
 func _on_warning_animation_finished() -> void:
 	warning.visible = false
 
+func _on_i_frames_timeout() -> void:
+	modulate = Color.WHITE
+	Global.state = "playing"
+	velocity.x = 0
+
+## DAMAGE
+func damage(hp,direction,caster):
+	if is_stunned:
+		hp = hp * 3
+	hit_direction = direction
+	if i_frames.time_left == 0:
+		if hp < health_points:
+			if hit_direction: velocity.x += 100
+			else: velocity.x -= 100
+			health_points -= hp
+			hit.play()
+			modulate = Color.RED
+			Global.state = "freeze"
+		else:
+			health_points = 0
+			sprite.play("DIE")
+			Global.enemies[path_scene].erase(path_name)
+		i_frames.start()
+		attack_timer.start()
+	
 ## MAIN LOOP
 func _ready() -> void:
 	position=start_position
@@ -108,25 +137,23 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var distance = sqrt((get_parent().player.position.x-position.x)**2 +(get_parent().player.position.y-position.y)**2)
 	if Global.state == "playing" && distance <= 300:
-		if !is_on_floor():
-			velocity += get_gravity() * delta
-		if !is_awake:
-			if !snore.playing: snore.play()
-			if squeak.playing:squeak.stop()
-			sleep()
-		else:
-			if !squeak.playing: squeak.play()
-			if snore.playing: snore.stop()
-			set_collision_layer_value(1,true)
-			direction = player.position.x-position.x
-			if is_stunned:
-				pass
+		if health_points > 0:
+			if !is_on_floor():
+				velocity += get_gravity() * delta
+			if !is_awake:
+				if !snore.playing: snore.play()
+				if squeak.playing:squeak.stop()
+				sleep()
 			else:
-				if abs(direction) < 20: #attack range
-					attack()
+				if !squeak.playing: squeak.play()
+				if snore.playing: snore.stop()
+				set_collision_layer_value(1,true)
+				direction = player.position.x-position.x
+				if is_stunned:
+					pass
 				else:
-					move()
-		move_and_slide()
-	else:
-		pass
-	
+					if abs(direction) < 20: #attack range
+						attack()
+					else:
+						move()
+	move_and_slide()

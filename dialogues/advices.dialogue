@@ -56,3 +56,8 @@ set Global.state = "playing"
 Dev: Cette zone n'est pas devellopée mais sera la prochaine a arriver, merci d'avoir joué a Abyss of Oblivion!
 set Global.state = "playing"
 => END
+
+~ easter_egg1
+Dev: Lily la plus belle ! 
+set Global.state = "playing"
+=> END

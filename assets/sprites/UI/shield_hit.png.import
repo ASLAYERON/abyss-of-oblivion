@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ksoylojusdqi"
-path="res://.godot/imported/SEWER_BACKGROUND.png-eb5c7802feba4545cfa3f26e0030cd33.ctex"
+uid="uid://ck6c2pxc4tpo1"
+path="res://.godot/imported/shield_hit.png-2e874714616e4b2a0930359b29950e55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sounds/mobs/rat/SEWER_BACKGROUND.png"
-dest_files=["res://.godot/imported/SEWER_BACKGROUND.png-eb5c7802feba4545cfa3f26e0030cd33.ctex"]
+source_file="res://assets/sprites/UI/shield_hit.png"
+dest_files=["res://.godot/imported/shield_hit.png-2e874714616e4b2a0930359b29950e55.ctex"]
 
 [params]
 

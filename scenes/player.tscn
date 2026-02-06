@@ -656,6 +656,10 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="attack1_timer" type="Timer" parent="timers"]
+wait_time = 0.6
+one_shot = true
+
 [node name="sounds" type="Node" parent="."]
 
 [node name="parry" type="AudioStreamPlayer" parent="sounds"]
