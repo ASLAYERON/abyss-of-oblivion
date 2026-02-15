@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://njalgou1vbev"]
 
-[ext_resource type="Script" uid="uid://cxcmo80lqfg7v" path="res://scripts/rat_attack.gd" id="1_6w3un"]
+[ext_resource type="Script" uid="uid://cxcmo80lqfg7v" path="res://objects/attacks/rat_attack/rat_attack.gd" id="1_6w3un"]
 [ext_resource type="Texture2D" uid="uid://cvivuc5euwcwr" path="res://assets/sprites/rat-attack.png" id="2_tykiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ps48"]
@@ -74,6 +74,8 @@ z_index = 3
 script = ExtResource("1_6w3un")
 
 [node name="attack" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack"]
 shape = SubResource("RectangleShape2D_2ps48")

@@ -15,6 +15,7 @@ var max_stamina = 50
 var stamina = max_stamina
 var active_checkpoint: String = ""
 
+var freeze_mode = ""
 var dev_mode = true
 
 var checkpoints = {
@@ -44,10 +45,10 @@ var enemies= { #dict des mobs, la scene genere des ennemis sur la base de ce dic
 		
 	},
 	"debug_room":{
-		"rat00":["rat",Vector2(52,-9)],		
-		"rat01":["rat",Vector2(58,-9)],		
-		"rat02":["rat",Vector2(62,-9)],			
-		"rat03":["rat",Vector2(67,-9)],		
+		"rat00":["rat",Vector2(52,8)],		
+		"rat01":["rat",Vector2(52,0)],		
+		"rat02":["rat",Vector2(52,-8)],			
+		"rat03":["rat",Vector2(52,-16)],		
 		
 	}
 }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=4 uid="uid://b0lu43adf30jx"]
 
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="1_8wu76"]
-[ext_resource type="Script" uid="uid://bebeg758smdx8" path="res://scripts/caves.gd" id="1_84vsv"]
+[ext_resource type="Script" uid="uid://bebeg758smdx8" path="res://scripts/caves.gd" id="1_g6733"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="2_xeq0e"]
 [ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="3_gnnrs"]
 [ext_resource type="PackedScene" uid="uid://dpu1cnisseox6" path="res://scenes/advice.tscn" id="3_isjqa"]
@@ -38,7 +38,7 @@ stream_6/weight = 5.0
 
 [node name="caves" type="Node2D"]
 modulate = Color(0.56, 0.651, 0.7, 1)
-script = ExtResource("1_84vsv")
+script = ExtResource("1_g6733")
 
 [node name="TILEMAPS" type="Parallax2D" parent="."]
 

@@ -190,11 +190,13 @@ position = Vector2(96.0001, 54)
 texture = ExtResource("6_3wlde")
 
 [node name="shield_hit_vignette" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.537255)
+visible = false
+modulate = Color(1, 1, 1, 0.160784)
 position = Vector2(96, 54)
 texture = ExtResource("11_aputy")
 
 [node name="parry_vignette" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.537255)
 position = Vector2(96, 54)
 texture = ExtResource("11_aputy")

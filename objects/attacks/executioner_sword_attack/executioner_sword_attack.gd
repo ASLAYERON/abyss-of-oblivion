@@ -17,9 +17,8 @@ func _ready() -> void:
 	position=offset
 	
 func _on_attack_body_entered(body: Node2D) -> void:
-	if (body.name=="player" or body.is_in_group("enemy")) && body != caster :
-		#on doit rajouter le rat attaquant pour que le parry remonte
-		body.damage(10,direction,caster)
+	if (body.name=="player" or (body.is_in_group("enemy") && !caster.is_in_group("enemy"))) && body != caster :
+		body.damage(25,direction,caster)
 	elif body.is_in_group("attack"):
 		body.queue_free()
 

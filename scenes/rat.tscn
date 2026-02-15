@@ -299,7 +299,6 @@ frame_progress = 1.0
 
 [node name="snore" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_6s34g")
-volume_db = 10.0
 max_distance = 200.0
 attenuation = 0.196146
 

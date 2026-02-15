@@ -22,11 +22,13 @@ extends CharacterBody2D
 @onready var get_up_timer: Timer = $"timers/get_up timer"
 @onready var spawn_timer: Timer = $timers/spawn_timer
 @onready var attack_1_timer: Timer = $timers/attack1_timer
+@onready var attack_animation_timer: Timer = $timers/attack_animation_timer
+@onready var stamina_charge_timer: Timer = $timers/stamina_charge_timer
 # #############################################
 
 	#init des var
 	
-@onready var rat_attack = preload("res://scenes/rat_attack.tscn")
+@onready var attack1 = preload("res://objects/attacks/executioner_sword_attack/executioner_sword_attack.tscn")
 #string
 var actual_action: String = "IDLE"
 #float
@@ -42,6 +44,7 @@ var run_factor: int = 1
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
 var hit_direction=0 #permet de savoir dans quel sens faire l'animation de hit
 var knockback = 400
+var active_attack = 1
 #booleen
 var is_running: bool = false
 var noise_sensor: bool = true
@@ -58,29 +61,35 @@ var is_blocking: bool = false
 var is_parrying: bool = false
 var stamina_can_reload: bool = false
 var is_stunned: bool = false
+var is_attacking: bool = false
+var can_charge_stamina: bool = false
 # ##################################
 
 ## GESTION DE LA VIE
 func damage(hp,direction,caster):
-	if is_iframes or debug_mode:
+	if is_iframes or debug_mode or Global.state != "playing":
 		pass
 	elif is_blocking:
-		Global.state = "freeze"
-		UI.show_shield_hit_vignette(true)
-		freeze_timer.start()
 		if is_parrying:
 			parry.play()
 			caster.stun()
+			Global.freeze_mode = "parry"
+			UI.freeze()
+			freeze_timer.start()
 		elif stamina > hp:
 			stamina -= hp
 			shield_hit.play()
+			Global.freeze_mode = "shield_hit"
+			UI.freeze()
+			freeze_timer.start()
 		else:
 			stamina = 0
 			Global.health_points -= hp - stamina
 			camera.camera_shake()
 			hit_hurt.play()
 			hit_direction=int(direction)
-			Global.state="freeze"
+			Global.freeze_mode = "player_hit"
+			UI.freeze()
 			is_iframes=true
 			iframe_timer.start()
 			freeze_timer.start()
@@ -90,7 +99,8 @@ func damage(hp,direction,caster):
 		camera.camera_shake()
 		hit_hurt.play()
 		hit_direction=int(direction)
-		Global.state="freeze"
+		Global.freeze_mode = "player_hit"
+		UI.freeze()
 		is_iframes=true
 		iframe_timer.start()
 		freeze_timer.start()
@@ -115,7 +125,13 @@ func handle_stamina():
 	if stamina <= 0:
 		stamina = 0
 	if stamina < Global.max_stamina && !using_stamina:
-		stamina += 1
+		if can_charge_stamina:
+			stamina += 1
+		elif stamina_charge_timer.time_left == 0:
+			stamina_charge_timer.start()
+	elif using_stamina:
+		can_charge_stamina = false
+		stamina_charge_timer.stop()
 	UI.upd_stamina(stamina,Global.max_stamina)
 func handle_gravity(delta):
 	if is_on_floor():
@@ -160,12 +176,16 @@ func animate_player(direction):
 	if Global.state == "playing":
 		## DEBUG
 		if debug_mode: actual_action="DEBUG"
+		## ATTACK
+		elif is_attacking:
+			if old_direction > 0: actual_action = "ATTACK_RIGHT"
+			else : actual_action = "ATTACK_LEFT"
 		## GETTING UP	
 		elif Global.can_go_up:
 			if is_straight_climbing: actual_action = "STRAIGHT_CLIMB"
 			else: actual_action = "CLIMB_STATIC"
 		elif is_getting_up: actual_action = "GET_UP"
-		## WALK CLIMB TRANSITION
+		## WALK CLIMB TRANSITION + BLOCK
 		elif direction:
 			if old_direction == -direction: is_transitioning = true
 			
@@ -193,7 +213,7 @@ func animate_player(direction):
 				else: actual_action = "IDLE"
 	elif Global.state == "rest": actual_action = "REST"
 	elif Global.state == "talking": actual_action = "IDLE"
-	elif Global.state == "freeze" && is_iframes:
+	elif Global.state == "freeze" && Global.freeze_mode == "player_hit":
 		if hit_direction: actual_action = "HIT_LEFT"
 		else : actual_action = "HIT_RIGHT"
 	elif Global.state == "cutscene": actual_action = "UPGRADE"
@@ -263,14 +283,20 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 				ladder_climb.stop()
 
 ## ACTIONS
-func attack(direction):   
-	if attack_1_timer.time_left == 0:
-		attack_1_timer.start()
-		var new_attack = rat_attack.instantiate()
+func start_attack():
+	#if attack_1_timer.time_left == 0:
+	attack_1_timer.start()
+	is_attacking = true
+	attack_animation_timer.start()
+func send_attack():   
+	if stamina >= 30:
+		using_stamina = true
+		camera.camera_shake()
+		var new_attack = attack1.instantiate()
 		new_attack.direction = old_direction >= 0
 		new_attack.caster = self
 		add_child(new_attack)	
-		
+		stamina -= 30
 func block():
 	if Global.have_shield && !is_iframes:
 		if Input.is_action_just_pressed("block"):
@@ -330,11 +356,7 @@ func _on_iframe_timer_timeout() -> void:
 	
 func _on_freeze_timer_timeout() -> void:
 	Global.state="playing"
-	if is_iframes:
-		UI.show_damage_vignette(false)
-		UI.show_iframes_vignette(true)
-	else:
-		UI.show_shield_hit_vignette(false)
+	UI.unfreeze()
 	if hit_direction == 1: velocity.x += knockback
 	else : velocity.x -= knockback
 
@@ -343,6 +365,14 @@ func _on_parry_timer_timeout() -> void:
 	
 func _on_spawn_timer_timeout() -> void:
 	camera.position_smoothing_enabled = true
+
+func _on_attack_animation_timer_timeout() -> void:
+	is_attacking = false
+	if Global.state == "playing":
+		send_attack()
+
+func _on_stamina_charge_timer_timeout() -> void:
+	can_charge_stamina = true
 # ##################################
 ## INITIALISATION
 func _ready():
@@ -376,7 +406,7 @@ func _physics_process(delta: float) -> void:
 		##ACTIONS
 		block()
 		if Input.is_action_just_pressed("attack1"):
-			attack(direction)
+			start_attack()
 		
 		#HANDLING
 		handle_stamina()

@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var i_frames: Timer = $i_frames
 ## OBJECT
 var player = null
-const rat_attack = preload("res://scenes/rat_attack.tscn")
+const rat_attack = preload("res://objects/attacks/rat_attack/rat_attack.tscn")
 ## INT
 var SPEED = 1.1
 var direction = 0
@@ -33,13 +33,11 @@ var start_position: Vector2 = Vector2(0,0)
 func sleep():
 	if warning.visible:
 		warning.play("awakening")
-	set_collision_layer_value(1,false)
 	if player_is_here:
 		if player.noise > 30:
 			warning.visible = true
 		if player.noise > 50:
 			is_awake = true
-			set_collision_layer_value(1,true)
 
 	sprite.play("SLEEP")
 func attack():
@@ -112,6 +110,7 @@ func _on_i_frames_timeout() -> void:
 
 ## DAMAGE
 func damage(hp,direction,caster):
+	is_awake = true
 	if is_stunned:
 		hp = hp * 3
 	hit_direction = direction
@@ -122,6 +121,7 @@ func damage(hp,direction,caster):
 			health_points -= hp
 			hit.play()
 			modulate = Color.RED
+			Global.freeze_mode = "enemy_hit"
 			Global.state = "freeze"
 		else:
 			health_points = 0
@@ -147,7 +147,6 @@ func _physics_process(delta: float) -> void:
 			else:
 				if !squeak.playing: squeak.play()
 				if snore.playing: snore.stop()
-				set_collision_layer_value(1,true)
 				direction = player.position.x-position.x
 				if is_stunned:
 					pass

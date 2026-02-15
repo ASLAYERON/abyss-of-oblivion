@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://4vptv48ggcui"]
+
+[ext_resource type="Script" uid="uid://duxyxsy8s452k" path="res://objects/attacks/executioner_sword_attack/executioner_sword_attack.gd" id="1_8suc7"]
+[ext_resource type="Texture2D" uid="uid://bt4ys35js2mcp" path="res://assets/sprites/executionner_sword_attack.png" id="2_8suc7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ps48"]
+size = Vector2(28, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nrj8"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(0, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j628"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(24, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clo8a"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(48, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sd0pk"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(72, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwg0c"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(96, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twg8s"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(120, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pynqp"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(144, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mggsq"]
+atlas = ExtResource("2_8suc7")
+region = Rect2(168, 0, 24, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5v1qd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nrj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j628")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clo8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sd0pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwg0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twg8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pynqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mggsq")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 15.0
+}]
+
+[node name="executioner sword attack" type="Node2D" groups=["attack"]]
+z_index = 3
+script = ExtResource("1_8suc7")
+
+[node name="attack" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack"]
+shape = SubResource("RectangleShape2D_2ps48")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5v1qd")
+animation = &"attack"
+frame = 7
+frame_progress = 1.0
+
+[connection signal="body_entered" from="attack" to="." method="_on_attack_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
