@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cugiquxhcf6vu"]
 
 [ext_resource type="Texture2D" uid="uid://cgwq5fo751bjh" path="res://assets/sprites/SHIELD.png" id="1_3eue3"]
-[ext_resource type="Script" uid="uid://doqdskhk8vvvx" path="res://scripts/shield_update.gd" id="1_dcu3o"]
+[ext_resource type="Script" uid="uid://doqdskhk8vvvx" path="res://scripts/shield_upgrade.gd" id="1_dcu3o"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="3_ln07d"]
 [ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="4_b2vhr"]
 
@@ -34,7 +34,7 @@ offset_top = 18.0
 offset_right = 165.0
 offset_bottom = 30.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_b2vhr")
-text = "AMELIORATION"
+text = "BOUCLIER RECUPERE"
 label_settings = SubResource("LabelSettings_8i0xi")
 horizontal_alignment = 1
 vertical_alignment = 1

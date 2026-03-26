@@ -135,8 +135,7 @@ func _ready() -> void:
 	position=start_position
 
 func _physics_process(delta: float) -> void:
-	var distance = sqrt((get_parent().player.position.x-position.x)**2 +(get_parent().player.position.y-position.y)**2)
-	if Global.state == "playing" && distance <= 300:
+	if Global.state == "playing":
 		if health_points > 0:
 			if !is_on_floor():
 				velocity += get_gravity() * delta

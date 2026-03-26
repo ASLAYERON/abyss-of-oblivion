@@ -3,9 +3,9 @@ extends CharacterBody2D
 
 	#import des noeuds
 @onready var player: AnimatedSprite2D = $PLAYER
-@onready var viewport: CanvasLayer = $Viewport
+@onready var ui_viewport: CanvasLayer = $"UI Viewport"
 @onready var camera: Camera2D = $Camera
-@onready var UI: Control = viewport.UI
+@onready var UI: Control = ui_viewport.UI
 @onready var fade_transition: CanvasModulate = $fade_transition
 ## SOUNDS
 @onready var footstep: AudioStreamPlayer = $sounds/footstep
@@ -21,7 +21,6 @@ extends CharacterBody2D
 @onready var freeze_timer: Timer = $timers/freeze_timer
 @onready var get_up_timer: Timer = $"timers/get_up timer"
 @onready var spawn_timer: Timer = $timers/spawn_timer
-@onready var attack_1_timer: Timer = $timers/attack1_timer
 @onready var attack_animation_timer: Timer = $timers/attack_animation_timer
 @onready var stamina_charge_timer: Timer = $timers/stamina_charge_timer
 # #############################################
@@ -71,6 +70,7 @@ func damage(hp,direction,caster):
 		pass
 	elif is_blocking:
 		if is_parrying:
+			velocity.x = 0
 			parry.play()
 			caster.stun()
 			Global.freeze_mode = "parry"
@@ -83,6 +83,7 @@ func damage(hp,direction,caster):
 			UI.freeze()
 			freeze_timer.start()
 		else:
+			velocity.x = 0
 			stamina = 0
 			Global.health_points -= hp - stamina
 			camera.camera_shake()
@@ -224,7 +225,7 @@ func animation(actual_action):
 ## MOUVEMENT
 func walk_and_wall_climb(direction,delta):
 			# marcher/grimper aux murs droite/gauche
-	if direction && !is_getting_up && !is_blocking:
+	if direction && !is_getting_up && !is_blocking && !is_attacking:
 		if run_factor == 1:
 			if !footstep.playing:
 				footstep.play()
@@ -284,19 +285,18 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 
 ## ACTIONS
 func start_attack():
-	#if attack_1_timer.time_left == 0:
-	attack_1_timer.start()
-	is_attacking = true
-	attack_animation_timer.start()
-func send_attack():   
-	if stamina >= 30:
+	if !is_attacking && stamina >= 10:
+		is_attacking = true
+		attack_animation_timer.start()
+		stamina -= 10
 		using_stamina = true
-		camera.camera_shake()
+func send_attack():   
 		var new_attack = attack1.instantiate()
+		new_attack.position.y = position.y - 2
+		new_attack.position.x = position.x + 16 * old_direction
 		new_attack.direction = old_direction >= 0
 		new_attack.caster = self
-		add_child(new_attack)	
-		stamina -= 30
+		get_parent().add_child(new_attack)	
 func block():
 	if Global.have_shield && !is_iframes:
 		if Input.is_action_just_pressed("block"):
@@ -367,7 +367,6 @@ func _on_spawn_timer_timeout() -> void:
 	camera.position_smoothing_enabled = true
 
 func _on_attack_animation_timer_timeout() -> void:
-	is_attacking = false
 	if Global.state == "playing":
 		send_attack()
 
@@ -376,7 +375,7 @@ func _on_stamina_charge_timer_timeout() -> void:
 # ##################################
 ## INITIALISATION
 func _ready():
-	viewport.visible = true
+	ui_viewport.visible = true
 	camera.position_smoothing_enabled = false
 	fade_transition.visible=true
 	UI.visible = true

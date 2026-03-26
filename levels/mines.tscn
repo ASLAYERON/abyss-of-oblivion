@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=4 uid="uid://dy6qkx6xnk2pj"]
 
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="1_8wu76"]
-[ext_resource type="Script" uid="uid://b5qg01qle8pm4" path="res://scripts/mines.gd" id="1_g7vyn"]
+[ext_resource type="Script" uid="uid://b5qg01qle8pm4" path="res://levels/mines.gd" id="1_g7vyn"]
 [ext_resource type="Texture2D" uid="uid://dvipt3y10xiym" path="res://assets/sprites/ABYSS_OF_OBLIVIONtileset.png" id="2_46hrb"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="3_2cp5x"]
 [ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="3_gnnrs"]
