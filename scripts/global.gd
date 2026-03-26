@@ -45,10 +45,7 @@ var enemies= { #dict des mobs, la scene genere des ennemis sur la base de ce dic
 		
 	},
 	"debug_room":{
-		"rat00":["rat",Vector2(52,8)],		
-		"rat01":["rat",Vector2(52,0)],		
-		"rat02":["rat",Vector2(52,-8)],			
-		"rat03":["rat",Vector2(52,-16)],		
+		#"rat00":["rat",Vector2(-200,3)],
 		
 	}
 }

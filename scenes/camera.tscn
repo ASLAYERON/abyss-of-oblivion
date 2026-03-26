@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1nle8wtsm32m"]
+[gd_scene load_steps=3 format=3 uid="uid://b1nle8wtsm32m"]
 
 [ext_resource type="Script" uid="uid://bltur0sv6syda" path="res://scripts/camera_2d.gd" id="1_cvpoc"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kod1s"]
+
 [node name="Camera" type="Camera2D"]
-zoom = Vector2(6, 6)
+material = SubResource("ShaderMaterial_kod1s")
+zoom = Vector2(2.5, 2.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("1_cvpoc")

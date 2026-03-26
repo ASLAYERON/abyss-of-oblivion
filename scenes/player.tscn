@@ -1,6 +1,7 @@
-[gd_scene load_steps=108 format=3 uid="uid://3xx6dc27qdqf"]
+[gd_scene load_steps=119 format=3 uid="uid://3xx6dc27qdqf"]
 
 [ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
+[ext_resource type="Shader" uid="uid://dd68whbbywo8t" path="res://shaders/hue_saturation_value.gdshader" id="1_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://dmdng4ybdkkw0" path="res://assets/sprites/PLAYER_SPRITESHEET.png" id="3_rdoyk"]
 [ext_resource type="AudioStream" uid="uid://c8slves8astns" path="res://assets/sounds/player/hit1.mp3" id="5_fjrip"]
 [ext_resource type="AudioStream" uid="uid://8kargpmh4i1p" path="res://assets/sounds/player/parry.mp3" id="5_smehm"]
@@ -27,49 +28,83 @@
 [ext_resource type="PackedScene" uid="uid://b1nle8wtsm32m" path="res://scenes/camera.tscn" id="26_31cv2"]
 [ext_resource type="AudioStream" uid="uid://v004os4bbgsh" path="res://assets/sounds/player/shield_hit.mp3" id="26_ujl30"]
 [ext_resource type="PackedScene" uid="uid://clt8qha503vd1" path="res://scenes/fade_transition.tscn" id="27_31cv2"]
+[ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="28_pf23h"]
+[ext_resource type="Shader" uid="uid://ddpgfmod541m4" path="res://shaders/dithering.gdshader" id="31_wnwbv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
+shader = ExtResource("1_dt7fs")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation_mult = 1.2
+shader_parameter/value_mult = 1.0
+shader_parameter/brightness_add = -0.02
+shader_parameter/contrast_mult = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itjk0"]
 size = Vector2(12, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_770dr"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(64, 96, 16, 16)
+region = Rect2(112, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8f1cb"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(48, 96, 16, 16)
+region = Rect2(96, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdulj"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(32, 96, 16, 16)
+region = Rect2(80, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vau08"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(16, 96, 16, 16)
+region = Rect2(64, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsb7e"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(0, 96, 16, 16)
+region = Rect2(48, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjsmb"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(80, 96, 16, 16)
+region = Rect2(32, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mwp2n"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(96, 96, 16, 16)
+region = Rect2(16, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0yhus"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(112, 96, 16, 16)
+region = Rect2(0, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jlll7"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(128, 96, 16, 16)
+region = Rect2(0, 96, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qk6i7"]
 atlas = ExtResource("3_rdoyk")
-region = Rect2(144, 96, 16, 16)
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c3st"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1da1t"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p21yu"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(64, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irpag"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(80, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpsgo"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(96, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx8is"]
+atlas = ExtResource("3_rdoyk")
+region = Rect2(112, 96, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
 atlas = ExtResource("3_rdoyk")
@@ -344,30 +379,48 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qsb7e")
-}],
-"loop": false,
-"name": &"ATTACK_LEFT",
-"speed": 15.0
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qjsmb")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mwp2n")
 }, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_0yhus")
+}],
+"loop": false,
+"name": &"ATTACK_LEFT",
+"speed": 17.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jlll7")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qk6i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c3st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1da1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p21yu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irpag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpsgo")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_jx8is")
 }],
 "loop": false,
 "name": &"ATTACK_RIGHT",
-"speed": 15.0
+"speed": 17.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -698,9 +751,15 @@ random_pitch = 1.4
 streams_count = 1
 stream_0/stream = ExtResource("25_ke2ow")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wnwbv"]
+shader = ExtResource("31_wnwbv")
+shader_parameter/bits = 4
+shader_parameter/dithering = true
+
 [node name="player" type="CharacterBody2D"]
 light_mask = 2
 visibility_layer = 2
+material = SubResource("ShaderMaterial_wqfne")
 safe_margin = 0.1
 script = ExtResource("1_b8584")
 
@@ -709,8 +768,9 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_itjk0")
 
 [node name="PLAYER" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_w8vpm")
-animation = &"ATTACK_LEFT"
+animation = &"ATTACK_RIGHT"
 
 [node name="timers" type="Node" parent="."]
 
@@ -734,10 +794,6 @@ one_shot = true
 
 [node name="spawn_timer" type="Timer" parent="timers"]
 wait_time = 0.1
-one_shot = true
-
-[node name="attack1_timer" type="Timer" parent="timers"]
-wait_time = 0.6
 one_shot = true
 
 [node name="attack_animation_timer" type="Timer" parent="timers"]
@@ -769,13 +825,29 @@ stream = SubResource("AudioStreamRandomizer_31cv2")
 [node name="shield_hit" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource("26_ujl30")
 
-[node name="Viewport" parent="." instance=ExtResource("25_ujl30")]
+[node name="UI Viewport" parent="." instance=ExtResource("25_ujl30")]
 visible = false
 
 [node name="Camera" parent="." instance=ExtResource("26_31cv2")]
+position = Vector2(0, -26)
 
 [node name="fade_transition" parent="." instance=ExtResource("27_31cv2")]
 visible = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("28_pf23h")
+texture_scale = 0.5
+
+[node name="dither" type="ColorRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_wnwbv")
+offset_left = -189.0
+offset_top = -121.0
+offset_right = 192.0
+offset_bottom = 102.0
+color = Color(1, 0, 0.0322485, 1)
 
 [connection signal="animation_finished" from="PLAYER" to="." method="_on_player_animation_finished"]
 [connection signal="timeout" from="timers/iframe_timer" to="." method="_on_iframe_timer_timeout"]

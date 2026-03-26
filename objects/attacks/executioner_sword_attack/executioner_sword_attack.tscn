@@ -71,7 +71,6 @@ animations = [{
 }]
 
 [node name="executioner sword attack" type="Node2D" groups=["attack"]]
-z_index = 3
 script = ExtResource("1_8suc7")
 
 [node name="attack" type="Area2D" parent="."]
