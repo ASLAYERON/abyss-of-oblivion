@@ -7,10 +7,3 @@ var new_enemy=null
 func _ready() -> void:
 	player.visible=true
 	Global.have_shield = true
-	for enemy in Global.enemies["debug_room"]:
-		if Global.enemies["debug_room"][enemy][0]=="rat" :
-			new_enemy = rat.instantiate()
-		new_enemy.path_scene="debug_room"
-		new_enemy.path_name=enemy
-		new_enemy.start_position=Global.enemies["debug_room"][enemy][1]
-		add_child(new_enemy)

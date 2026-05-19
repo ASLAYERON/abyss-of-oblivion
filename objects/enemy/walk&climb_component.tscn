@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://v0uxtqbb0fjy"]
+
+[ext_resource type="Script" uid="uid://j80a5iuwpd0q" path="res://objects/enemy/walk&climb_component.gd" id="1_mqruv"]
+
+[node name="Walk&Climb_component" type="Node"]
+script = ExtResource("1_mqruv")

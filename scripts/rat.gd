@@ -22,13 +22,8 @@ var is_climbing: bool=false
 var attack_availalbe :bool = true
 var is_awake: bool = false
 var is_stunned: bool = false
-## STRING
-var path_scene: String = "" #pour se retrouver dans le dict dans Global
-var path_name: String = ""
 ## FLOAT
 var CLIMB_VELOCITY: float = -30.0
-## Vector2
-var start_position: Vector2 = Vector2(0,0)
 
 func sleep():
 	if warning.visible:
@@ -110,14 +105,13 @@ func _on_i_frames_timeout() -> void:
 
 ## DAMAGE
 func damage(hp,direction,caster):
+	print(direction)
 	is_awake = true
 	if is_stunned:
 		hp = hp * 3
 	hit_direction = direction
 	if i_frames.time_left == 0:
 		if hp < health_points:
-			if hit_direction: velocity.x += 100
-			else: velocity.x -= 100
 			health_points -= hp
 			hit.play()
 			modulate = Color.RED
@@ -126,13 +120,10 @@ func damage(hp,direction,caster):
 		else:
 			health_points = 0
 			sprite.play("DIE")
-			Global.enemies[path_scene].erase(path_name)
 		i_frames.start()
 		attack_timer.start()
 	
 ## MAIN LOOP
-func _ready() -> void:
-	position=start_position
 
 func _physics_process(delta: float) -> void:
 	if Global.state == "playing":

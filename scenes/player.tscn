@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://3xx6dc27qdqf"]
+[gd_scene load_steps=121 format=3 uid="uid://3xx6dc27qdqf"]
 
 [ext_resource type="Script" uid="uid://cm1xet7ys64tx" path="res://scripts/player.gd" id="1_b8584"]
 [ext_resource type="Shader" uid="uid://dd68whbbywo8t" path="res://shaders/hue_saturation_value.gdshader" id="1_dt7fs"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://v004os4bbgsh" path="res://assets/sounds/player/shield_hit.mp3" id="26_ujl30"]
 [ext_resource type="PackedScene" uid="uid://clt8qha503vd1" path="res://scenes/fade_transition.tscn" id="27_31cv2"]
 [ext_resource type="Texture2D" uid="uid://lffayxgtbxq" path="res://assets/sprites/LIGHT.png" id="28_pf23h"]
+[ext_resource type="Script" uid="uid://bh0jndcmmuhcc" path="res://scripts/can_go_up.gd" id="31_gl8cc"]
 [ext_resource type="Shader" uid="uid://ddpgfmod541m4" path="res://shaders/dithering.gdshader" id="31_wnwbv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
@@ -394,28 +395,28 @@ animations = [{
 "speed": 17.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_jlll7")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_qk6i7")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_6c3st")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_1da1t")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_p21yu")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_irpag")
 }, {
-"duration": 1.0,
+"duration": 0.8,
 "texture": SubResource("AtlasTexture_bpsgo")
 }, {
-"duration": 4.0,
+"duration": 5.2,
 "texture": SubResource("AtlasTexture_jx8is")
 }],
 "loop": false,
@@ -756,6 +757,9 @@ shader = ExtResource("31_wnwbv")
 shader_parameter/bits = 4
 shader_parameter/dithering = true
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_487ah"]
+size = Vector2(8, 4)
+
 [node name="player" type="CharacterBody2D"]
 light_mask = 2
 visibility_layer = 2
@@ -843,11 +847,21 @@ texture_scale = 0.5
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_wnwbv")
-offset_left = -189.0
-offset_top = -121.0
-offset_right = 192.0
-offset_bottom = 102.0
-color = Color(1, 0, 0.0322485, 1)
+offset_left = -241.0
+offset_top = -205.0
+offset_right = 249.0
+offset_bottom = 163.0
+color = Color(1, 1, 1, 0.52549)
+
+[node name="can_go_up" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("31_gl8cc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="can_go_up"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_487ah")
+debug_color = Color(1, 0.578396, 0.0574032, 0.42)
 
 [connection signal="animation_finished" from="PLAYER" to="." method="_on_player_animation_finished"]
 [connection signal="timeout" from="timers/iframe_timer" to="." method="_on_iframe_timer_timeout"]
@@ -858,3 +872,5 @@ color = Color(1, 0, 0.0322485, 1)
 [connection signal="timeout" from="timers/spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="timers/attack_animation_timer" to="." method="_on_attack_animation_timer_timeout"]
 [connection signal="timeout" from="timers/stamina_charge_timer" to="." method="_on_stamina_charge_timer_timeout"]
+[connection signal="body_entered" from="can_go_up" to="." method="_on_can_go_up_body_entered"]
+[connection signal="body_exited" from="can_go_up" to="." method="_on_can_go_up_body_exited"]

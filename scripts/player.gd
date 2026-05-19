@@ -26,7 +26,7 @@ extends CharacterBody2D
 # #############################################
 
 	#init des var
-	
+#LES ATTAQUES	
 @onready var attack1 = preload("res://objects/attacks/executioner_sword_attack/executioner_sword_attack.tscn")
 #string
 var actual_action: String = "IDLE"
@@ -42,7 +42,7 @@ var stamina: int = Global.max_stamina
 var run_factor: int = 1
 var old_direction=0 #permet de voir si l'on passe de marcha a je marche plus
 var hit_direction=0 #permet de savoir dans quel sens faire l'animation de hit
-var knockback = 400
+var knockback = 150
 var active_attack = 1
 #booleen
 var is_running: bool = false
@@ -62,6 +62,7 @@ var stamina_can_reload: bool = false
 var is_stunned: bool = false
 var is_attacking: bool = false
 var can_charge_stamina: bool = false
+var can_go_up: bool = false
 # ##################################
 
 ## GESTION DE LA VIE
@@ -70,7 +71,6 @@ func damage(hp,direction,caster):
 		pass
 	elif is_blocking:
 		if is_parrying:
-			velocity.x = 0
 			parry.play()
 			caster.stun()
 			Global.freeze_mode = "parry"
@@ -83,7 +83,6 @@ func damage(hp,direction,caster):
 			UI.freeze()
 			freeze_timer.start()
 		else:
-			velocity.x = 0
 			stamina = 0
 			Global.health_points -= hp - stamina
 			camera.camera_shake()
@@ -114,12 +113,14 @@ func check_life():
 func refill_health_points():
 	Global.health_points = Global.max_health
 func respawn():
-	Global.save_game(Global.active_checkpoint)
-	Global.tp_offset = Global.checkpoints[Global.active_checkpoint][0]
-	Global.reset_enemies()
-	refill_health_points()
-	get_tree().change_scene_to_file(Global.checkpoints[Global.active_checkpoint][1])
-	Global.state = "playing"
+	if Global.active_checkpoint in Global.checkpoints:
+		Global.save_game(Global.active_checkpoint)
+		Global.tp_offset = Global.checkpoints[Global.active_checkpoint][0]
+		refill_health_points()
+		get_tree().change_scene_to_file(Global.checkpoints[Global.active_checkpoint][1])
+		Global.state = "playing"
+	else:
+		get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 ## HANDLINGS
 func handle_stamina():
@@ -182,7 +183,7 @@ func animate_player(direction):
 			if old_direction > 0: actual_action = "ATTACK_RIGHT"
 			else : actual_action = "ATTACK_LEFT"
 		## GETTING UP	
-		elif Global.can_go_up:
+		elif can_go_up:
 			if is_straight_climbing: actual_action = "STRAIGHT_CLIMB"
 			else: actual_action = "CLIMB_STATIC"
 		elif is_getting_up: actual_action = "GET_UP"
@@ -219,8 +220,8 @@ func animate_player(direction):
 		else : actual_action = "HIT_RIGHT"
 	elif Global.state == "cutscene": actual_action = "UPGRADE"
 	elif Global.state == "dying": actual_action = "DYING"
-func animation(actual_action):
-	player.play(actual_action)		
+func animation(actual_action_to_play):
+	player.play(actual_action_to_play)		
 
 ## MOUVEMENT
 func walk_and_wall_climb(direction,delta):
@@ -264,7 +265,7 @@ func run():
 		run_factor = 1
 func climb_straight():    #permet au joueur de grimper sur les echelles
 		is_straight_climbing = false
-		if (Global.can_go_up || debug_mode) && !is_blocking:
+		if (can_go_up || debug_mode) && !is_blocking:
 			if Input.is_action_pressed("up"):
 				if !ladder_climb.playing:
 					ladder_climb.play()
@@ -300,13 +301,11 @@ func send_attack():
 func block():
 	if Global.have_shield && !is_iframes:
 		if Input.is_action_just_pressed("block"):
-			using_stamina = true
 			is_blocking = true
 			if !is_parrying:
 				parry_timer.start()
 				is_parrying = true
 		elif Input.is_action_pressed("block"):
-			using_stamina = true
 			is_blocking = true
 		else:
 			is_blocking = false
@@ -337,6 +336,13 @@ func debugMode():         #passe en debug mode (god mode)
 
 
 ## #######  FONCTIONS EVENT
+
+func _on_can_go_up_body_entered(body: Node2D) -> void:
+	can_go_up = true
+
+func _on_can_go_up_body_exited(body: Node2D) -> void:
+	can_go_up = false
+
 func _on_climb_time_timeout() -> void: #timer du grimpage aux murs
 	is_wall_climbing=false
 

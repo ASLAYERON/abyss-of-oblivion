@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://brsn581qrrha7"]
+
+[ext_resource type="PackedScene" uid="uid://dhsn6ti6xckfp" path="res://objects/portal/portal.tscn" id="1_3vabf"]
+
+[node name="Caves--sewer" type="Node2D"]
+
+[node name="portal to sewer1" parent="." instance=ExtResource("1_3vabf")]
+scene_a = "res://levels/sewer_part_1.tscn"
+scene_b = "res://levels/caves.tscn"
+tp_b = Vector2(1734, 1128)

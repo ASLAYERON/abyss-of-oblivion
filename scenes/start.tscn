@@ -26,8 +26,9 @@ mouse_filter = 2
 script = ExtResource("1_bodal")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+z_index = 3
 position = Vector2(160, 92)
-zoom = Vector2(3.6, 3.6)
+zoom = Vector2(2, 2)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
