@@ -11,7 +11,7 @@ var coins = 0
 var have_shield = false
 var max_health = 50
 var health_points = max_health
-var max_stamina = 50
+var max_stamina = 70
 var stamina = max_stamina
 var active_checkpoint: String = ""
 

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bxru5swmiq488" path="res://objects/enemy/enemy.gd" id="1_5y7ac"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_5y7ac")
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
@@ -10,17 +12,32 @@ script = ExtResource("1_5y7ac")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 animation = &""
 
+[node name="critical" type="AnimatedSprite2D" parent="."]
+visible = false
+
 [node name="detect_player" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_player"]
 
 [node name="forget_zone" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="forget_zone"]
 
 [node name="components" type="Node2D" parent="."]
 
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+
+[node name="i_frames" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="attack_timer" type="Timer" parent="."]
+
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
+[connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="detect_player" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="forget_zone" to="." method="_on_forget_zone_body_exited"]
+[connection signal="timeout" from="i_frames" to="." method="_on_i_frames_timeout"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

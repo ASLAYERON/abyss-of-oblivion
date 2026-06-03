@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="2_bp3yb"]
 [ext_resource type="Texture2D" uid="uid://bnybo10kfb4oi" path="res://Abyss of oblivion assets workshop/pixil-frame-0(7).png" id="3_jfmsd"]
 [ext_resource type="Texture2D" uid="uid://b52at1xhud8qr" path="res://assets/sprites/BG.png" id="4_d2yhp"]
-[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="5_5h72f"]
+[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://objects/player/player.tscn" id="5_5h72f"]
 [ext_resource type="PackedScene" uid="uid://dpu1cnisseox6" path="res://scenes/advice.tscn" id="7_fkhgs"]
 [ext_resource type="PackedScene" uid="uid://d0lqjoujef6t1" path="res://scenes/fire_fx.tscn" id="8_qvtyd"]
 [ext_resource type="PackedScene" uid="uid://cmckopgjkm2tn" path="res://objects/portal/tutorial--arrival.tscn" id="9_vvqp3"]
@@ -53,24 +53,7 @@ visible = false
 position = Vector2(868, 349)
 texture = ExtResource("4_d2yhp")
 
-[node name="player" parent="." instance=ExtResource("5_5h72f")]
-visible = false
-position = Vector2(-154, -205)
-
 [node name="can_interact" type="Node" parent="."]
-
-[node name="Ladder" parent="can_interact"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-position = Vector2(368, -64)
-script = null
 
 [node name="advice" parent="can_interact" instance=ExtResource("7_fkhgs")]
 position = Vector2(-152, -8)
@@ -103,16 +86,13 @@ advice_dialogue = "advice7"
 [node name="lights" type="Node" parent="."]
 
 [node name="FireFx" parent="lights" instance=ExtResource("8_qvtyd")]
-position = Vector2(-170, -23)
-
-[node name="FireFx2" parent="lights" instance=ExtResource("8_qvtyd")]
-position = Vector2(-136, -23)
+position = Vector2(-158, -21)
 
 [node name="FireFx3" parent="lights" instance=ExtResource("8_qvtyd")]
-position = Vector2(-73, -23)
-
-[node name="FireFx4" parent="lights" instance=ExtResource("8_qvtyd")]
-position = Vector2(-40, -22)
+position = Vector2(-50, -25)
 
 [node name="Tutorial--arrival" parent="." instance=ExtResource("9_vvqp3")]
 position = Vector2(568, 200)
+
+[node name="player" parent="." instance=ExtResource("5_5h72f")]
+visible = false

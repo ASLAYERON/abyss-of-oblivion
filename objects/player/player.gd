@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var camera: Camera2D = $Camera
 @onready var UI: Control = ui_viewport.UI
 @onready var fade_transition: CanvasModulate = $fade_transition
+
 ## SOUNDS
 @onready var footstep: AudioStreamPlayer = $sounds/footstep
 @onready var hit_hurt: AudioStreamPlayer = $sounds/hitHurt
@@ -15,6 +16,7 @@ extends CharacterBody2D
 @onready var ladder_climb: AudioStreamPlayer = $sounds/ladder_climb
 @onready var shield_hit: AudioStreamPlayer = $sounds/shield_hit
 ## TIMERS
+@onready var shield_anti_spam: Timer = $"timers/shield_anti-spam"
 @onready var parry_timer: Timer = $timers/parry_timer
 @onready var climb_time: Timer = $timers/climb_time
 @onready var iframe_timer: Timer = $timers/iframe_timer
@@ -31,7 +33,7 @@ extends CharacterBody2D
 #string
 var actual_action: String = "IDLE"
 #float
-var SPEED: float = 30.0
+var SPEED: float = 50.0
 var CLIMB_VELOCITY: float = -60.0
 var noise: float = 0.0
 var fall_noise: float = 0.0
@@ -67,8 +69,9 @@ var can_go_up: bool = false
 
 ## GESTION DE LA VIE
 func damage(hp,direction,caster):
+	is_attacking = false
 	if is_iframes or debug_mode or Global.state != "playing":
-		pass
+		return
 	elif is_blocking:
 		if is_parrying:
 			parry.play()
@@ -77,6 +80,7 @@ func damage(hp,direction,caster):
 			UI.freeze()
 			freeze_timer.start()
 		elif stamina > hp:
+			$sparks.sparks(direction)
 			stamina -= hp
 			shield_hit.play()
 			Global.freeze_mode = "shield_hit"
@@ -114,7 +118,7 @@ func refill_health_points():
 	Global.health_points = Global.max_health
 func respawn():
 	if Global.active_checkpoint in Global.checkpoints:
-		Global.save_game(Global.active_checkpoint)
+		#Global.save_game(Global.active_checkpoint)
 		Global.tp_offset = Global.checkpoints[Global.active_checkpoint][0]
 		refill_health_points()
 		get_tree().change_scene_to_file(Global.checkpoints[Global.active_checkpoint][1])
@@ -176,48 +180,38 @@ func handle_noise():
 ## ANIMATION
 func animate_player(direction):
 	if Global.state == "playing":
+		if old_direction >= 0 : player.flip_h = true
+		else : player.flip_h = false
 		## DEBUG
 		if debug_mode: actual_action="DEBUG"
 		## ATTACK
 		elif is_attacking:
-			if old_direction > 0: actual_action = "ATTACK_RIGHT"
-			else : actual_action = "ATTACK_LEFT"
+			actual_action = "ATTACK"
 		## GETTING UP	
 		elif can_go_up:
 			if is_straight_climbing: actual_action = "STRAIGHT_CLIMB"
-			else: actual_action = "CLIMB_STATIC"
 		elif is_getting_up: actual_action = "GET_UP"
 		## WALK CLIMB TRANSITION + BLOCK
 		elif direction:
 			if old_direction == -direction: is_transitioning = true
-			
-			if direction>0:
-				if is_blocking: actual_action = "BLOCK_RIGHT"
-				elif is_transitioning: actual_action = "transitionRIGHT"
-				else:
-					if is_wall_climbing: actual_action = "climbRIGHT"	
-					else: actual_action = "RIGHT"
+			if is_blocking: actual_action = "BLOCK"
+			elif is_transitioning: actual_action = "TRANSITION"
 			else:
-				if is_blocking: actual_action = "BLOCK_LEFT"
-				elif is_transitioning: actual_action = "transitionLEFT"
-				else:
-					if is_wall_climbing: actual_action = "climbLEFT"
-					else: actual_action = "LEFT"
+				if is_wall_climbing: actual_action = "CLIMB"	
+				elif is_running: actual_action = "RUN"
+				else: actual_action = "WALK"
 			old_direction=direction
 		else: #tu ne fait rien
+			if can_go_up: actual_action = "CLIMB_STATIC"
 			if is_blocking:
-				if old_direction > 0:  actual_action = "BLOCK_RIGHT"
-				else :  actual_action = "BLOCK_LEFT"
+				actual_action = "BLOCK"
 			elif !is_getting_up && !debug_mode:
 				if old_direction:
-					if old_direction > 0: actual_action = "IDLE_RIGHT"
-					else: actual_action = "IDLE_LEFT"
+					actual_action = "IDLE_SIDE"
 				else: actual_action = "IDLE"
 	elif Global.state == "rest": actual_action = "REST"
 	elif Global.state == "talking": actual_action = "IDLE"
-	elif Global.state == "freeze" && Global.freeze_mode == "player_hit":
-		if hit_direction: actual_action = "HIT_LEFT"
-		else : actual_action = "HIT_RIGHT"
+	elif Global.state == "freeze" && Global.freeze_mode == "player_hit": actual_action = "HIT"
 	elif Global.state == "cutscene": actual_action = "UPGRADE"
 	elif Global.state == "dying": actual_action = "DYING"
 func animation(actual_action_to_play):
@@ -226,7 +220,7 @@ func animation(actual_action_to_play):
 ## MOUVEMENT
 func walk_and_wall_climb(direction,delta):
 			# marcher/grimper aux murs droite/gauche
-	if direction && !is_getting_up && !is_blocking && !is_attacking:
+	if direction && !is_getting_up && !is_blocking && !is_attacking && Global.state == "playing":
 		if run_factor == 1:
 			if !footstep.playing:
 				footstep.play()
@@ -239,6 +233,7 @@ func walk_and_wall_climb(direction,delta):
 			velocity.x += direction * SPEED * (delta*10) * run_factor
 		if noise_sensor : #fait du bruit si tu marche
 			is_making_noise= true
+			
 		if is_on_floor() && is_on_wall() && !is_wall_climbing:	
 			climb_time.start()
 			is_wall_climbing=true
@@ -286,7 +281,7 @@ func climb_straight():    #permet au joueur de grimper sur les echelles
 
 ## ACTIONS
 func start_attack():
-	if !is_attacking && stamina >= 10:
+	if !is_blocking && !is_attacking && stamina >= 10 && Global.state == "playing":
 		is_attacking = true
 		attack_animation_timer.start()
 		stamina -= 10
@@ -299,8 +294,9 @@ func send_attack():
 		new_attack.caster = self
 		get_parent().add_child(new_attack)	
 func block():
-	if Global.have_shield && !is_iframes:
-		if Input.is_action_just_pressed("block"):
+	if Global.have_shield && Global.state == "playing":
+		if Input.is_action_just_pressed("block") && shield_anti_spam.time_left == 0:
+			shield_anti_spam.start()
 			is_blocking = true
 			if !is_parrying:
 				parry_timer.start()
@@ -328,6 +324,7 @@ func debugMode():         #passe en debug mode (god mode)
 		SPEED = 30.0
 		CLIMB_VELOCITY = -80.0
 	else:
+		refill_health_points()
 		set_collision_layer_value(1,false)
 		set_collision_mask_value(1,false)
 		debug_mode=true
@@ -378,7 +375,15 @@ func _on_attack_animation_timer_timeout() -> void:
 
 func _on_stamina_charge_timer_timeout() -> void:
 	can_charge_stamina = true
-# ##################################
+
+func _on_is_on_slope_body_entered(body: Node2D) -> void:
+	SPEED = SPEED * 2
+	print("in")
+
+func _on_is_on_slope_body_exited(body: Node2D) -> void:
+	SPEED = SPEED / 2
+	print("out")
+#################
 ## INITIALISATION
 func _ready():
 	ui_viewport.visible = true
@@ -418,7 +423,7 @@ func _physics_process(delta: float) -> void:
 		handle_noise()
 		check_life()
 		move_and_slide()
-		global_position=round(global_position)
+		#global_position=round(global_position)
 
 	#etat de repos	
 	elif Global.state == "rest":
@@ -430,7 +435,6 @@ func _physics_process(delta: float) -> void:
 	elif Global.state == "cutscene":
 		pass
 	elif Global.state == "dying":
-		handle_gravity(delta)
-		move_and_slide()
+		pass
 	animate_player(direction)	
 	animation(actual_action)

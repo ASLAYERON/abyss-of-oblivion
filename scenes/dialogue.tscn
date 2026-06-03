@@ -75,6 +75,7 @@ script = ExtResource("1_led2e")
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 1.0
@@ -136,10 +137,10 @@ scroll_active = false
 [node name="DialogueLabel" parent="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer" instance=ExtResource("4_tp716")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 2
 theme_override_constants/line_separation = 3
 theme_override_fonts/normal_font = ExtResource("5_vogiq")
-theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/normal_font_size = 12
 text = "Test
 Test
 Test"

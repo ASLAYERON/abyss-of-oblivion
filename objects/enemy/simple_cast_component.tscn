@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu6ef2t6542it"]
+
+[ext_resource type="Script" uid="uid://bl645jpoq7uhe" path="res://objects/enemy/simple_cast_component.gd" id="1_7kc0f"]
+
+[node name="Simple-cast_component" type="Node"]
+script = ExtResource("1_7kc0f")

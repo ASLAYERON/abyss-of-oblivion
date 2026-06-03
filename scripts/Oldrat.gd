@@ -101,7 +101,6 @@ func _on_warning_animation_finished() -> void:
 func _on_i_frames_timeout() -> void:
 	modulate = Color.WHITE
 	Global.state = "playing"
-	velocity.x = 0
 
 ## DAMAGE
 func damage(hp,direction,caster):

@@ -56,18 +56,18 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sd0pk")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_hwg0c")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_twg8s")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_pynqp")
 }],
 "loop": false,
 "name": &"attack",
-"speed": 15.0
+"speed": 20.0
 }]
 
 [node name="executioner sword attack" type="Node2D" groups=["attack"]]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnlu46am7mv7l"]
+
+[ext_resource type="Script" uid="uid://c0kxtoi36qae4" path="res://objects/enemy/sleep_idle_component.gd" id="1_kj861"]
+
+[node name="Sleep-idle_component" type="Node"]
+script = ExtResource("1_kj861")
