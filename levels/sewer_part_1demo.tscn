@@ -1,23 +1,28 @@
-[gd_scene load_steps=6 format=4 uid="uid://ds8fy8fvk5lif"]
+[gd_scene load_steps=5 format=4 uid="uid://ds8fy8fvk5lif"]
 
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="1_vx7ov"]
-[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="2_73uwe"]
+[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://objects/player/player.tscn" id="2_73uwe"]
 [ext_resource type="PackedScene" uid="uid://dpu1cnisseox6" path="res://scenes/advice.tscn" id="3_arrun"]
-[ext_resource type="PackedScene" uid="uid://u7jkrfwpvv4x" path="res://objects/portal/cave_sewer1.tscn" id="4_y6uub"]
 [ext_resource type="Texture2D" uid="uid://c6aqt2auel2xt" path="res://assets/sprites/SEWER_BACKGROUND.png" id="5_wweit"]
 
 [node name="sewer_part1" type="Node2D"]
-
-[node name="player" parent="." instance=ExtResource("2_73uwe")]
-position = Vector2(6, 8)
-collision_priority = 0.8
 
 [node name="advice" parent="." instance=ExtResource("3_arrun")]
 position = Vector2(133, 9)
 advice_dialogue = "not_develloped2"
 
-[node name="ArrivalCave" parent="." instance=ExtResource("4_y6uub")]
+[node name="ArrivalCave" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 position = Vector2(-44, 2)
+script = null
 
 [node name="TILEMAPS" type="Parallax2D" parent="."]
 
@@ -56,3 +61,6 @@ visible = false
 modulate = Color(1, 1, 1, 0.729412)
 position = Vector2(605, 260)
 texture = ExtResource("5_wweit")
+
+[node name="player" parent="." instance=ExtResource("2_73uwe")]
+position = Vector2(-19, 8)

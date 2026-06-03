@@ -1,9 +1,9 @@
 extends Area2D
 
+
 func _on_body_entered(body: Node2D) -> void:
-	if body.name=="player":
-		Global.can_go_up=true
+	pass # Replace with function body.
+
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name=="player":
-		Global.can_go_up=false
+	pass # Replace with function body.

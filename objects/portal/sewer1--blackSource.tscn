@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://gtoxmo4tmdhp"]
+
+[ext_resource type="PackedScene" uid="uid://dhsn6ti6xckfp" path="res://objects/portal/portal.tscn" id="1_8n3j4"]
+
+[node name="Sewer1--blackSource" type="Node2D"]
+
+[node name="portal" parent="." instance=ExtResource("1_8n3j4")]
+scene_a = "res://levels/black_source.tscn"
+scene_b = "res://levels/sewer_part_1.tscn"
+tp_a = Vector2(6, 8)
+tp_b = Vector2(847, 215)

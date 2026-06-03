@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbhr1psi0hd28"]
+[gd_scene load_steps=22 format=3 uid="uid://cbhr1psi0hd28"]
 
 [ext_resource type="Script" uid="uid://bs3fof36mcr7o" path="res://scripts/ui.gd" id="1_ua6yw"]
 [ext_resource type="FontFile" uid="uid://banv5vqltqwu7" path="res://assets/fonts/medieval-pixel.otf" id="2_75u2n"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://nvo5h5vbl1vk" path="res://Abyss of oblivion assets workshop/noise (1).png" id="7_ukj8e"]
 [ext_resource type="Texture2D" uid="uid://cuvfye6r6y0o3" path="res://Abyss of oblivion assets workshop/noise (2).png" id="8_w7enk"]
 [ext_resource type="Texture2D" uid="uid://ck6c2pxc4tpo1" path="res://assets/sprites/UI/shield_hit.png" id="11_aputy"]
+[ext_resource type="Texture2D" uid="uid://8pa20b2j7mt2" path="res://Abyss of oblivion assets workshop/shield_hit.png" id="12_5sqrc"]
+[ext_resource type="Texture2D" uid="uid://cbdg5pcucau00" path="res://assets/sprites/hit_animation.png" id="13_5sqrc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
 noise_type = 0
@@ -21,13 +23,74 @@ width = 1152
 height = 628
 noise = SubResource("FastNoiseLite_75u2n")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilk7v"]
+atlas = ExtResource("13_5sqrc")
+region = Rect2(0, 0, 200, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flkkw"]
+atlas = ExtResource("13_5sqrc")
+region = Rect2(200, 0, 200, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhjpf"]
+atlas = ExtResource("13_5sqrc")
+region = Rect2(400, 0, 200, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2m3y"]
+atlas = ExtResource("13_5sqrc")
+region = Rect2(600, 0, 200, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dthu"]
+atlas = ExtResource("13_5sqrc")
+region = Rect2(800, 0, 200, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hu0pd"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": null
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_ilk7v")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_flkkw")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_mhjpf")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_s2m3y")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_4dthu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2m3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhjpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flkkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilk7v")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"hit",
+"speed": 20.0
+}]
+
 [node name="UI" type="Control"]
 z_index = 4
 layout_mode = 3
 anchor_right = 0.167
 anchor_bottom = 0.167
-offset_right = -0.384018
-offset_bottom = -0.216003
+offset_right = -106.88
+offset_bottom = -60.12
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -131,12 +194,14 @@ theme_override_constants/separation = 5
 layout_mode = 2
 
 [node name="health_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
+z_index = 4
 layout_mode = 2
 value = 50.0
 texture_under = ExtResource("3_w7enk")
 texture_progress = ExtResource("4_aputy")
 
 [node name="stamina_bar" type="TextureProgressBar" parent="upper_bar/VBoxContainer"]
+z_index = 4
 layout_mode = 2
 value = 100.0
 texture_under = ExtResource("3_w7enk")
@@ -179,28 +244,37 @@ mouse_filter = 2
 texture = SubResource("NoiseTexture2D_3wlde")
 expand_mode = 1
 
-[node name="damage_vignette" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(96, 54)
-texture = ExtResource("6_3wlde")
-
 [node name="iframes_vignette" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0.78, 0.5148, 0.5148, 0.482353)
-position = Vector2(96.0001, 54)
+modulate = Color(0.78, 0.5148, 0.5148, 0)
+position = Vector2(100.8, 56.7)
+scale = Vector2(1.05, 1.05)
 texture = ExtResource("6_3wlde")
-
-[node name="shield_hit_vignette" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.160784)
-position = Vector2(96, 54)
-texture = ExtResource("11_aputy")
 
 [node name="parry_vignette" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(1, 1, 1, 0.537255)
-position = Vector2(96, 54)
+modulate = Color(1, 0.963345, 0.471284, 0.756863)
+position = Vector2(100.8, 56.7)
+scale = Vector2(1.05002, 1.04979)
 texture = ExtResource("11_aputy")
+
+[node name="damage_vignette" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(100.8, 56.7)
+scale = Vector2(1.05002, 1.04979)
+texture = ExtResource("6_3wlde")
+
+[node name="shield_hit_vignette" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0)
+position = Vector2(100, 56)
+texture = ExtResource("12_5sqrc")
+
+[node name="hit_animation" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.603922)
+position = Vector2(100, 56)
+sprite_frames = SubResource("SpriteFrames_hu0pd")
+animation = &"hit"
+frame = 10
+frame_progress = 1.0
 
 [connection signal="pressed" from="rest menu/HBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="rest menu/HBoxContainer/a_venir_button" to="." method="_on_load_button_pressed"]

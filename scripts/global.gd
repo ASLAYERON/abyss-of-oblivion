@@ -11,7 +11,7 @@ var coins = 0
 var have_shield = false
 var max_health = 50
 var health_points = max_health
-var max_stamina = 50
+var max_stamina = 70
 var stamina = max_stamina
 var active_checkpoint: String = ""
 
@@ -19,65 +19,17 @@ var freeze_mode = ""
 var dev_mode = true
 
 var checkpoints = {
-	"Foret des morts": [Vector2(-135.0, 232.0),"res://scenes/arrival.tscn"],
-	"Antre des rats": [Vector2(1161.0, 184.0),"res://scenes/caves.tscn"],
-	"Camp de l'ancien heros": [Vector2(1465.0, 1224.0),"res://scenes/caves.tscn"],
-	"Caveau du roi des rats": [Vector2(-408.0, 1032.0),"res://scenes/caves.tscn"],
+	"Foret des morts": [Vector2(-135.0, 232.0),"res://levels/arrival.tscn"],
+	"Antre des rats": [Vector2(1161.0, 184.0),"res://levels/caves.tscn"],
+	"Camp de l'ancien heros": [Vector2(1465.0, 1224.0),"res://levels/caves.tscn"],
+	"Caveau du roi des rats": [Vector2(-408.0, 1032.0),"res://levels/caves.tscn"],
+	"Rives des ruines": [Vector2(-321.0,599.0),"res://levels/sewer_part2.tscn"]
 }
-var enemies= { #dict des mobs, la scene genere des ennemis sur la base de ce dict.
-	"caves":{
-		"rat01":["rat",Vector2(958,584)], #type,position
-		"rat02":["rat",Vector2(1120,552)],
-		"rat03":["rat",Vector2(1223,528)],
-		"rat04":["rat",Vector2(1362,482)],
-		"rat05":["rat",Vector2(1347,967)],
-		"rat06":["rat",Vector2(1322,966)],
-		"rat07":["rat",Vector2(1154,998)],
-		"rat08":["rat",Vector2(1124,999)],
-		"rat09":["rat",Vector2(1154,852)],
-		"rat10":["rat",Vector2(1118,854)],
-		"rat11":["rat",Vector2(941,1174)],
-		"rat12":["rat",Vector2(916,1190)],
-		"rat13":["rat",Vector2(544,405)],
-		"rat14":["rat",Vector2(378,369)],
-	},
-	"mines":{
-		
-	},
-	"debug_room":{
-		#"rat00":["rat",Vector2(-200,3)],
-		
-	}
-}
+
 var chest = {
 	"caves": [false, false,false, false,false, false,false]
 }
 
-func reset_enemies():#recerée tout les ennemis a chaque repos, est appelé par checkpoint
-	enemies={
-		"caves":{
-		"rat01":["rat",Vector2(958,584)], #type,position
-		"rat02":["rat",Vector2(1120,552)],
-		"rat03":["rat",Vector2(1223,528)],
-		"rat04":["rat",Vector2(1362,482)],
-		"rat05":["rat",Vector2(1347,967)],
-		"rat06":["rat",Vector2(1322,966)],
-		"rat07":["rat",Vector2(1154,998)],
-		"rat08":["rat",Vector2(1124,999)],
-		"rat09":["rat",Vector2(1154,852)],
-		"rat10":["rat",Vector2(1118,854)],
-		"rat11":["rat",Vector2(941,1174)],
-		"rat12":["rat",Vector2(916,1190)],
-		"rat13":["rat",Vector2(544,405)],
-		"rat14":["rat",Vector2(378,369)],
-		},
-		"mines":{
-			
-	},
-	"debug_room":{
-		"rat01":["rat",Vector2(52,-9)],		
-	}
-	}
 func save_game(new_active_checkpoint) -> void:
 	active_checkpoint = new_active_checkpoint
 	saveSystem._save()

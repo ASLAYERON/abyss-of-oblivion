@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://dd68whbbywo8t" path="res://shaders/hue_saturation_value.gdshader" id="1_35ilv"]
 [ext_resource type="Script" uid="uid://df8yf4gohfth" path="res://levels/black_source.gd" id="1_r67uq"]
-[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://scenes/player.tscn" id="2_8anak"]
+[ext_resource type="PackedScene" uid="uid://3xx6dc27qdqf" path="res://objects/player/player.tscn" id="2_8anak"]
 [ext_resource type="TileSet" uid="uid://cqpc1r8hggmx5" path="res://assets/ressource/tilestet1.tres" id="3_0l5df"]
 [ext_resource type="PackedScene" uid="uid://d0lqjoujef6t1" path="res://scenes/fire_fx.tscn" id="4_0l5df"]
 [ext_resource type="Texture2D" uid="uid://c6aqt2auel2xt" path="res://assets/sprites/SEWER_BACKGROUND.png" id="4_35ilv"]
@@ -23,8 +23,7 @@ material = SubResource("ShaderMaterial_q5u6p")
 script = ExtResource("1_r67uq")
 
 [node name="player" parent="." instance=ExtResource("2_8anak")]
-position = Vector2(6, 8)
-collision_priority = 0.8
+position = Vector2(-12, 9)
 
 [node name="TILEMAPS" type="Parallax2D" parent="."]
 use_parent_material = true

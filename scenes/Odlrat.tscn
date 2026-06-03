@@ -1,7 +1,7 @@
 [gd_scene load_steps=38 format=3 uid="uid://cp5syrb2ckqss"]
 
 [ext_resource type="Texture2D" uid="uid://dvw0iq8m8qslq" path="res://assets/sprites/RAT_SPRITESHEET.png" id="1_1l88y"]
-[ext_resource type="Script" uid="uid://bspv3injpg76k" path="res://scripts/rat.gd" id="1_77a1s"]
+[ext_resource type="Script" uid="uid://bspv3injpg76k" path="res://scripts/Oldrat.gd" id="1_77a1s"]
 [ext_resource type="Texture2D" uid="uid://yw8g42uwsun" path="res://assets/sprites/signals.png" id="4_3csnj"]
 [ext_resource type="AudioStream" uid="uid://da7r7tnjfjw3k" path="res://assets/sounds/mobs/rat/rat_snore.mp3" id="4_6s34g"]
 [ext_resource type="AudioStream" uid="uid://d0lrsn1j8ee1c" path="res://assets/sounds/mobs/rat/rat_squeak.mp3" id="5_6s34g"]
@@ -205,7 +205,7 @@ animations = [{
 radius = 40.0031
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_acf8p"]
-radius = 75.0017
+radius = 119.127
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jyerr"]
 atlas = ExtResource("4_3csnj")

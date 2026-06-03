@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dk6d12gw6pejk"]
+
+[node name="OnlyAnimateIdle_component" type="Node"]

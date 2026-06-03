@@ -7,6 +7,7 @@ extends Control
 @onready var iframes_vignette: Sprite2D = $iframes_vignette
 @onready var shield_hit_vignette: Sprite2D = $shield_hit_vignette
 @onready var parry_vignette: Sprite2D = $parry_vignette
+@onready var hit_animation: AnimatedSprite2D = $hit_animation
 
 
 @onready var upper_bar: HBoxContainer = $upper_bar
@@ -38,28 +39,41 @@ func _on_load_button_pressed() -> void:
 	
 func show_damage_vignette(Bool):
 	damage_vignette.visible = Bool
+	hit_animation.play("hit")
 	
 func show_iframes_vignette(Bool):
-	iframes_vignette.visible = Bool
+	if Bool: iframes_vignette.modulate.a = 1
+	else : iframes_vignette.modulate.a = 0 
 
 func show_shield_hit_vignette(Bool):
-	shield_hit_vignette.visible= Bool
-	
+	if Bool: iframes_vignette.modulate.a = 1
+	else : iframes_vignette.modulate.a = 0 	
+
 func freeze():
 	if Global.state == "playing":
 		Global.state = "freeze"
 		if Global.freeze_mode == "player_hit":
 			damage_vignette.visible = true
 		elif Global.freeze_mode == "shield_hit":
-			shield_hit_vignette.visible = true
+				var tween = create_tween()
+				tween.set_ease(Tween.EASE_OUT)
+				tween.set_trans(Tween.TRANS_CUBIC)
+				tween.set_parallel(false)
+				tween.tween_property(shield_hit_vignette,"modulate:a",1,0.1)
+				tween.set_trans(Tween.TRANS_LINEAR)
+				tween.tween_property(shield_hit_vignette,"modulate:a",0,0.3)
 		elif Global.freeze_mode == "parry":
 			parry_vignette.visible = true
 		
 func unfreeze():
 	if Global.freeze_mode == "player_hit":
 		damage_vignette.visible = false
-		iframes_vignette.visible = true
+		iframes_vignette.modulate.a = 1
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(iframes_vignette,"modulate:a",0,1)
 	elif Global.freeze_mode == "shield_hit":
-		shield_hit_vignette.visible = false
+		shield_hit_vignette.modulate.a = 0
 	elif Global.freeze_mode == "parry":
 		parry_vignette.visible = false

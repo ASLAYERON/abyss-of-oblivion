@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://obnv0s0510j5"
+path="res://.godot/imported/attack_sound (4).mp3-e2307e91247aa5f5d2033c285e357ab5.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/attack_sound (4).mp3"
+dest_files=["res://.godot/imported/attack_sound (4).mp3-e2307e91247aa5f5d2033c285e357ab5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

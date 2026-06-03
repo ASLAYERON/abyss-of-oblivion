@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 			player.UI.rest_menu.visible = true
 			player.camera.offset = Vector2(-20,0)
 			player.refill_health_points()
-			Global.reset_enemies()
 			Global.save_game(checkpoint_name)
 			player.position = Global.checkpoints[checkpoint_name][0]
 			is_a_player_here=false
